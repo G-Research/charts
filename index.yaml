@@ -3,7 +3,29 @@ entries:
   storm:
   - apiVersion: v1
     appVersion: 1.1.1
-    created: "2019-06-03T12:48:04.821812-07:00"
+    created: "2019-06-06T16:33:34.140941-07:00"
+    description: Apache Storm is a free and open source distributed realtime computation
+      system.
+    digest: 6cd092912867f18340af472dcd1d430ad3e4b305efbddd44f13498b836db608b
+    home: http://storm.apache.org/
+    icon: http://storm.apache.org/images/logo.png
+    keywords:
+    - storm
+    - zookeeper
+    maintainers:
+    - email: jorwalk@gmail.com
+      name: jorwalk
+    - email: stackedsax@users.noreply.github.com
+      name: stackedsax
+    name: storm
+    sources:
+    - https://github.com/apache/storm
+    urls:
+    - storm/storm-1.0.1.tgz
+    version: 1.0.1
+  - apiVersion: v1
+    appVersion: 1.1.1
+    created: "2019-06-06T16:33:34.139293-07:00"
     description: Apache Storm is a free and open source distributed realtime computation
       system.
     digest: 29ef0e0ca8b74dbe80afca38e06e7770c78048ce64855b04854f821d866eb9d0
@@ -21,25 +43,6 @@ entries:
     sources:
     - https://github.com/apache/storm
     urls:
-    - storm-1.0.0.tgz
+    - storm/storm-1.0.0.tgz
     version: 1.0.0
-  zookeeper:
-  - created: "2019-06-03T12:48:04.822666-07:00"
-    description: Centralized service for maintaining configuration information, naming,
-      providing distributed synchronization, and providing group services.
-    digest: f6bd80849d8859b8e9eaa902053da5fa0b2055023951c99d390ccb1206b3f1b0
-    home: https://zookeeper.apache.org/
-    icon: https://zookeeper.apache.org/images/zookeeper_small.gif
-    maintainers:
-    - email: lachlan.evenson@microsoft.com
-      name: lachie83
-    - email: owensk@google.com
-      name: kow3ns
-    name: zookeeper
-    sources:
-    - https://github.com/apache/zookeeper
-    - https://github.com/kubernetes/contrib/tree/master/statefulset/zookeeper
-    urls:
-    - charts/zookeeper-0.5.0.tgz
-    version: 0.5.0
-generated: "2019-06-03T12:48:04.82061-07:00"
+generated: "2019-06-06T16:33:34.132458-07:00"
