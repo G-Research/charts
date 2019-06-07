@@ -7,7 +7,7 @@ Welcome to the repository for G-Research hosted helm charts
 ## How to add the repo
 
 ```console
-$ helm repo add g-research https://g-research.github.io/charts/
+$ helm repo add gresearch https://g-research.github.io/charts/
 ```
 
 The charts sources can be found here:
@@ -17,7 +17,7 @@ The charts sources can be found here:
 ## How to search the repo
 
 ```
-$ helm search g-reseach
+$ helm search greseach
 ```
 
 ## What software we are providing charts for:
