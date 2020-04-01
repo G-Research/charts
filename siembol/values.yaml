@@ -1,0 +1,28 @@
+nginx-ingress:
+  controller:
+    replicaCount: 1
+    minAvailable: 1
+  defaultBackend:
+    minAvailable: 1
+    replicaCount: 1
+
+sidekiq:
+  replicaCount: 1
+  minAvailable: 1
+
+unicorn:
+  maxReplicas: 1
+  minReplicas: 1
+
+gitlab-shell:
+  maxReplicas: 1
+  minReplicas: 1
+
+registry:
+  hpa:
+    minReplicas: 1
+    maxReplicas: 1
+
+cm-acme-http-solver:
+  replicaCount: 1
+  minAvailable: 1
