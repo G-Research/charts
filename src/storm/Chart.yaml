@@ -1,5 +1,5 @@
 apiVersion: v1
-appVersion: 1.1.1
+appVersion: 1.2.1
 description: Apache Storm is a free and open source distributed realtime computation
   system.
 home: http://storm.apache.org/
@@ -15,4 +15,4 @@ maintainers:
 name: storm
 sources:
 - https://github.com/apache/storm
-version: 1.0.2
+version: 1.0.3
