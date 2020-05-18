@@ -1,0 +1,13 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: {{ template "siembol.deploy.alerting.fullname" . }}
+spec:
+  template:
+    spec:
+      containers:
+      - name: {{ template "siembol.deploy.alerting.name" . }}
+        image: "{{ .Values.deploy.image.repository }}:{{ .Values.deploy.image.tag }}"
+        command: ["sh", "-c", "storm -c nimbus.seeds='[\"{{ template "storm.nimbus.fullname" . }}\"]' jar alerting-storm-*.jar uk.co.gresearch.siembol.alerts.storm.AlertingStorm {{ tpl (.Files.Get "config/alerting.json") . | b64enc }}"]
+      restartPolicy: Never
+  backoffLimit: 4

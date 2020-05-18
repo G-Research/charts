@@ -31,6 +31,19 @@ Create chart name and version as used by the chart label.
 {{- printf "%s-%s" .Chart.Name .Chart.Version | replace "+" "_" | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 
+{{- define "siembol.deploy.alerting.name" -}}
+{{- printf "%s-%s" (include "siembol.name" .) .Values.deploy.alerting.name | trunc 63 | trimSuffix "-" -}}
+{{- end -}}
+
+{{/*
+Create a fully qualified deploy alerting name.
+We truncate at 63 chars because some Kubernetes name fields are limited to this (by the DNS naming spec).
+*/}}
+{{- define "siembol.deploy.alerting.fullname" -}}
+{{- $name := default .Chart.Name .Values.deploy.alerting.name -}}
+{{- printf "%s-%s" (include "siembol.fullname" .) $name | trunc 63 | trimSuffix "-" -}}
+{{- end -}}
+
 {{/*
 Common labels
 */}}
@@ -67,4 +80,18 @@ Helps set the zookeeper url for the Kafka chart's Zookeeper
 */}}
 {{- define "zookeeper.url" -}}
 {{- printf "%s-%s" .Release.Name "storm-zookeeper" | trunc 63 | trimSuffix "-" -}}
+{{- end -}}
+
+{{/*
+Helps set the nimbus name for the Storm chart
+*/}}
+{{- define "storm.nimbus.fullname" -}}
+{{- printf "%s-%s" .Release.Name "storm-nimbus" | trunc 63 | trimSuffix "-" -}}
+{{- end -}}
+
+{{/*
+Helps set the name for the Kafka chart
+*/}}
+{{- define "kafka.fullname" -}}
+{{- printf "%s-%s" .Release.Name "kafka" | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
