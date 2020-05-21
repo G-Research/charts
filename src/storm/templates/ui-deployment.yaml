@@ -23,15 +23,9 @@ spec:
         release: {{ .Release.Name }}
     spec:
       initContainers:
-      - name: init-{{ template "storm.zookeeper.fullname" . }}
-        image: busybox
-        command: ["sh", "-c", "until nslookup {{ template "storm.zookeeper.fullname" . }}; do echo waiting for {{ template "storm.zookeeper.fullname" . }}; sleep 2; done;"]
       - name: init-{{ template "storm.nimbus.fullname" . }}
         image: busybox
-        command: ["sh", "-c", "until nslookup {{ template "storm.nimbus.fullname" . }}; do echo waiting for {{ template "storm.nimbus.fullname" . }}; sleep 2; done;"]
-      - name: init-{{ template "storm.supervisor.fullname" . }}
-        image: busybox
-        command: ["sh", "-c", "until nslookup {{ template "storm.supervisor.fullname" . }}; do echo waiting for {{ template "storm.supervisor.fullname" . }}; sleep 2; done;"]
+        command: ["sh", "-c", "until nc -w10 {{ template "storm.nimbus.fullname" . }} 6627 </dev/null; do echo waiting for {{ template "storm.nimbus.fullname" . }}; sleep 10; done"]
       containers:
       - name: {{ .Values.ui.service.name }}
         image: "{{ .Values.ui.image.repository }}:{{ .Values.ui.image.tag }}"
