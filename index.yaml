@@ -51,6 +51,47 @@ entries:
     urls:
     - librenms/librenms-0.1.0.tgz
     version: 0.1.0
+  siembol:
+  - apiVersion: v2
+    created: "2020-05-15T12:02:31.909828-07:00"
+    dependencies:
+    - name: storm
+      repository: https://g-research.github.io/charts
+      version: ~1.0.3
+    - name: kafka
+      repository: http://storage.googleapis.com/kubernetes-charts-incubator
+      version: ~0.20.9
+    - name: hdfs
+      repository: https://gradiant.github.io/charts
+      version: ~0.1.4
+    - name: gitlab
+      repository: https://charts.gitlab.io
+      version: ~3.2.2
+    description: siembol is a security analytics framework akin to projects like Apache
+      Metron
+    digest: b4ca4cdbf08608d252e998877f52c7309899ae9fbb0039a299d5a54737c38862
+    home: https://github.com/G-Research/charts
+    keywords:
+    - kafka
+    - zookeeper
+    - storm
+    - gitlab
+    - hdfs
+    - security
+    - metron
+    maintainers:
+    - email: alex.scammon@ext.gresearch.co.uk
+      name: stackedsax
+    - email: headphonejames@gmail.com
+      name: generalfuzz
+    name: siembol
+    sources:
+    - https://github.com/G-Research/siembol
+    - https://github.com/G-Research/charts/siembol
+    type: application
+    urls:
+    - siembol/siembol-0.1.0.tgz
+    version: 0.1.0
   storm:
   - apiVersion: v2
     appVersion: 1.2.3
@@ -214,4 +255,4 @@ entries:
     urls:
     - storm/storm-1.0.0.tgz
     version: 1.0.0
-generated: "2020-05-21T08:58:48.391291+02:00"
+generated: "BOGUS PLEASE UPDATE"

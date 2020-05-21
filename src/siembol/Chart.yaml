@@ -1,0 +1,55 @@
+# Chart for siembol
+apiVersion: v2
+description: siembol is a security analytics framework akin to projects like Apache Metron
+name: siembol
+type: application
+version: 0.1.0
+#appVersion: 0.0.1
+keywords:
+- kafka
+- zookeeper
+- storm
+- gitlab
+- hdfs
+- security
+- metron
+home: https://github.com/G-Research/charts
+sources:
+- https://github.com/G-Research/siembol
+- https://github.com/G-Research/charts/siembol
+maintainers:
+- name: stackedsax
+  email: alex.scammon@ext.gresearch.co.uk
+- name: generalfuzz
+  email: headphonejames@gmail.com
+#icon: https://kafka.apache.org/images/logo.png
+
+dependencies:
+- name: storm
+  version: ~1.0.3
+  repository: https://g-research.github.io/charts
+- name: kafka
+  version: ~0.20.9
+  repository: http://storage.googleapis.com/kubernetes-charts-incubator
+- name: hdfs
+  version: ~0.1.4
+  repository: https://gradiant.github.io/charts
+# - name: zookeeper
+#   version: ~2.1.3
+#   repository: http://storage.googleapis.com/kubernetes-charts-incubator
+- name: gitlab
+  version: ~3.2.2
+  repository: https://charts.gitlab.io
+
+
+### From scaffold helm chart
+
+replicaCount: 1
+
+image:
+  repository: nginx
+  pullPolicy: IfNotPresent
+ 
+service:
+  type: ClusterIP
+  port: 80
