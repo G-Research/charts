@@ -7,6 +7,8 @@ alerting:
         repository: gresearchdev/siembol-alerting-storm
         tag: latest
         pullPolicy: IfNotPresent
+    rules:
+      name: alerting-deploy-rules
 
 # disable Kafka's Zoomkeeper in favor of Storm's
 storm:
