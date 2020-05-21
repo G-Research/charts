@@ -15,9 +15,7 @@ nimbus:
     name: nimbus
     type: ClusterIP
     port: 6627
-  resources:
-    limits:
-      cpu: 100m
+  resources: {}
   nodeSelector: {}
   tolerations: []
   affinity: {}
@@ -31,9 +29,7 @@ supervisor:
   service:
     name: supervisor
     port: 6700
-  resources:
-    limits:
-      cpu: 200m
+  resources: {}
   nodeSelector: {}
   tolerations: []
   affinity: {}
@@ -49,9 +45,7 @@ ui:
     type: ClusterIP
     name: ui
     port: 8080
-  resources:
-    limits:
-      cpu: 100m
+  resources: {}
   ingress:
     enabled: false
     annotations: {}
@@ -62,3 +56,4 @@ zookeeper:
   service:
     name: zookeeper
   stormName: storm
+  replicaCount: 3
