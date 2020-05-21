@@ -1,11 +1,12 @@
 # Default values for siembol
-deploy:
-  image:
-    repository: gresearchdev/siembol
-    tag: latest
-    pullPolicy: IfNotPresent
-  alerting:
-    name: deploy-alerting
+alerting:
+  deploy:
+    topology:
+      name: alerting-deploy-topology
+      image:
+        repository: gresearchdev/siembol-alerting-storm
+        tag: latest
+        pullPolicy: IfNotPresent
 
 # disable Kafka's Zoomkeeper in favor of Storm's
 storm:
