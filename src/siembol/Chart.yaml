@@ -26,7 +26,7 @@ maintainers:
 
 dependencies:
 - name: storm
-  version: ~1.0.3
+  version: ~1.0.5
   repository: https://g-research.github.io/charts
 - name: kafka
   version: ~0.20.9
