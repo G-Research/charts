@@ -15,7 +15,7 @@ maintainers:
 name: storm
 sources:
 - https://github.com/apache/storm
-version: 1.0.4
+version: 1.0.5
 dependencies:
 - name: zookeeper
   version: ~2.1.0
