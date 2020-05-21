@@ -10,7 +10,10 @@ data:
   storm.yaml: |-
     ########### These MUST be filled in for a storm configuration
     storm.zookeeper.servers:
-        - {{ template "storm.zookeeper.fullname" . }}
+      {{- range until (int .Values.zookeeper.replicaCount) }}
+      {{- $target := printf "%s-%d.%s-headless" (include "storm.zookeeper.fullname" $) . (include "storm.zookeeper.fullname" $) }}
+        - {{ $target }}
+      {{- end }}
     nimbus.seeds:
         - {{ template "storm.nimbus.fullname" . }}
     storm.local.hostname: {{ template "storm.nimbus.fullname" . }}
@@ -29,7 +32,10 @@ data:
   storm.yaml: |-
     ########### These MUST be filled in for a storm configuration
     storm.zookeeper.servers:
-        - {{ template "storm.zookeeper.fullname" . }}
+      {{- range until (int .Values.zookeeper.replicaCount) }}
+      {{- $target := printf "%s-%d.%s-headless" (include "storm.zookeeper.fullname" $) . (include "storm.zookeeper.fullname" $) }}
+        - {{ $target }}
+      {{- end }}
     nimbus.seeds:
         - {{ template "storm.nimbus.fullname" . }}
     storm.local.hostname: {{ template "storm.supervisor.fullname" . }}
@@ -64,7 +70,10 @@ data:
   storm.yaml: |-
     ########### These MUST be filled in for a storm configuration
     storm.zookeeper.servers:
-        - {{ template "storm.zookeeper.fullname" . }}
+      {{- range until (int .Values.zookeeper.replicaCount) }}
+      {{- $target := printf "%s-%d.%s-headless" (include "storm.zookeeper.fullname" $) . (include "storm.zookeeper.fullname" $) }}
+        - {{ $target }}
+      {{- end }}
     nimbus.seeds:
         - {{ template "storm.nimbus.fullname" . }}
     storm.local.hostname: {{ template "storm.ui.fullname" . }}
