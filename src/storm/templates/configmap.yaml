@@ -8,14 +8,10 @@ metadata:
     heritage: {{ .Release.Service }}
 data:
   storm.yaml: |-
-    ########### These MUST be filled in for a storm configuration
-    storm.zookeeper.servers:
-      {{- range until (int .Values.zookeeper.replicaCount) }}
-      {{- $target := printf "%s-%d.%s-headless" (include "storm.zookeeper.fullname" $) . (include "storm.zookeeper.fullname" $) }}
-        - {{ $target }}
-      {{- end }}
-    nimbus.seeds:
-        - {{ template "storm.nimbus.fullname" . }}
+    storm.zookeeper.servers: [{{ template "storm.zookeeper.fullname" . }}]
+    storm.zookeeper.port: {{ .Values.zookeeper.service.ports.client.port }}
+    nimbus.seeds: [{{ template "storm.nimbus.fullname" . }}]
+    nimbus.thrift.port: {{ .Values.nimbus.service.port }}
     storm.local.hostname: {{ template "storm.nimbus.fullname" . }}
     storm.log4j2.conf.dir: "/log4j2"
 
@@ -30,14 +26,10 @@ metadata:
     heritage: {{ .Release.Service }}
 data:
   storm.yaml: |-
-    ########### These MUST be filled in for a storm configuration
-    storm.zookeeper.servers:
-      {{- range until (int .Values.zookeeper.replicaCount) }}
-      {{- $target := printf "%s-%d.%s-headless" (include "storm.zookeeper.fullname" $) . (include "storm.zookeeper.fullname" $) }}
-        - {{ $target }}
-      {{- end }}
-    nimbus.seeds:
-        - {{ template "storm.nimbus.fullname" . }}
+    storm.zookeeper.servers: [{{ template "storm.zookeeper.fullname" . }}]
+    storm.zookeeper.port: {{ .Values.zookeeper.service.ports.client.port }}
+    nimbus.seeds: [{{ template "storm.nimbus.fullname" . }}]
+    nimbus.thrift.port: {{ .Values.nimbus.service.port }}
     storm.local.hostname: {{ template "storm.supervisor.fullname" . }}
     storm.log4j2.conf.dir: "/log4j2"
 
@@ -68,13 +60,9 @@ metadata:
     heritage: {{ .Release.Service }}
 data:
   storm.yaml: |-
-    ########### These MUST be filled in for a storm configuration
-    storm.zookeeper.servers:
-      {{- range until (int .Values.zookeeper.replicaCount) }}
-      {{- $target := printf "%s-%d.%s-headless" (include "storm.zookeeper.fullname" $) . (include "storm.zookeeper.fullname" $) }}
-        - {{ $target }}
-      {{- end }}
-    nimbus.seeds:
-        - {{ template "storm.nimbus.fullname" . }}
+    storm.zookeeper.servers: [{{ template "storm.zookeeper.fullname" . }}]
+    storm.zookeeper.port: {{ .Values.zookeeper.service.ports.client.port }}
+    nimbus.seeds: [{{ template "storm.nimbus.fullname" . }}]
+    nimbus.thrift.port: {{ .Values.nimbus.service.port }}
     storm.local.hostname: {{ template "storm.ui.fullname" . }}
     storm.log4j2.conf.dir: "/log4j2"
