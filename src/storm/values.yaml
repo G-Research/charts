@@ -56,4 +56,3 @@ zookeeper:
   service:
     name: zookeeper
   stormName: storm
-  replicaCount: 3
