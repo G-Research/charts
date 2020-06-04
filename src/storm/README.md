@@ -62,7 +62,6 @@ The following table lists the configurable parameters of the Storm chart and the
 | Parameter                         | Description                 | Default             |
 | --------------------------------- | --------------------------- | ------------------- |
 | `zookeeper.enabled`               | Enable Zookeeper            | true                |
-| `zookeeper.service.name`          | Service name                | zookeeper           |
 
 Specify each parameter using the `--set key=value[,key=value]` argument to `helm install`.
 
