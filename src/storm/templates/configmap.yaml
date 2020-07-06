@@ -9,7 +9,7 @@ metadata:
 data:
   storm.yaml: |-
     storm.zookeeper.servers: [{{ template "storm.zookeeper.fullname" . }}]
-    storm.zookeeper.port: {{ .Values.zookeeper.service.ports.client.port }}
+    storm.zookeeper.port: {{ template "storm.zookeeper.port" . }}
     nimbus.seeds: [{{ template "storm.nimbus.fullname" . }}]
     nimbus.thrift.port: {{ .Values.nimbus.service.port }}
     storm.local.hostname: {{ template "storm.nimbus.fullname" . }}
@@ -27,7 +27,7 @@ metadata:
 data:
   storm.yaml: |-
     storm.zookeeper.servers: [{{ template "storm.zookeeper.fullname" . }}]
-    storm.zookeeper.port: {{ .Values.zookeeper.service.ports.client.port }}
+    storm.zookeeper.port: {{ template "storm.zookeeper.port" . }}
     nimbus.seeds: [{{ template "storm.nimbus.fullname" . }}]
     nimbus.thrift.port: {{ .Values.nimbus.service.port }}
     storm.local.hostname: {{ template "storm.supervisor.fullname" . }}
@@ -61,7 +61,7 @@ metadata:
 data:
   storm.yaml: |-
     storm.zookeeper.servers: [{{ template "storm.zookeeper.fullname" . }}]
-    storm.zookeeper.port: {{ .Values.zookeeper.service.ports.client.port }}
+    storm.zookeeper.port: {{ template "storm.zookeeper.port" . }}
     nimbus.seeds: [{{ template "storm.nimbus.fullname" . }}]
     nimbus.thrift.port: {{ .Values.nimbus.service.port }}
     storm.local.hostname: {{ template "storm.ui.fullname" . }}
