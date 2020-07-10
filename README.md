@@ -26,3 +26,11 @@ $ helm search greseach
 ### Apache Storm
 
 Apache Storm is a free and open source distributed realtime computation system. Storm makes it easy to reliably process unbounded streams of data, doing for realtime processing what Hadoop did for batch processing.
+
+### Armada
+
+Armada is an application to achieve high throughput of run-to-completion jobs on multiple Kubernetes clusters. It stores queues for users/projects with pod specifications and creates these pods once there is available resource in one of the connected Kubernetes clusters.
+
+### LibreNMS
+
+LibreNMS is an autodiscovering PHP/MySQL/SNMP based network monitoring which includes support for a wide range of network hardware and operating systems including Cisco, Linux, FreeBSD, Juniper, Brocade, Foundry, HP and many more.
