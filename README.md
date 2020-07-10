@@ -1,3 +1,4 @@
+<img src="https://github.com/G-Research/charts/blob/master/GR%20blue_logo_transparentPNG.png" width="100" height="100">
 
 # G-Research Charts Repository 
 
