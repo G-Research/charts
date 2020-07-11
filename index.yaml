@@ -2,6 +2,15 @@ apiVersion: v1
 entries:
   armada:
   - apiVersion: v1
+    appVersion: v0.1.9
+    created: "2020-07-10T21:29:16.451065-07:00"
+    description: A helm chart for armada API component
+    digest: b428db8f55bb8d38fe30a48f2ed756817a60eea166c66ef5791a562d5ea6eb8c
+    name: armada
+    urls:
+    - armada/armada-v0.1.9.tgz
+    version: v0.1.9
+  - apiVersion: v1
     appVersion: v1
     created: "2020-05-05T00:25:41.605125-07:00"
     description: A helm chart for armada API component
@@ -12,6 +21,15 @@ entries:
     version: 0.0.1
   armada-executor:
   - apiVersion: v1
+    appVersion: v0.1.9
+    created: "2020-07-10T21:29:16.450028-07:00"
+    description: A helm chart for armada-executor component
+    digest: 5f130fc2037b3edf990e82cf2a7990c7523135933919fe8b554cc64c9bd43b80
+    name: armada-executor
+    urls:
+    - armada/armada-executor-v0.1.9.tgz
+    version: v0.1.9
+  - apiVersion: v1
     appVersion: v1
     created: "2020-05-05T00:25:41.605499-07:00"
     description: A helm chart for armada-executor component
@@ -21,6 +39,15 @@ entries:
     - armada/armada-executor-0.0.1.tgz
     version: 0.0.1
   executor-cluster-monitoring:
+  - apiVersion: v1
+    created: "2020-07-10T21:29:16.451334-07:00"
+    description: A helm chart for monitoring metrics of a cluster managed by a armada-executor
+      component
+    digest: 80f9714d1692b830f3e879146ce17366967a7126fb305633e0bec3f66337b6fa
+    name: executor-cluster-monitoring
+    urls:
+    - armada/executor-cluster-monitoring-v0.1.9.tgz
+    version: v0.1.9
   - apiVersion: v1
     created: "2020-05-05T00:25:41.605712-07:00"
     description: A helm chart for monitoring metrics of a cluster managed by a armada-executor
@@ -214,4 +241,4 @@ entries:
     urls:
     - storm/storm-1.0.0.tgz
     version: 1.0.0
-generated: "2020-05-21T08:58:48.391291+02:00"
+generated: "2020-07-10T21:29:16.44946-07:00"
