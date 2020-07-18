@@ -9,13 +9,10 @@ metadata:
 data:
   storm.yaml: |-
     ########### These MUST be filled in for a storm configuration
-    storm.zookeeper.servers:
-      {{- range until (int .Values.zookeeper.replicaCount) }}
-      {{- $target := printf "%s-%d.%s-headless" (include "storm.zookeeper.fullname" $) . (include "storm.zookeeper.fullname" $) }}
-        - {{ $target }}
-      {{- end }}
+    storm.zookeeper.servers: 
+      {{- template "storm.zookeeper.configmap.servers" . }}
     nimbus.seeds:
-        - {{ template "storm.nimbus.fullname" . }}
+      - {{ template "storm.nimbus.fullname" . }}
     storm.local.hostname: {{ template "storm.nimbus.fullname" . }}
     storm.log4j2.conf.dir: "/log4j2"
 
@@ -31,13 +28,10 @@ metadata:
 data:
   storm.yaml: |-
     ########### These MUST be filled in for a storm configuration
-    storm.zookeeper.servers:
-      {{- range until (int .Values.zookeeper.replicaCount) }}
-      {{- $target := printf "%s-%d.%s-headless" (include "storm.zookeeper.fullname" $) . (include "storm.zookeeper.fullname" $) }}
-        - {{ $target }}
-      {{- end }}
+    storm.zookeeper.servers: 
+    {{- template "storm.zookeeper.configmap.servers" . }}
     nimbus.seeds:
-        - {{ template "storm.nimbus.fullname" . }}
+      - {{ template "storm.nimbus.fullname" . }}
     storm.local.hostname: {{ template "storm.supervisor.fullname" . }}
     storm.log4j2.conf.dir: "/log4j2"
 
@@ -69,12 +63,9 @@ metadata:
 data:
   storm.yaml: |-
     ########### These MUST be filled in for a storm configuration
-    storm.zookeeper.servers:
-      {{- range until (int .Values.zookeeper.replicaCount) }}
-      {{- $target := printf "%s-%d.%s-headless" (include "storm.zookeeper.fullname" $) . (include "storm.zookeeper.fullname" $) }}
-        - {{ $target }}
-      {{- end }}
+    storm.zookeeper.servers: 
+      {{- template "storm.zookeeper.configmap.servers" . }}
     nimbus.seeds:
-        - {{ template "storm.nimbus.fullname" . }}
+      - {{ template "storm.nimbus.fullname" . }}
     storm.local.hostname: {{ template "storm.ui.fullname" . }}
     storm.log4j2.conf.dir: "/log4j2"

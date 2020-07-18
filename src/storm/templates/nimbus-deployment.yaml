@@ -22,12 +22,7 @@ spec:
         release: {{ .Release.Name }}
     spec:
       initContainers:
-      {{- range until (int .Values.zookeeper.replicaCount) }}
-      {{- $target := printf "%s-%d.%s-headless" (include "storm.zookeeper.fullname" $) . (include "storm.zookeeper.fullname" $) }}
-      - name: init-zookeeper-{{ . }}
-        image: busybox
-        command: ["sh", "-c", "until nc -w10 {{ $target }} 2181 </dev/null; do echo waiting for {{ $target }}; sleep 10; done"]
-      {{- end }}
+      {{- template "storm.nimbus.zookeeper.initContiners" . }}
       containers:
       - name: {{ .Values.nimbus.service.name }}
         image: "{{ .Values.nimbus.image.repository }}:{{ .Values.nimbus.image.tag }}"
