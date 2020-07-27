@@ -18,7 +18,7 @@ The charts sources can be found here:
 ## How to search the repo
 
 ```
-$ helm search greseach
+$ helm search gresearch
 ```
 
 ## What software we are providing charts for:
