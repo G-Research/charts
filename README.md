@@ -21,7 +21,7 @@ The charts sources can be found here:
 $ helm search greseach
 ```
 
-## What software we are providing charts for:
+## Software for which we provide charts:
 
 ### Apache Storm
 
