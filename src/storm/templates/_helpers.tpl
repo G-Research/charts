@@ -75,26 +75,53 @@ Create a fully qualified zookeeper name.
 We truncate at 63 chars because some Kubernetes name fields are limited to this (by the DNS naming spec).
 */}}
 {{- define "storm.zookeeper.fullname" -}}
-{{- $name := default .Values.zookeeper.service.name -}}
-{{- printf "%s-%s" (include "storm.fullname" .) $name | trunc 63 | trimSuffix "-" -}}
+{{- if .Values.zookeeper.fullnameOverride -}}
+{{- .Values.zookeeper.fullnameOverride | trunc 63 | trimSuffix "-" -}}
+{{- else -}}
+{{- $name := default "zookeeper" .Values.zookeeper.nameOverride -}}
+{{- printf "%s-%s" .Release.Name $name | trunc 63 | trimSuffix "-" -}}
+{{- end -}}
+{{- end -}}
+
+{{- define "storm.zookeeper.client.port" -}}
+{{- default 2181 .Values.zookeeper.service.ports.client.port -}}
 {{- end -}}
 
 {{- define "storm.logging.name" -}}
 {{- printf "%s-logging" (include "storm.fullname" .) | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 
-{{/*
-Override the zookeeper service name for the zookeeper chart so that both charts reference the same zookeeper service name.
-*/}}
-{{- define "zookeeper.fullname" -}}
-{{- if .Values.fullnameOverride -}}
-{{- .Values.fullnameOverride | trunc 63 | trimSuffix "-" -}}
+# TODO: There must be a better way than duplicating this block twice.
+{{- define "storm.zookeeper.configmap.servers" -}}
+{{- if .Values.zookeeper.enabled -}}
+{{- range until (int .Values.zookeeper.replicaCount) }}
+{{- $target := printf "%s-%d.%s-headless" (include "storm.zookeeper.fullname" $) . (include "storm.zookeeper.fullname" $) }}
+{{ printf "- %s" $target | indent 6 }}
+{{- end -}}
 {{- else -}}
-{{- $name := default .Chart.Name .Values.nameOverride -}}
-{{- if contains $name .Release.Name -}}o
-{{- .Release.Name | trunc 63 | trimSuffix "-" -}}
+{{- $nullcheck := required "If not using the internal zookeeper, '.Values.zookeeper.servers' needs to be specified" .Values.zookeeper.servers -}}
+{{- range $server := .Values.zookeeper.servers }}
+{{ printf "- %s" . | indent 6 }}
+{{- end }}
+{{- end }}
+{{- end }}
+
+# TODO: There must be a better way than duplicating this block twice.
+{{- define "storm.nimbus.zookeeper.initContiners"}}
+{{- if .Values.zookeeper.enabled -}}
+{{- range until (int .Values.zookeeper.replicaCount) }}
+{{- $target := printf "%s-%d.%s-headless %s" (include "storm.zookeeper.fullname" $) . (include "storm.zookeeper.fullname" $) (include "storm.zookeeper.client.port" $) }}
+      - name: init-zookeeper-{{ . }}
+        image: busybox
+        command: ["sh", "-c", "until nc -w10 {{ $target }} </dev/null; do echo waiting for {{ $target }}; sleep 10; done"]
+{{- end }}
 {{- else -}}
-{{- printf "%s-%s-%s" .Release.Name .Values.stormName $name | trunc 63 | trimSuffix "-" -}}
-{{- end -}}
-{{- end -}}
-{{- end -}}
+{{- $nullcheck := required "If not using the internal zookeeper, '.Values.zookeeper.servers' needs to be specified" .Values.zookeeper.servers -}}
+{{- range $index, $server := .Values.zookeeper.servers }}
+{{- $target := printf "%s %s" $server (include "storm.zookeeper.client.port" $) }}
+      - name: init-zookeeper-{{ $index }}
+        image: busybox
+        command: ["sh", "-c", "until nc -w10 {{ $target }} </dev/null; do echo waiting for {{ $target }}; sleep 10; done"]
+{{- end }}
+{{- end }}
+{{- end }}
