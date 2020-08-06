@@ -8,13 +8,8 @@ metadata:
     heritage: {{ .Release.Service }}
 data:
   storm.yaml: |-
-    ########### These MUST be filled in for a storm configuration
-    storm.zookeeper.servers: 
-      {{- template "storm.zookeeper.configmap.servers" . }}
-    nimbus.seeds:
-      - {{ template "storm.nimbus.fullname" . }}
+    {{- include "storm.configmap.data.yaml" . }}
     storm.local.hostname: {{ template "storm.nimbus.fullname" . }}
-    storm.log4j2.conf.dir: "/log4j2"
 
 ---
 apiVersion: v1
@@ -27,13 +22,8 @@ metadata:
     heritage: {{ .Release.Service }}
 data:
   storm.yaml: |-
-    ########### These MUST be filled in for a storm configuration
-    storm.zookeeper.servers: 
-    {{- template "storm.zookeeper.configmap.servers" . }}
-    nimbus.seeds:
-      - {{ template "storm.nimbus.fullname" . }}
+    {{- include "storm.configmap.data.yaml" . }}
     storm.local.hostname: {{ template "storm.supervisor.fullname" . }}
-    storm.log4j2.conf.dir: "/log4j2"
 
 ---
 apiVersion: v1
@@ -62,10 +52,5 @@ metadata:
     heritage: {{ .Release.Service }}
 data:
   storm.yaml: |-
-    ########### These MUST be filled in for a storm configuration
-    storm.zookeeper.servers: 
-      {{- template "storm.zookeeper.configmap.servers" . }}
-    nimbus.seeds:
-      - {{ template "storm.nimbus.fullname" . }}
+    {{- include "storm.configmap.data.yaml" . }} 
     storm.local.hostname: {{ template "storm.ui.fullname" . }}
-    storm.log4j2.conf.dir: "/log4j2"
