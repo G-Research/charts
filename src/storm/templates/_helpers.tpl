@@ -83,45 +83,29 @@ We truncate at 63 chars because some Kubernetes name fields are limited to this 
 {{- end -}}
 {{- end -}}
 
-{{- define "storm.zookeeper.client.port" -}}
-{{- default 2181 .Values.zookeeper.service.ports.client.port -}}
-{{- end -}}
-
 {{- define "storm.logging.name" -}}
 {{- printf "%s-logging" (include "storm.fullname" .) | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 
-# TODO: There must be a better way than duplicating this block twice.
-{{- define "storm.zookeeper.configmap.servers" -}}
-{{- if .Values.zookeeper.enabled -}}
-{{- range until (int .Values.zookeeper.replicaCount) }}
-{{- $target := printf "%s-%d.%s-headless" (include "storm.zookeeper.fullname" $) . (include "storm.zookeeper.fullname" $) }}
-{{ printf "- %s" $target | indent 6 }}
+{{- define "storm.zookeeper.port" -}}
+{{- ternary .Values.zookeeper.service.ports.client.port (default 2181 .Values.zookeeper.port) .Values.zookeeper.enabled -}}
 {{- end -}}
-{{- else -}}
-{{- $nullcheck := required "If not using the internal zookeeper, '.Values.zookeeper.servers' needs to be specified" .Values.zookeeper.servers -}}
-{{- range $server := .Values.zookeeper.servers }}
-{{ printf "- %s" . | indent 6 }}
-{{- end }}
-{{- end }}
-{{- end }}
 
-# TODO: There must be a better way than duplicating this block twice.
-{{- define "storm.nimbus.zookeeper.initContiners"}}
-{{- if .Values.zookeeper.enabled -}}
-{{- range until (int .Values.zookeeper.replicaCount) }}
-{{- $target := printf "%s-%d.%s-headless %s" (include "storm.zookeeper.fullname" $) . (include "storm.zookeeper.fullname" $) (include "storm.zookeeper.client.port" $) }}
-      - name: init-zookeeper-{{ . }}
-        image: busybox
-        command: ["sh", "-c", "until nc -w10 {{ $target }} </dev/null; do echo waiting for {{ $target }}; sleep 10; done"]
-{{- end }}
-{{- else -}}
-{{- $nullcheck := required "If not using the internal zookeeper, '.Values.zookeeper.servers' needs to be specified" .Values.zookeeper.servers -}}
-{{- range $index, $server := .Values.zookeeper.servers }}
-{{- $target := printf "%s %s" $server (include "storm.zookeeper.client.port" $) }}
-      - name: init-zookeeper-{{ $index }}
-        image: busybox
-        command: ["sh", "-c", "until nc -w10 {{ $target }} </dev/null; do echo waiting for {{ $target }}; sleep 10; done"]
-{{- end }}
-{{- end }}
-{{- end }}
+{{- define "storm.zookeeper.config" -}}
+{{- $servers := list (include "storm.zookeeper.fullname" .) -}}
+{{- if not .Values.zookeeper.enabled -}}
+{{- $nullcheck := required "If not using the Storm chart's built-in Zookeeper (i.e. `.Values.zookeeper.enabled: false`), `.Values.zookeeper.servers` is required" .Values.zookeeper.servers -}}
+{{- $servers = .Values.zookeeper.servers -}}
+{{- end -}}
+{{- dict "servers" $servers | toJson -}}
+{{- end -}}
+
+{{- define "storm.nimbus.initCommand" -}}
+{{- $servers := get ((include "storm.zookeeper.config" .) | fromJson) "servers" -}}
+{{- $checks := list -}}
+{{- range $server := $servers -}}
+{{- $checks = append $checks (printf "zkCli.sh -server %s:%s ls /" $server (include "storm.zookeeper.port" $)) -}}
+{{- end -}}
+{{- $checkCommand := join " || " $checks -}}
+{{- printf "until %s; do echo waiting for %v; sleep 10; done" $checkCommand $servers -}}
+{{- end -}}

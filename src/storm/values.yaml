@@ -53,17 +53,11 @@ ui:
 
 zookeeper:
   enabled: true
-  replicaCount: 3
-  servers: 
+  replicaCount: 1
+  # # if using an external zookeeper, you need to set the server names below
+  # servers:
   #  - example.external.zookeeper1
   #  - example.external.zookeeper2
-  service:
-    ports:
-      client:
-        port: 2181
-  # TODO: fix upstream zookeeper chart before port is truly configurable
-  # ports:
-  #   client:
-  #     containerPort: 2181
-  # env:
-  #   ZOO_PORT: 2181 
+  #  - example.external.zookeeper3
+  # # external server port
+  # port: 2181

@@ -9,7 +9,6 @@
   export SERVICE_IP=$(kubectl get svc --namespace {{ .Release.Namespace }} {{ template "storm.ui.fullname" . }} -o jsonpath='{.status.loadBalancer.ingress[0].ip}')
   echo http://$SERVICE_IP:{{ .Values.ui.service.externalPort }}
 {{- else if contains "ClusterIP" .Values.ui.service.type }}
-  export POD_NAME=$(kubectl get pods --namespace {{ .Release.Namespace }} -l "app={{ template "storm.ui.name" . }},release={{ .Release.Name }}" -o jsonpath="{.items[0].metadata.name}")
   echo "Visit http://127.0.0.1:8080 to use your application"
-  kubectl port-forward $POD_NAME 8080:{{ .Values.ui.service.port }} -n {{ .Release.Namespace }}
+  kubectl port-forward svc/{{ template "storm.ui.fullname" . }} 8080:{{ .Values.ui.service.port }} -n {{ .Release.Namespace }}
 {{- end }}
