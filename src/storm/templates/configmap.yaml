@@ -1,31 +1,27 @@
+{{- $servers := get ((include "storm.zookeeper.config" .) | fromJson) "servers" -}}
+{{- range $name := tuple "nimbus" "supervisor" "ui" }}
+{{- $fullname := include (print "storm." $name ".fullname") $ -}}
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: {{ template "storm.nimbus.fullname" . }}
+  name: {{ $fullname }}
   labels:
-    chart: {{ template "storm.chart" . }}
-    release: {{ .Release.Name }}
-    heritage: {{ .Release.Service }}
+    chart: {{ template "storm.chart" $ }}
+    release: {{ $.Release.Name }}
+    heritage: {{ $.Release.Service }}
 data:
   storm.yaml: |-
-    {{- include "storm.configmap.data.yaml" . }}
-    storm.local.hostname: {{ template "storm.nimbus.fullname" . }}
+    storm.zookeeper.servers:
+{{ $servers | toYaml | indent 6 }}
+    storm.zookeeper.port: {{ include "storm.zookeeper.port" $ }}
+    nimbus.seeds:
+      - {{ include "storm.nimbus.fullname" $ }}
+    nimbus.thrift.port: {{ $.Values.nimbus.service.port }}
+    storm.log4j2.conf.dir: /log4j2
+    storm.local.hostname: {{ $fullname }}
 
 ---
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: {{ template "storm.supervisor.fullname" . }}
-  labels:
-    chart: {{ template "storm.chart" . }}
-    release: {{ .Release.Name }}
-    heritage: {{ .Release.Service }}
-data:
-  storm.yaml: |-
-    {{- include "storm.configmap.data.yaml" . }}
-    storm.local.hostname: {{ template "storm.supervisor.fullname" . }}
-
----
+{{- end }}
 apiVersion: v1
 kind: ConfigMap
 metadata:
@@ -40,17 +36,3 @@ data:
   {{ . }}: |-
 {{ $files.Get . | indent 4 }}
   {{- end }}
-
----
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: {{ template "storm.ui.fullname" . }}
-  labels:
-    chart: {{ template "storm.chart" . }}
-    release: {{ .Release.Name }}
-    heritage: {{ .Release.Service }}
-data:
-  storm.yaml: |-
-    {{- include "storm.configmap.data.yaml" . }} 
-    storm.local.hostname: {{ template "storm.ui.fullname" . }}
