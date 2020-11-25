@@ -83,39 +83,29 @@ We truncate at 63 chars because some Kubernetes name fields are limited to this 
 {{- end -}}
 {{- end -}}
 
-{{- define "storm.zookeeper.client.port" -}}
-{{- default 2181 .Values.zookeeper.service.ports.client.port -}}
-{{- end -}}
-
 {{- define "storm.logging.name" -}}
 {{- printf "%s-logging" (include "storm.fullname" .) | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 
-{{- define "storm.zookeeper.configmap.servers" -}}
-{{- if .Values.zookeeper.enabled -}}
-{{ printf "[%s]" (include "storm.zookeeper.fullname" $) }}
-{{- else -}}
+{{- define "storm.zookeeper.port" -}}
+{{- ternary .Values.zookeeper.service.ports.client.port (default 2181 .Values.zookeeper.port) .Values.zookeeper.enabled -}}
+{{- end -}}
+
+{{- define "storm.zookeeper.config" -}}
+{{- $servers := list (include "storm.zookeeper.fullname" .) -}}
+{{- if not .Values.zookeeper.enabled -}}
 {{- $nullcheck := required "If not using the Storm chart's built-in Zookeeper (i.e. `.Values.zookeeper.enabled: false`), `.Values.zookeeper.servers` is required" .Values.zookeeper.servers -}}
-{{- range $server := .Values.zookeeper.servers }}
-{{ printf "- %s" . | indent 6 }}
-{{- end }}
-{{- end }}
-{{- end }}
+{{- $servers = .Values.zookeeper.servers -}}
+{{- end -}}
+{{- dict "servers" $servers | toJson -}}
+{{- end -}}
 
-{{- define "storm.nimbus.zookeeper.initContainers" -}}
-{{- $zk_servers := ternary (list (include "storm.zookeeper.fullname" $)) .Values.zookeeper.servers .Values.zookeeper.enabled }}
-{{- range $index, $server := $zk_servers }}
-{{ printf "- name: init-zookeeper-%d" $index | indent 6 }}
-{{ printf "image: %s:%s" $.Values.zookeeper.image.repository $.Values.zookeeper.image.tag | indent 8 }}
-{{ printf "command: ['sh', '-c', 'until zkCli.sh -server %s:%s ls /; do echo waiting for %s; sleep 10; done']" $server (include "storm.zookeeper.client.port" $) $server | indent 8 }}
-{{- end }}
-{{- end }}
-
-{{- define "storm.configmap.data.yaml" }}
-    ########### These MUST be filled in for a storm configuration
-    storm.zookeeper.servers: {{ include "storm.zookeeper.configmap.servers" . }}
-    storm.zookeeper.port: {{ template "storm.zookeeper.client.port" . }}
-    nimbus.seeds: [{{ include "storm.nimbus.fullname" . }}]
-    nimbus.thrift.port: {{ .Values.nimbus.service.port }}
-    storm.log4j2.conf.dir: "/log4j2"
-{{- end }}
+{{- define "storm.nimbus.initCommand" -}}
+{{- $servers := get ((include "storm.zookeeper.config" .) | fromJson) "servers" -}}
+{{- $checks := list -}}
+{{- range $server := $servers -}}
+{{- $checks = append $checks (printf "zkCli.sh -server %s:%s ls /" $server (include "storm.zookeeper.port" $)) -}}
+{{- end -}}
+{{- $checkCommand := join " || " $checks -}}
+{{- printf "until %s; do echo waiting for %v; sleep 10; done" $checkCommand $servers -}}
+{{- end -}}
