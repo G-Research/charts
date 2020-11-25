@@ -22,7 +22,7 @@ spec:
         release: {{ .Release.Name }}
     spec:
       initContainers:
-      {{- template "storm.nimbus.zookeeper.initContiners" . }}
+      {{- template "storm.nimbus.zookeeper.initContainers" . }}
       containers:
       - name: {{ .Values.nimbus.service.name }}
         image: "{{ .Values.nimbus.image.repository }}:{{ .Values.nimbus.image.tag }}"

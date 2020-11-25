@@ -102,19 +102,12 @@ We truncate at 63 chars because some Kubernetes name fields are limited to this 
 {{- end }}
 {{- end }}
 
-# TODO: There must be a better way than duplicating this block twice.
-{{- define "storm.nimbus.zookeeper.initContiners"}}
-{{- if .Values.zookeeper.enabled }}
-{{ printf "- name: init-%s" (include "storm.zookeeper.fullname" $) | indent 6 }}
-{{ printf "image: %s:%s" $.Values.zookeeper.image.repository $.Values.zookeeper.image.tag | indent 8 }}
-{{ printf "command: ['sh', '-c', 'until zkCli.sh -server %s:%s ls /; do echo waiting for %s; sleep 10; done']" (include "storm.zookeeper.fullname" $) (include "storm.zookeeper.client.port" $) (include "storm.zookeeper.fullname" $) | indent 8 }}
-{{- else -}}
-{{- $nullcheck := required "If not using the Storm chart's built-in Zookeeper (i.e. `.Values.zookeeper.enabled: false`), `.Values.zookeeper.servers` is required" .Values.zookeeper.servers -}}
-{{- range $index, $server := .Values.zookeeper.servers }}
+{{- define "storm.nimbus.zookeeper.initContainers" -}}
+{{- $zk_servers := ternary (list (include "storm.zookeeper.fullname" $)) .Values.zookeeper.servers .Values.zookeeper.enabled }}
+{{- range $index, $server := $zk_servers }}
 {{ printf "- name: init-zookeeper-%d" $index | indent 6 }}
 {{ printf "image: %s:%s" $.Values.zookeeper.image.repository $.Values.zookeeper.image.tag | indent 8 }}
 {{ printf "command: ['sh', '-c', 'until zkCli.sh -server %s:%s ls /; do echo waiting for %s; sleep 10; done']" $server (include "storm.zookeeper.client.port" $) $server | indent 8 }}
-{{- end }}
 {{- end }}
 {{- end }}
 
