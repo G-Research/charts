@@ -88,7 +88,7 @@ We truncate at 63 chars because some Kubernetes name fields are limited to this 
 {{- end -}}
 
 {{- define "storm.zookeeper.port" -}}
-{{- ternary $.Values.zookeeper.service.ports.client.port (default 2181 $.Values.zookeeper.port) $.Values.zookeeper.enabled -}}
+{{- ternary .Values.zookeeper.service.ports.client.port (default 2181 .Values.zookeeper.port) .Values.zookeeper.enabled -}}
 {{- end -}}
 
 {{- define "storm.zookeeper.config" -}}

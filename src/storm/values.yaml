@@ -53,7 +53,7 @@ ui:
 
 zookeeper:
   enabled: true
-  replicaCount: 3
+  replicaCount: 1
   # if using an external zookeeper, you need to set the server names below
   #servers:
   #  - example.external.zookeeper1
