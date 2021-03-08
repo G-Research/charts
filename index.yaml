@@ -159,7 +159,7 @@ entries:
     sources:
     - https://github.com/apache/storm
     urls:
-    - storm-1.0.6.tgz
+    - storm/storm-1.0.6.tgz
     version: 1.0.6
   - apiVersion: v2
     appVersion: 1.2.3
