@@ -1,0 +1,21 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: {{ template "siembol.alerting.deploy.topology.fullname" . }}
+spec:
+  template:
+    spec:
+      initContainers:
+      - name: init-{{ include "storm.nimbus.fullname" . }}
+        image: busybox
+        command: ["sh", "-c", "until nc -w10 {{ include "storm.nimbus.fullname" . }} 6627 </dev/null; do echo waiting for {{ include "storm.nimbus.fullname" . }}; sleep 10; done"]
+      containers:
+      - name: {{ template "siembol.alerting.deploy.topology.name" . }}
+        image: "{{ .Values.alerting.deploy.topology.image.repository }}:{{ .Values.alerting.deploy.topology.image.tag }}"
+        imagePullPolicy: {{ .Values.alerting.deploy.topology.image.pullPolicy }}
+        env:
+          - name: NIMBUS_SEEDS
+            value: "[\"{{ template "storm.nimbus.fullname" . }}\"]"
+        args: [{{ include "siembol.alerting.config" . | b64enc | quote }}]
+      restartPolicy: Never
+  backoffLimit: 4

@@ -1,0 +1,69 @@
+# Default values for siembol
+alerting:
+  deploy:
+    topology:
+      name: alerting-deploy-topology
+      image:
+        repository: gresearchdev/siembol-alerting-storm
+        tag: latest
+        pullPolicy: IfNotPresent
+    rules:
+      name: alerting-deploy-rules
+
+# disable Kafka's Zoomkeeper in favor of Storm's
+storm:
+  zookeeper:
+    enabled: true
+
+kafka:
+  zookeeper:
+    enabled: false
+
+# - Mini Gitlab
+# - Configured to use 192.168.99.100, and nip.io for the domain
+gitlab:
+  global:
+    ingress:
+      configureCertmanager: false
+      class: "nginx"
+    hosts:
+      domain: 192.168.99.100.nip.io
+      externalIP: 192.168.99.100
+    # Disable Rails bootsnap cache (temporary)
+    rails:
+      bootsnap:
+        enabled: false
+  # Don't use certmanager, we'll self-sign
+  certmanager:
+    install: false
+  # Use the `ingress` addon, not our Ingress (can't map 22/80/443)
+  nginx-ingress:
+    enabled: false
+  # Save resources, don't need Prometheus just yet
+  prometheus:
+    install: false
+  # GitLab Runner isn't a big fan of self-signed certificates
+  gitlab-runner:
+    install: false
+  # Reduce replica counts, reducing CPU & memory requirements
+  gitlab:
+    unicorn:
+      minReplicas: 1
+      maxReplicas: 1
+      resources:
+        limits:
+          cpu: 1
+          memory: 1G
+        requests:
+          cpu: 300m
+          memory: 500M
+    sidekiq:
+      minReplicas: 1
+      maxReplicas: 1
+    gitlab-shell:
+      minReplicas: 1
+      maxReplicas: 1
+  registry:
+    hpa:
+      minReplicas: 1
+      maxReplicas: 1

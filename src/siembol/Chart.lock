@@ -1,0 +1,15 @@
+dependencies:
+- name: storm
+  repository: https://g-research.github.io/charts
+  version: 1.0.5
+- name: kafka
+  repository: http://storage.googleapis.com/kubernetes-charts-incubator
+  version: 0.20.9
+- name: hdfs
+  repository: https://gradiant.github.io/charts
+  version: 0.1.9
+- name: gitlab
+  repository: https://charts.gitlab.io
+  version: 3.2.6
+digest: sha256:9c29958c11300c8da01d0fbf4b3b27f5f74f979fdb6c0ab94193ffd42a432607
+generated: "2020-05-21T10:17:33.899043+02:00"
