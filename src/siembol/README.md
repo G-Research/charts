@@ -2,7 +2,7 @@
 
 ```
 git clone https://github.com/G-Research/siembol.git
-cd siembol
+cd src/siembol
 helm dep up
 helm install -f values.yaml siembol  .
 ```

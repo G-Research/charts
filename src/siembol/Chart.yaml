@@ -29,8 +29,8 @@ dependencies:
   version: ~1.0.6
   repository: https://g-research.github.io/charts
 - name: kafka
-  version: ~0.20.9
-  repository: http://storage.googleapis.com/kubernetes-charts-incubator
+  version: ~12.13.1
+  repository: https://charts.bitnami.com/bitnami
 - name: hdfs
   version: ~0.1.4
   repository: https://gradiant.github.io/charts
