@@ -1,5 +1,6 @@
 apiVersion: v2
 appVersion: 1.2.3
+version: 1.0.7
 description: Apache Storm is a free and open source distributed realtime computation
   system.
 home: http://storm.apache.org/
@@ -15,7 +16,6 @@ maintainers:
 name: storm
 sources:
 - https://github.com/apache/storm
-version: 1.0.6
 dependencies:
 - name: zookeeper
   version: ~2.1.0

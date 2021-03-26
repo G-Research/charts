@@ -136,6 +136,33 @@ entries:
   storm:
   - apiVersion: v2
     appVersion: 1.2.3
+    created: "2021-03-24T15:32:06.597071-07:00"
+    dependencies:
+    - condition: zookeeper.enabled
+      name: zookeeper
+      repository: https://kubernetes-charts-incubator.storage.googleapis.com/
+      version: ~2.1.0
+    description: Apache Storm is a free and open source distributed realtime computation
+      system.
+    digest: 3b3422e965b51ef507efaf76cc03a62ee76d4c7c3d5bd604e291cc7b32ac5f3c
+    home: http://storm.apache.org/
+    icon: http://storm.apache.org/images/logo.png
+    keywords:
+    - storm
+    - zookeeper
+    maintainers:
+    - email: jorwalk@gmail.com
+      name: jorwalk
+    - email: stackedsax@users.noreply.github.com
+      name: stackedsax
+    name: storm
+    sources:
+    - https://github.com/apache/storm
+    urls:
+    - storm-1.0.7.tgz
+    version: 1.0.7
+  - apiVersion: v2
+    appVersion: 1.2.3
     created: "2020-11-26T09:18:57.517894-08:00"
     dependencies:
     - condition: zookeeper.enabled
@@ -323,4 +350,4 @@ entries:
     urls:
     - storm/storm-1.0.0.tgz
     version: 1.0.0
-generated: "2020-11-26T09:18:57.515705-08:00"
+generated: "2021-03-24T15:32:06.593933-07:00"
