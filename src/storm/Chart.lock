@@ -1,6 +1,6 @@
 dependencies:
 - name: zookeeper
-  repository: https://kubernetes-charts-incubator.storage.googleapis.com/
-  version: ~2.1.0
-digest: sha256:6e11d882ccbe40be0c483bed1eb61a4cc85470ddc2a7b52e8fd0330d432b5622
-generated: "2020-05-19T13:29:27.098222-07:00"
+  repository: https://charts.bitnami.com/bitnami
+  version: 6.5.4
+digest: sha256:58887caf583ed996b79fd38c47155ac3257e23780df3b70134430a61cb725ba8
+generated: "2021-03-27T21:30:18.691467-07:00"

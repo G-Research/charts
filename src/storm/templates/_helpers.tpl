@@ -70,6 +70,10 @@ We truncate at 63 chars because some Kubernetes name fields are limited to this 
 {{- printf "%s-%s" (include "storm.fullname" .) $name | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 
+{{- define "storm.logging.name" -}}
+{{- printf "%s-logging" (include "storm.fullname" .) | trunc 63 | trimSuffix "-" -}}
+{{- end -}}
+
 {{/*
 Create a fully qualified zookeeper name.
 We truncate at 63 chars because some Kubernetes name fields are limited to this (by the DNS naming spec).
@@ -83,21 +87,56 @@ We truncate at 63 chars because some Kubernetes name fields are limited to this 
 {{- end -}}
 {{- end -}}
 
-{{- define "storm.logging.name" -}}
-{{- printf "%s-logging" (include "storm.fullname" .) | trunc 63 | trimSuffix "-" -}}
-{{- end -}}
-
 {{- define "storm.zookeeper.port" -}}
-{{- ternary .Values.zookeeper.service.ports.client.port (default 2181 .Values.zookeeper.port) .Values.zookeeper.enabled -}}
+{{- if .Values.zookeeper.enabled -}}
+    {{- $port := default 2181 .Values.zookeeper.service.port | toString -}}
+    {{- printf "%s" $port -}}
+{{- else -}}
+    {{- $port := default 2181 .Values.zookeeper.port | toString -}}
+    {{- printf "%s" $port  -}}
+{{- end -}}
 {{- end -}}
 
 {{- define "storm.zookeeper.config" -}}
 {{- $servers := list (include "storm.zookeeper.fullname" .) -}}
 {{- if not .Values.zookeeper.enabled -}}
 {{- $nullcheck := required "If not using the Storm chart's built-in Zookeeper (i.e. `.Values.zookeeper.enabled: false`), `.Values.zookeeper.servers` is required" .Values.zookeeper.servers -}}
-{{- $servers = .Values.zookeeper.servers -}}
+{{- $servers = list .Values.zookeeper.servers -}}
 {{- end -}}
 {{- dict "servers" $servers | toJson -}}
+{{- end -}}
+
+{{- define "storm.zookeeper.image.repository" -}}
+{{- if .Values.zookeeper.image -}}
+{{- if .Values.zookeeper.image.repository -}}
+    {{- $repo := default "bitnami/zookeeper" .Values.zookeeper.image.repository -}}
+    {{- printf "%s" $repo -}}
+{{- end -}}
+{{- else -}}
+    {{- printf "%s" "bitnami/zookeeper"  -}}
+{{- end -}}
+{{- end -}}
+
+{{- define "storm.zookeeper.image.tag" -}}
+{{- if .Values.zookeeper.image -}}
+{{- if .Values.zookeeper.image.tag -}}
+    {{- $tag := default "3.7.0" .Values.zookeeper.image.tag -}}
+    {{- printf "%s" $tag -}}
+{{- end -}}
+{{- else -}}
+    {{- printf "%s" "3.7.0"  -}}
+{{- end -}}
+{{- end -}}
+
+{{- define "storm.zookeeper.image.pullPolicy" -}}
+{{- if .Values.zookeeper.image -}}
+{{- if .Values.zookeeper.image.pullPolicy -}}
+    {{- $pullPolicy := default "IfNotPresent" .Values.zookeeper.image.pullPolicy -}}
+    {{- printf "%s" $pullPolicy -}}
+{{- end -}}
+{{- else -}}
+    {{- printf "%s" "IfNotPresent"  -}}
+{{- end -}}
 {{- end -}}
 
 {{- define "storm.nimbus.initCommand" -}}
