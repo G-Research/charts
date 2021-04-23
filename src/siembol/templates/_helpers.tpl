@@ -89,21 +89,14 @@ Create the name of the service account to use
 {{- end -}}
 
 {{/*
-Helps set the zookeeper url for the Kafka chart's Zookeeper
-*/}}
-{{- define "zookeeper.url" -}}
-{{- printf "%s-%s" .Release.Name "storm-zookeeper" | trunc 63 | trimSuffix "-" -}}
-{{- end -}}
-
-{{/*
-Helps set the nimbus name for the Storm chart
+Set the nimbus name for the Storm chart
 */}}
 {{- define "storm.nimbus.fullname" -}}
 {{- printf "%s-%s" .Release.Name "storm-nimbus" | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 
 {{/*
-Helps set the name for the Kafka chart
+Set the name for the Kafka chart
 */}}
 {{- define "kafka.fullname" -}}
 {{- printf "%s-%s" .Release.Name "kafka" | trunc 63 | trimSuffix "-" -}}
@@ -114,38 +107,43 @@ Create the config for the alerting Storm topology
 */}}
 {{- define "siembol.alerting.config" -}}
 {
+  "config_version": 1,
   "alerts.engine": "siembol_alerts",
-  "alerts.input.topic": "enrichments",
-  "alerts.correlation.output.topic": "correlation.alerts",
-  "kafka.error.topic": "errors",
+  "alerts.topology.name": "siembol-alerts",
+  "alerts.input.topics": [
+    "metron.indexing"
+  ],
+  "kafka.error.topic": "output",
   "alerts.output.topic": "alerts",
+  "alerts.correlation.output.topic": "correlation.alerts",
+  "kafka.producer.properties": {
+    "bootstrap.servers": "{{ template "kafka.fullname" . }}:9092",
+    "client.id": "siembol.writer"
+  },
+  "zookeeper.attributes": {
+    "zk.url": "{{- .Values.zookeeper.servers -}}",
+    "zk.path": "/siembol/alerting",
+    "zk.base.sleep.ms": 1000,
+    "zk.max.retries": 3
+  },
   "storm.attributes": {
     "bootstrap.servers": "{{ template "kafka.fullname" . }}:9092",
-    "first.pool.offset.strategy": "EARLIEST",
+    "first.pool.offset.strategy": "UNCOMMITTED_LATEST",
     "kafka.spout.properties": {
-      "group.id": "alerts.reader",
-      "security.protocol": "PLAINTEXT"
+      "session.timeout.ms": 300000,
+      "group.id": "siembol.reader"
     },
     "storm.config": {
-      "num.workers": 1,
+      "topology.workers": 1,
       "topology.message.timeout.secs": 50,
-      "max.spout.pending": 5000
+      "topology.worker.childopts": "",
+      "worker.childopts": "",
+      "max.spout.pending": 1000
     }
   },
   "kafka.spout.num.executors": 1,
   "alerts.engine.bolt.num.executors": 1,
-  "kafka.writer.bolt.num.executors": 1,
-  "kafka.producer.properties": {
-    "bootstrap.servers": "{{ template "kafka.fullname" . }}:9092",
-    "compression.type": "snappy",
-    "security.protocol": "PLAINTEXT",
-    "client.id": "test_producer"
-  },
-  "zookeeper.attributes": {
-    "zk.url": "{{ template "zookeeper.url" . }}",
-    "zk.path": "/siembol/alerting",
-    "zk.base.sleep.ms": 1000,
-    "zk.max.retries": 10
-  }
+  "kafka.writer.bolt.num.executors": 1
 }
+
 {{- end -}}

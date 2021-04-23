@@ -1,12 +1,15 @@
 dependencies:
 - name: storm
   repository: https://g-research.github.io/charts
-  version: 1.0.6
+  version: 1.0.8
 - name: kafka
   repository: https://charts.bitnami.com/bitnami
-  version: 12.13.1
+  version: 12.16.2
 - name: hdfs
   repository: https://gradiant.github.io/charts
   version: 0.1.10
-digest: sha256:b6982502208e25577ebabd1ca9082865b09503d0d113fc6593959425e2f9ce4f
-generated: "2021-03-24T16:37:50.280479-07:00"
+- name: zookeeper
+  repository: https://charts.bitnami.com/bitnami
+  version: 6.5.4
+digest: sha256:4090fabbc7d8c297c5d45d2394e5d5437f816257e885af154da415a87e36d396
+generated: "2021-04-22T14:57:37.46872-07:00"
