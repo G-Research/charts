@@ -95,8 +95,7 @@ entries:
   armada-executor-cluster-monitoring:
   - apiVersion: v1
     created: "2021-04-08T10:53:23.518913664Z"
-    description: A helm chart for monitoring metrics of a cluster managed by a armada-executor
-      component
+    description: A helm chart for monitoring metrics of a cluster managed by a armada-executor component
     digest: 455d89a61d48da538c8ebd7aab9e986ef6fcb700e2cb7cf775e9a3e3b66a83c1
     name: armada-executor-cluster-monitoring
     urls:
@@ -104,8 +103,7 @@ entries:
     version: v0.1.30
   - apiVersion: v1
     created: "2021-04-08T10:53:23.518700664Z"
-    description: A helm chart for monitoring metrics of a cluster managed by a armada-executor
-      component
+    description: A helm chart for monitoring metrics of a cluster managed by a armada-executor component
     digest: 0910b5d318e570b4c4071b23ba67aacfc8039c7499d65018d4804a09a2cde46c
     name: armada-executor-cluster-monitoring
     urls:
@@ -113,8 +111,7 @@ entries:
     version: v0.1.15
   - apiVersion: v1
     created: "2021-04-08T10:53:23.518513035Z"
-    description: A helm chart for monitoring metrics of a cluster managed by a armada-executor
-      component
+    description: A helm chart for monitoring metrics of a cluster managed by a armada-executor component
     digest: 1a82bd9d0c48767bd1981cf55f81383fce470d2881cdbc5e6dd0751cbc938c9a
     name: armada-executor-cluster-monitoring
     urls:
@@ -143,8 +140,7 @@ entries:
   executor-cluster-monitoring:
   - apiVersion: v1
     created: "2021-04-08T10:53:23.523269184Z"
-    description: A helm chart for monitoring metrics of a cluster managed by a armada-executor
-      component
+    description: A helm chart for monitoring metrics of a cluster managed by a armada-executor component
     digest: 80f9714d1692b830f3e879146ce17366967a7126fb305633e0bec3f66337b6fa
     name: executor-cluster-monitoring
     urls:
@@ -152,8 +148,7 @@ entries:
     version: v0.1.9
   - apiVersion: v1
     created: "2021-04-08T10:53:23.523094526Z"
-    description: A helm chart for monitoring metrics of a cluster managed by a armada-executor
-      component
+    description: A helm chart for monitoring metrics of a cluster managed by a armada-executor component
     digest: 704b4f8117d34a4bf392b87c679279b94e713f659136cb151e7eee6007165ac9
     name: executor-cluster-monitoring
     urls:
@@ -183,14 +178,41 @@ entries:
   storm:
   - apiVersion: v2
     appVersion: 1.2.3
+    created: "2021-04-25T11:37:53.377601-07:00"
+    dependencies:
+    - condition: zookeeper.enabled
+      name: zookeeper
+      repository: https://charts.bitnami.com/bitnami
+      version: ~6.5.2
+    description: Apache Storm is a free and open source distributed realtime computation system.
+    digest: e6484cd76e73d0e9b1f5dc08757a6bf6bdb965914e53d19736f128a48dabf263
+    home: http://storm.apache.org/
+    icon: http://storm.apache.org/images/logo.png
+    keywords:
+    - storm
+    - zookeeper
+    maintainers:
+    - email: jorwalk@gmail.com
+      name: jorwalk
+    - email: stackedsax@users.noreply.github.com
+      name: stackedsax
+    name: storm
+    sources:
+    - https://github.com/G-Research/charts/src/storm
+    - https://github.com/G-Research/charts/storm
+    - https://github.com/apache/storm
+    urls:
+    - storm/storm-1.0.9.tgz
+    version: 1.0.9
+  - apiVersion: v2
+    appVersion: 1.2.3
     created: "2021-04-08T10:53:23.54604577Z"
     dependencies:
     - condition: zookeeper.enabled
       name: zookeeper
       repository: https://charts.bitnami.com/bitnami
       version: ~6.5.2
-    description: Apache Storm is a free and open source distributed realtime computation
-      system.
+    description: Apache Storm is a free and open source distributed realtime computation system.
     digest: d0db4e68a4c67e4eddf5c7b8aecebe70380df3e862622516910268655c263fa6
     home: http://storm.apache.org/
     icon: http://storm.apache.org/images/logo.png
@@ -216,8 +238,7 @@ entries:
       name: zookeeper
       repository: https://kubernetes-charts-incubator.storage.googleapis.com/
       version: ~2.1.0
-    description: Apache Storm is a free and open source distributed realtime computation
-      system.
+    description: Apache Storm is a free and open source distributed realtime computation system.
     digest: 3b3422e965b51ef507efaf76cc03a62ee76d4c7c3d5bd604e291cc7b32ac5f3c
     home: http://storm.apache.org/
     icon: http://storm.apache.org/images/logo.png
@@ -243,8 +264,7 @@ entries:
       name: zookeeper
       repository: https://kubernetes-charts-incubator.storage.googleapis.com/
       version: ~2.1.0
-    description: Apache Storm is a free and open source distributed realtime computation
-      system.
+    description: Apache Storm is a free and open source distributed realtime computation system.
     digest: f1dc11da37ea2c05445620cd0659910396dc13adbfba72f1571b10852fccf588
     home: http://storm.apache.org/
     icon: http://storm.apache.org/images/logo.png
@@ -270,8 +290,7 @@ entries:
       name: zookeeper
       repository: https://kubernetes-charts-incubator.storage.googleapis.com/
       version: ~2.1.0
-    description: Apache Storm is a free and open source distributed realtime computation
-      system.
+    description: Apache Storm is a free and open source distributed realtime computation system.
     digest: 257412fcb5e80114520ed54afd4eac177f94a600d3eba8908c2cec7a42288329
     home: http://storm.apache.org/
     icon: http://storm.apache.org/images/logo.png
@@ -297,8 +316,7 @@ entries:
       name: zookeeper
       repository: https://kubernetes-charts-incubator.storage.googleapis.com/
       version: ~2.1.0
-    description: Apache Storm is a free and open source distributed realtime computation
-      system.
+    description: Apache Storm is a free and open source distributed realtime computation system.
     digest: 5480cced05a5feef9105ff04ee31ec4a78ad7daa96a1f1b40b6bc11ab27acd63
     home: http://storm.apache.org/
     icon: http://storm.apache.org/images/logo.png
@@ -324,8 +342,7 @@ entries:
       name: zookeeper
       repository: https://kubernetes-charts-incubator.storage.googleapis.com/
       version: ~2.1.0
-    description: Apache Storm is a free and open source distributed realtime computation
-      system.
+    description: Apache Storm is a free and open source distributed realtime computation system.
     digest: 36905fc7049e505e644bc75dbce11aed849170331210d831ab5dff1dfcb20c1c
     home: http://storm.apache.org/
     icon: http://storm.apache.org/images/logo.png
@@ -351,8 +368,7 @@ entries:
       name: zookeeper
       repository: https://kubernetes-charts-incubator.storage.googleapis.com/
       version: ~2.1.0
-    description: Apache Storm is a free and open source distributed realtime computation
-      system.
+    description: Apache Storm is a free and open source distributed realtime computation system.
     digest: 8093b19605ff4194be68f6ea082370fd658884df18f2e394b0a3c127983a3dad
     home: http://storm.apache.org/
     icon: http://storm.apache.org/images/logo.png
@@ -378,8 +394,7 @@ entries:
       name: zookeeper
       repository: https://kubernetes-charts-incubator.storage.googleapis.com/
       version: 0.5.0
-    description: Apache Storm is a free and open source distributed realtime computation
-      system.
+    description: Apache Storm is a free and open source distributed realtime computation system.
     digest: 6cd092912867f18340af472dcd1d430ad3e4b305efbddd44f13498b836db608b
     home: http://storm.apache.org/
     icon: http://storm.apache.org/images/logo.png
@@ -405,8 +420,7 @@ entries:
       name: zookeeper
       repository: https://kubernetes-charts-incubator.storage.googleapis.com/
       version: 0.5.0
-    description: Apache Storm is a free and open source distributed realtime computation
-      system.
+    description: Apache Storm is a free and open source distributed realtime computation system.
     digest: 29ef0e0ca8b74dbe80afca38e06e7770c78048ce64855b04854f821d866eb9d0
     home: http://storm.apache.org/
     icon: http://storm.apache.org/images/logo.png
@@ -424,4 +438,4 @@ entries:
     urls:
     - storm/storm-1.0.0.tgz
     version: 1.0.0
-generated: "2021-04-08T10:53:23.516826948Z"
+generated: "2021-04-25T11:37:53.372607-07:00"

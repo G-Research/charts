@@ -97,13 +97,13 @@ We truncate at 63 chars because some Kubernetes name fields are limited to this 
 {{- end -}}
 {{- end -}}
 
-{{- define "storm.zookeeper.config" -}}
-{{- $servers := list (include "storm.zookeeper.fullname" .) -}}
-{{- if not .Values.zookeeper.enabled -}}
+{{- define "storm.zookeeper.serverlist.yaml" -}}
+{{- if .Values.zookeeper.enabled -}}
+{{- printf "- \"%s\"" (include "storm.zookeeper.fullname" . ) -}}
+{{- else -}}
 {{- $nullcheck := required "If not using the Storm chart's built-in Zookeeper (i.e. `.Values.zookeeper.enabled: false`), `.Values.zookeeper.servers` is required" .Values.zookeeper.servers -}}
-{{- $servers = list .Values.zookeeper.servers -}}
+{{- tpl (.Values.zookeeper.servers | toYaml) $ -}}
 {{- end -}}
-{{- dict "servers" $servers | toJson -}}
 {{- end -}}
 
 {{- define "storm.zookeeper.image.repository" -}}
@@ -140,10 +140,10 @@ We truncate at 63 chars because some Kubernetes name fields are limited to this 
 {{- end -}}
 
 {{- define "storm.nimbus.initCommand" -}}
-{{- $servers := get ((include "storm.zookeeper.config" .) | fromJson) "servers" -}}
+{{- $servers := ternary (list (include "storm.zookeeper.fullname" $ ))  .Values.zookeeper.servers .Values.zookeeper.enabled }}
 {{- $checks := list -}}
 {{- range $server := $servers -}}
-{{- $checks = append $checks (printf "zkCli.sh -server %s:%s ls /" $server (include "storm.zookeeper.port" $)) -}}
+{{- $checks = append $checks (printf "zkCli.sh -server %s:%s ls /" (tpl $server $) (include "storm.zookeeper.port" $)) -}}
 {{- end -}}
 {{- $checkCommand := join " || " $checks -}}
 {{- printf "until %s; do echo waiting for %v; sleep 10; done" $checkCommand $servers -}}
