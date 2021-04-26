@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: {{ .Values.manager.appName }} 
+  name: {{ include "siembol.manager.appname.fullname" $ }} 
 data:
   application.properties: |-
 {{ .Files.Get .Values.manager.applicationProperties | indent 4 }}

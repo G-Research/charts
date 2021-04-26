@@ -2,7 +2,7 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: {{ .Values.ui.serviceName }}
+  name: {{ include "siembol.ui.fullname" $ }}
   annotations:
     cert-manager.io/issuer: ca-issuer
 spec:
@@ -13,7 +13,7 @@ spec:
     - {{ .Values.rest.ingress.hostname }}
     - {{ .Values.manager.ingress.hostname }}
     - {{ .Values.storm.ingress.hostname }}
-    secretName: {{ .Values.ui.serviceName }}-tls
+    secretName: {{ include "siembol.ui.fullname" $ }}-tls
   {{ end }}
   rules:
   - host: {{ .Values.ui.ingress.hostname }}
@@ -23,7 +23,7 @@ spec:
         pathType: Prefix
         backend:
           service:
-            name: {{ .Values.ui.serviceName }}
+            name: {{ include "siembol.ui.fullname" $ }}
             port: 
               number: 8080
   - host: {{ .Values.rest.ingress.hostname }}
@@ -33,7 +33,7 @@ spec:
         pathType: Prefix
         backend:
           service:
-            name: {{ .Values.rest.appName }}
+            name: {{ include "siembol.rest.fullname" $ }}
             port: 
               number: 8081
   - host: {{ .Values.manager.ingress.hostname }}
@@ -43,7 +43,7 @@ spec:
         pathType: Prefix
         backend:
           service:
-            name: {{ .Values.manager.appName }}
+            name: {{ include "siembol.manager.appname.fullname" $ }}
             port: 
               number: 8082
   - host: {{ .Values.storm.ingress.hostname }}

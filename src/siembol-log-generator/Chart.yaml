@@ -16,6 +16,7 @@ keywords:
 home: https://github.com/G-Research/charts
 sources:
 - https://github.com/G-Research/siembol
+- https://github.com/G-Research/charts/src/siembol
 - https://github.com/G-Research/charts/siembol
 maintainers:
 - name: stackedsax

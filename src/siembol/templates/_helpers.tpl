@@ -31,27 +31,61 @@ Create chart name and version as used by the chart label.
 {{- printf "%s-%s" .Chart.Name .Chart.Version | replace "+" "_" | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 
+{{/*
+Create a fully qualified config editor ui fullname.
+We truncate at 63 chars because some Kubernetes name fields are limited to this (by the DNS naming spec).
+*/}}
+{{- define "siembol.ui.fullname" -}}
+{{- $name := default .Chart.Name .Values.ui.appName -}}
+{{- printf "%s-%s" (include "siembol.fullname" .) $name | trunc 63 | trimSuffix "-" -}}
+{{- end -}}
+
+{{/*
+Create a fully qualified config editor rest fullname.
+We truncate at 63 chars because some Kubernetes name fields are limited to this (by the DNS naming spec).
+*/}}
+{{- define "siembol.rest.fullname" -}}
+{{- $name := default .Chart.Name .Values.rest.appName -}}
+{{- printf "%s-%s" (include "siembol.fullname" .) $name | trunc 63 | trimSuffix "-" -}}
+{{- end -}}
+
+{{/*
+Create a fully qualified Service Account and App fullname for the Topology Manager.
+We truncate at 63 chars because some Kubernetes name fields are limited to this (by the DNS naming spec).
+*/}}
+{{- define "siembol.manager.serviceaccount.fullname" -}}
+{{- $name := default .Chart.Name .Values.manager.serviceAccount -}}
+{{- printf "%s-%s" (include "siembol.fullname" .) $name | trunc 63 | trimSuffix "-" -}}
+{{- end -}}
+
+{{- define "siembol.manager.appname.fullname" -}}
+{{- $name := default .Chart.Name .Values.manager.appName -}}
+{{- printf "%s-%s" (include "siembol.fullname" .) $name | trunc 63 | trimSuffix "-" -}}
+{{- end -}}
+
+{{/*
+Create a fully qualified alerting deploy topology name and fullname.
+We truncate at 63 chars because some Kubernetes name fields are limited to this (by the DNS naming spec).
+*/}}
+
 {{- define "siembol.alerting.deploy.topology.name" -}}
 {{- printf "%s-%s" (include "siembol.name" .) .Values.alerting.deploy.topology.name | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 
-{{/*
-Create a fully qualified alerting deploy topology name.
-We truncate at 63 chars because some Kubernetes name fields are limited to this (by the DNS naming spec).
-*/}}
 {{- define "siembol.alerting.deploy.topology.fullname" -}}
 {{- $name := default .Chart.Name .Values.alerting.deploy.topology.name -}}
 {{- printf "%s-%s" (include "siembol.fullname" .) $name | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 
+{{/*
+Create a fully qualified alerting deploy rules name and fullname.
+We truncate at 63 chars because some Kubernetes name fields are limited to this (by the DNS naming spec).
+*/}}
+
 {{- define "siembol.alerting.deploy.rules.name" -}}
 {{- printf "%s-%s" (include "siembol.name" .) .Values.alerting.deploy.rules.name | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 
-{{/*
-Create a fully qualified alerting deploy rules name.
-We truncate at 63 chars because some Kubernetes name fields are limited to this (by the DNS naming spec).
-*/}}
 {{- define "siembol.alerting.deploy.rules.fullname" -}}
 {{- $name := default .Chart.Name .Values.alerting.deploy.rules.name -}}
 {{- printf "%s-%s" (include "siembol.fullname" .) $name | trunc 63 | trimSuffix "-" -}}
@@ -96,6 +130,19 @@ Set the nimbus name for the Storm chart
 {{- end -}}
 
 {{/*
+Set the ZooKeeper server for the siembol chart
+*/}}
+
+{{- define "siembol.zookeeper.server" -}}
+{{- if .Values.zookeeper.enabled -}}
+{{- printf "%s-%s" .Release.Name "zookeeper" | trunc 63 | trimSuffix "-" -}}
+{{- else -}}
+{{- $nullcheck := required "If not using the siembol chart's built-in Zookeeper (i.e. `.Values.zookeeper.enabled: false`), `.Values.zookeeper.servers` is required" .Values.zookeeper.servers -}}
+{{- tpl (.Values.zookeeper.servers | toYaml) $ -}}
+{{- end -}}
+{{- end -}}
+
+{{/*
 Set the name for the Kafka chart
 */}}
 {{- define "kafka.fullname" -}}
@@ -121,7 +168,7 @@ Create the config for the alerting Storm topology
     "client.id": "siembol.writer"
   },
   "zookeeper.attributes": {
-    "zk.url": "{{- .Values.zookeeper.servers -}}",
+    "zk.url": "{{- include "siembol.zookeeper.server" $ -}}",
     "zk.path": "/siembol/alerting",
     "zk.base.sleep.ms": 1000,
     "zk.max.retries": 3

@@ -2,13 +2,13 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    app: {{ .Values.ui.serviceName }}
-  name: {{ .Values.ui.serviceName }}
+    app: {{ include "siembol.ui.fullname" $ }}
+  name: {{ include "siembol.ui.fullname" $ }}
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: {{ .Values.ui.serviceName }}
+      app: {{ include "siembol.ui.fullname" $ }}
   strategy:
     rollingUpdate:
       maxSurge: 1
@@ -17,13 +17,13 @@ spec:
   template:
     metadata:
       labels:
-        app: {{ .Values.ui.serviceName }}
-      name: {{ .Values.ui.serviceName }}
+        app: {{ include "siembol.ui.fullname" $ }}
+      name: {{ include "siembol.ui.fullname" $ }}
     spec:
       containers:
       - image: "{{ .Values.ui.image.repository }}:{{ .Values.ui.image.tag }}"
         imagePullPolicy: {{ default "IfNotPresent" .Values.ui.imagePullPolicy | quote }}
-        name: {{ .Values.ui.serviceName }}
+        name: {{ include "siembol.ui.fullname" $ }}
         securityContext:
           runAsUser: 101
         ports:

@@ -2,13 +2,13 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    app: {{ .Values.rest.appName }}
-  name: {{ .Values.rest.appName }}
+    app: {{ include "siembol.rest.fullname" $ }}
+  name: {{ include "siembol.rest.fullname" $ }}
 spec:
   replicas: 1 
   selector:
     matchLabels:
-      app: {{ .Values.rest.appName }}
+      app: {{ include "siembol.rest.fullname" $ }}
   strategy:
     rollingUpdate:
       maxSurge: 1
@@ -17,14 +17,14 @@ spec:
   template:
     metadata:
       labels:
-        app: {{ .Values.rest.appName}}
-      name: {{ .Values.rest.appName }}
+        app: {{ include "siembol.rest.fullname" $}}
+      name: {{ include "siembol.rest.fullname" $ }}
     spec:
       containers:
       - image: {{ .Values.rest.image.repository }}:{{ .Values.rest.image.tag }}
         workingDir: {{ .Values.rest.mountPath }}
         imagePullPolicy: {{ default "IfNotPresent" .Values.rest.imagePullPolicy | quote }}
-        name: {{ .Values.rest.appName }}
+        name: {{ include "siembol.rest.fullname" $ }}
         ports:
           - containerPort: 8081
         resources:
@@ -58,7 +58,7 @@ spec:
         - name: GIT_PSWD
           valueFrom:
             secretKeyRef:
-              name: {{ .Values.rest.appName }}-secrets
+              name: {{ include "siembol.rest.fullname" $ }}-secrets
               key: git
         volumeMounts:
         {{ if .Values.tls.enabled -}}
@@ -67,11 +67,11 @@ spec:
           subPath: cacerts
           readOnly: true        
         {{ end -}}
-        - name: {{ .Values.rest.appName }}
+        - name: {{ include "siembol.rest.fullname" $ }}
           mountPath: /etc/gitconfig
           subPath: gitconfig 
           readOnly: true
-        - name: {{ .Values.rest.appName }}
+        - name: {{ include "siembol.rest.fullname" $ }}
           mountPath: {{ .Values.rest.mountPath }}/application.properties
           subPath: application.properties
           readOnly: true
@@ -83,9 +83,9 @@ spec:
         secret:
           secretName: cacerts
       {{- end }}
-      - name: {{ .Values.rest.appName }}
+      - name: {{ include "siembol.rest.fullname" $ }}
         configMap:
-          name: {{ .Values.rest.appName }}
+          name: {{ include "siembol.rest.fullname" $ }}
           items:
           - key: application.properties
             path: application.properties

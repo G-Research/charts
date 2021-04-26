@@ -1,12 +1,12 @@
 kind: Service
 apiVersion: v1
 metadata:
-  name: {{ .Values.rest.appName }}
+  name: {{ include "siembol.rest.fullname" $ }}
   labels:
     metrics: "true"
 spec:
   selector:
-    app: {{ .Values.rest.appName }}
+    app: {{ include "siembol.rest.fullname" $ }}
   ports:
   - protocol: TCP
     port: 8081

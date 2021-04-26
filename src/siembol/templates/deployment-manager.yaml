@@ -2,13 +2,13 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    app: {{ .Values.manager.appName }}
-  name: {{ .Values.manager.appName }}
+    app: {{ include "siembol.manager.appname.fullname" $ }}
+  name: {{ include "siembol.manager.appname.fullname" $ }}
 spec:
   replicas: 1 
   selector:
     matchLabels:
-      app: {{ .Values.manager.appName }}
+      app: {{ include "siembol.manager.appname.fullname" $ }}
   strategy:
     rollingUpdate:
       maxSurge: 1
@@ -17,15 +17,15 @@ spec:
   template:
     metadata:
       labels:
-        app: {{ .Values.manager.appName}}
-      name: {{ .Values.manager.appName }}
+        app: {{ include "siembol.manager.appname.fullname" $ }}
+      name: {{ include "siembol.manager.appname.fullname" $ }}
     spec:
-      serviceAccountName: {{ .Values.manager.serviceAccount }}
+      serviceAccountName: {{ include "siembol.manager.serviceaccount.fullname" $ }}
       containers:
       - image: {{ .Values.manager.image.repository }}:{{ .Values.manager.image.tag }}
         workingDir: {{ .Values.manager.mountPath }}
         imagePullPolicy: {{ default "IfNotPresent" .Values.manager.imagePullPolicy | quote }}
-        name: {{ .Values.manager.appName }}
+        name: {{ include "siembol.manager.appname.fullname" $ }}
         ports:
           - containerPort: 8082
         resources:
@@ -52,16 +52,16 @@ spec:
         #   initialDelaySeconds: 30
         #   periodSeconds: 10
         volumeMounts:
-        - name: {{ .Values.manager.appName }}
+        - name: {{ include "siembol.manager.appname.fullname" $ }}
           mountPath: {{ .Values.manager.mountPath }}/application.properties
           subPath: application.properties
           readOnly: true
-        - name: {{ .Values.manager.appName }}
+        - name: {{ include "siembol.manager.appname.fullname" $ }}
           mountPath: {{ .Values.manager.mountPath }}/storm-submit.yaml
           subPath: storm-submit.yaml
           readOnly: true
       volumes:
-      - name: {{ .Values.manager.appName }}
+      - name: {{ include "siembol.manager.appname.fullname" $ }}
         configMap:
-          name: {{ .Values.manager.appName }}
+          name: {{ include "siembol.manager.appname.fullname" $ }}
       terminationGracePeriodSeconds: 300
