@@ -7,6 +7,8 @@ metadata:
     release: {{ .Release.Name }}
     heritage: {{ .Release.Service }}
 spec:
+  type: ClusterIP
+  clusterIP: None
   ports:
   - port: {{ .Values.supervisor.service.port }}
     name: {{ .Values.supervisor.service.name }}

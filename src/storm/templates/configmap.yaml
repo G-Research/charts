@@ -14,11 +14,11 @@ data:
 {{ include "storm.zookeeper.serverlist.yaml" $ | indent 6 }}
     storm.zookeeper.port: {{ include "storm.zookeeper.port" $ }}
     nimbus.seeds:
-      - {{ include "storm.nimbus.fullname" $ }}
+    - {{ include "storm.nimbus.fullname" $ }}
     nimbus.thrift.port: {{ $.Values.nimbus.service.port }}
     storm.log4j2.conf.dir: /log4j2
-    storm.local.hostname: {{ $fullname }}
-
+    storm.local.dir: /data
+    storm.log.dir: /logs
 ---
 {{- end }}
 apiVersion: v1
