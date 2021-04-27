@@ -7,6 +7,23 @@ metadata:
     release: {{ .Release.Name }}
     heritage: {{ .Release.Service }}
 spec:
+  type:  {{ .Values.supervisor.service.type }}
+  ports:
+  - port: {{ .Values.supervisor.service.port }}
+    name: {{ .Values.supervisor.service.name }}
+  selector:
+    app: {{ template "storm.supervisor.name" . }}
+    release: {{ .Release.Name }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ template "storm.supervisor.fullname" . }}-headless
+  labels:
+    chart: {{ template "storm.chart" . }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+spec:
   type: ClusterIP
   clusterIP: None
   ports:
