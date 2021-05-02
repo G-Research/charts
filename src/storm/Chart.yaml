@@ -9,10 +9,9 @@ keywords:
 - storm
 - zookeeper
 maintainers:
-- email: jorwalk@gmail.com
-  name: jorwalk
-- email: stackedsax@users.noreply.github.com
-  name: stackedsax
+- name: stackedsax
+- name: of13tch
+- name: jgiannuzzi
 name: storm
 sources:
 - https://github.com/G-Research/charts/src/storm
