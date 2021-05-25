@@ -1,41 +1,26 @@
+{{- range $name := tuple "nimbus" "supervisor" "ui" }}
+{{- $fullname := include (print "storm." $name ".fullname") $ -}}
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: {{ template "storm.nimbus.fullname" . }}
+  name: {{ $fullname }}
   labels:
-    chart: {{ template "storm.chart" . }}
-    release: {{ .Release.Name }}
-    heritage: {{ .Release.Service }}
+    chart: {{ template "storm.chart" $ }}
+    release: {{ $.Release.Name }}
+    heritage: {{ $.Release.Service }}
 data:
   storm.yaml: |-
-    ########### These MUST be filled in for a storm configuration
-    storm.zookeeper.servers: 
-      {{- template "storm.zookeeper.configmap.servers" . }}
+    storm.zookeeper.servers:
+{{ include "storm.zookeeper.serverlist.yaml" $ | indent 6 }}
+    storm.zookeeper.port: {{ include "storm.zookeeper.port" $ }}
     nimbus.seeds:
-      - {{ template "storm.nimbus.fullname" . }}
-    storm.local.hostname: {{ template "storm.nimbus.fullname" . }}
-    storm.log4j2.conf.dir: "/log4j2"
+      - {{ include "storm.nimbus.fullname" $ }}
+    nimbus.thrift.port: {{ $.Values.nimbus.service.port }}
+    storm.log4j2.conf.dir: /log4j2
+    storm.local.hostname: {{ $fullname }}
 
 ---
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: {{ template "storm.supervisor.fullname" . }}
-  labels:
-    chart: {{ template "storm.chart" . }}
-    release: {{ .Release.Name }}
-    heritage: {{ .Release.Service }}
-data:
-  storm.yaml: |-
-    ########### These MUST be filled in for a storm configuration
-    storm.zookeeper.servers: 
-    {{- template "storm.zookeeper.configmap.servers" . }}
-    nimbus.seeds:
-      - {{ template "storm.nimbus.fullname" . }}
-    storm.local.hostname: {{ template "storm.supervisor.fullname" . }}
-    storm.log4j2.conf.dir: "/log4j2"
-
----
+{{- end }}
 apiVersion: v1
 kind: ConfigMap
 metadata:
@@ -50,22 +35,3 @@ data:
   {{ . }}: |-
 {{ $files.Get . | indent 4 }}
   {{- end }}
-
----
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: {{ template "storm.ui.fullname" . }}
-  labels:
-    chart: {{ template "storm.chart" . }}
-    release: {{ .Release.Name }}
-    heritage: {{ .Release.Service }}
-data:
-  storm.yaml: |-
-    ########### These MUST be filled in for a storm configuration
-    storm.zookeeper.servers: 
-      {{- template "storm.zookeeper.configmap.servers" . }}
-    nimbus.seeds:
-      - {{ template "storm.nimbus.fullname" . }}
-    storm.local.hostname: {{ template "storm.ui.fullname" . }}
-    storm.log4j2.conf.dir: "/log4j2"

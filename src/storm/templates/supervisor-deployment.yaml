@@ -21,8 +21,12 @@ spec:
     spec:
       initContainers:
       - name: init-{{ template "storm.nimbus.fullname" . }}
-        image: busybox
-        command: ["sh", "-c", "until nc -w10 {{ template "storm.nimbus.fullname" . }} 6627 </dev/null; do echo waiting for {{ template "storm.nimbus.fullname" . }}; sleep 10; done"]
+        image: "{{ .Values.supervisor.image.repository }}:{{ .Values.supervisor.image.tag }}"
+        imagePullPolicy: {{ .Values.supervisor.image.pullPolicy }}
+        command: ["sh", "-c", "until storm list; do echo waiting for {{ template "storm.nimbus.fullname" . }}; sleep 10; done"]
+        volumeMounts:
+          - mountPath: "/conf"
+            name: storm-configmap
       containers:
       - name: {{ .Values.supervisor.service.name }}
         image: "{{ .Values.supervisor.image.repository }}:{{ .Values.supervisor.image.tag }}"

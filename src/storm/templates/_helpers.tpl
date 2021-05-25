@@ -70,6 +70,10 @@ We truncate at 63 chars because some Kubernetes name fields are limited to this 
 {{- printf "%s-%s" (include "storm.fullname" .) $name | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 
+{{- define "storm.logging.name" -}}
+{{- printf "%s-logging" (include "storm.fullname" .) | trunc 63 | trimSuffix "-" -}}
+{{- end -}}
+
 {{/*
 Create a fully qualified zookeeper name.
 We truncate at 63 chars because some Kubernetes name fields are limited to this (by the DNS naming spec).
@@ -83,45 +87,64 @@ We truncate at 63 chars because some Kubernetes name fields are limited to this 
 {{- end -}}
 {{- end -}}
 
-{{- define "storm.zookeeper.client.port" -}}
-{{- default 2181 .Values.zookeeper.service.ports.client.port -}}
-{{- end -}}
-
-{{- define "storm.logging.name" -}}
-{{- printf "%s-logging" (include "storm.fullname" .) | trunc 63 | trimSuffix "-" -}}
-{{- end -}}
-
-# TODO: There must be a better way than duplicating this block twice.
-{{- define "storm.zookeeper.configmap.servers" -}}
+{{- define "storm.zookeeper.port" -}}
 {{- if .Values.zookeeper.enabled -}}
-{{- range until (int .Values.zookeeper.replicaCount) }}
-{{- $target := printf "%s-%d.%s-headless" (include "storm.zookeeper.fullname" $) . (include "storm.zookeeper.fullname" $) }}
-{{ printf "- %s" $target | indent 6 }}
+    {{- $port := default 2181 .Values.zookeeper.service.port | toString -}}
+    {{- printf "%s" $port -}}
+{{- else -}}
+    {{- $port := default 2181 .Values.zookeeper.port | toString -}}
+    {{- printf "%s" $port  -}}
+{{- end -}}
+{{- end -}}
+
+{{- define "storm.zookeeper.serverlist.yaml" -}}
+{{- if .Values.zookeeper.enabled -}}
+{{- printf "- \"%s\"" (include "storm.zookeeper.fullname" . ) -}}
+{{- else -}}
+{{- $nullcheck := required "If not using the Storm chart's built-in Zookeeper (i.e. `.Values.zookeeper.enabled: false`), `.Values.zookeeper.servers` is required" .Values.zookeeper.servers -}}
+{{- tpl (.Values.zookeeper.servers | toYaml) $ -}}
+{{- end -}}
+{{- end -}}
+
+{{- define "storm.zookeeper.image.repository" -}}
+{{- if .Values.zookeeper.image -}}
+{{- if .Values.zookeeper.image.repository -}}
+    {{- $repo := default "bitnami/zookeeper" .Values.zookeeper.image.repository -}}
+    {{- printf "%s" $repo -}}
 {{- end -}}
 {{- else -}}
-{{- $nullcheck := required "If not using the internal zookeeper, '.Values.zookeeper.servers' needs to be specified" .Values.zookeeper.servers -}}
-{{- range $server := .Values.zookeeper.servers }}
-{{ printf "- %s" . | indent 6 }}
-{{- end }}
-{{- end }}
-{{- end }}
+    {{- printf "%s" "bitnami/zookeeper"  -}}
+{{- end -}}
+{{- end -}}
 
-# TODO: There must be a better way than duplicating this block twice.
-{{- define "storm.nimbus.zookeeper.initContiners"}}
-{{- if .Values.zookeeper.enabled -}}
-{{- range until (int .Values.zookeeper.replicaCount) }}
-{{- $target := printf "%s-%d.%s-headless %s" (include "storm.zookeeper.fullname" $) . (include "storm.zookeeper.fullname" $) (include "storm.zookeeper.client.port" $) }}
-      - name: init-zookeeper-{{ . }}
-        image: busybox
-        command: ["sh", "-c", "until nc -w10 {{ $target }} </dev/null; do echo waiting for {{ $target }}; sleep 10; done"]
-{{- end }}
+{{- define "storm.zookeeper.image.tag" -}}
+{{- if .Values.zookeeper.image -}}
+{{- if .Values.zookeeper.image.tag -}}
+    {{- $tag := default "3.7.0" .Values.zookeeper.image.tag -}}
+    {{- printf "%s" $tag -}}
+{{- end -}}
 {{- else -}}
-{{- $nullcheck := required "If not using the internal zookeeper, '.Values.zookeeper.servers' needs to be specified" .Values.zookeeper.servers -}}
-{{- range $index, $server := .Values.zookeeper.servers }}
-{{- $target := printf "%s %s" $server (include "storm.zookeeper.client.port" $) }}
-      - name: init-zookeeper-{{ $index }}
-        image: busybox
-        command: ["sh", "-c", "until nc -w10 {{ $target }} </dev/null; do echo waiting for {{ $target }}; sleep 10; done"]
-{{- end }}
-{{- end }}
-{{- end }}
+    {{- printf "%s" "3.7.0"  -}}
+{{- end -}}
+{{- end -}}
+
+{{- define "storm.zookeeper.image.pullPolicy" -}}
+{{- if .Values.zookeeper.image -}}
+{{- if .Values.zookeeper.image.pullPolicy -}}
+    {{- $pullPolicy := default "IfNotPresent" .Values.zookeeper.image.pullPolicy -}}
+    {{- printf "%s" $pullPolicy -}}
+{{- end -}}
+{{- else -}}
+    {{- printf "%s" "IfNotPresent"  -}}
+{{- end -}}
+{{- end -}}
+
+{{- define "storm.nimbus.initCommand" -}}
+{{- $servers := ternary (list (include "storm.zookeeper.fullname" $ ))  .Values.zookeeper.servers .Values.zookeeper.enabled }}
+{{- $checks := list -}}
+{{- range $server := $servers -}}
+{{- $checks = append $checks (printf "zkCli.sh -server %s:%s ls /" (tpl $server $) (include "storm.zookeeper.port" $)) -}}
+{{- end -}}
+{{- $checkCommand := join " || " $checks -}}
+{{- printf "until %s; do echo waiting for %v; sleep 10; done" $checkCommand $servers -}}
+{{- end -}}
