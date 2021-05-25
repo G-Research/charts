@@ -1,7 +1,7 @@
 dependencies:
 - name: storm
   repository: https://g-research.github.io/charts
-  version: 1.0.8
+  version: 1.0.9
 - name: kafka
   repository: https://charts.bitnami.com/bitnami
   version: 12.16.2
@@ -11,5 +11,5 @@ dependencies:
 - name: zookeeper
   repository: https://charts.bitnami.com/bitnami
   version: 6.5.4
-digest: sha256:4090fabbc7d8c297c5d45d2394e5d5437f816257e885af154da415a87e36d396
-generated: "2021-04-22T14:57:37.46872-07:00"
+digest: sha256:95360a2bb6f63d4d30b72399d8bfc2a71e0c7632ac6b0f5b545b5eaed5006072
+generated: "2021-05-24T21:25:00.561082-07:00"

@@ -3,8 +3,8 @@ apiVersion: v2
 description: siembol is a security analytics framework akin to projects like Apache Metron
 name: siembol
 type: application
-version: 0.1.0
-#appVersion: 0.0.1
+version: 0.1.1
+
 keywords:
 - kafka
 - zookeeper
@@ -20,10 +20,8 @@ sources:
 - https://github.com/G-Research/charts/siembol
 maintainers:
 - name: stackedsax
-  email: alex.scammon@ext.gresearch.co.uk
-- name: generalfuzz
-  email: headphonejames@gmail.com
-#icon: https://kafka.apache.org/images/logo.png
+- name: of13tch
+- name: jgiannuzzi
 
 dependencies:
 - name: storm
@@ -39,9 +37,6 @@ dependencies:
   version: ~6.5.2
   repository: https://charts.bitnami.com/bitnami
   condition: zookeeper.enabled
-
-
-### From scaffold helm chart
 
 replicaCount: 1
 
