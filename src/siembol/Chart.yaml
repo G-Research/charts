@@ -1,15 +1,13 @@
 # Chart for siembol
 apiVersion: v2
-description: siembol is a security analytics framework akin to projects like Apache Metron
+description: Siembol is an open-source, real-time Security Information & Event Management tool based on big data technologies, providing a scalable, advanced security analytics framework
 name: siembol
 type: application
-version: 0.1.1
-
+version: 0.1.2
 keywords:
 - kafka
 - zookeeper
 - storm
-- gitlab
 - hdfs
 - security
 - metron
