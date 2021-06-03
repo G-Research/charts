@@ -177,6 +177,45 @@ entries:
     version: 0.1.0
   siembol:
   - apiVersion: v2
+    created: "2021-06-03T13:11:14.638257-07:00"
+    dependencies:
+    - name: storm
+      repository: https://g-research.github.io/charts
+      version: ~1.0.8
+    - name: kafka
+      repository: https://charts.bitnami.com/bitnami
+      version: ~12.16.0
+    - name: hdfs
+      repository: https://gradiant.github.io/charts
+      version: ~0.1.10
+    - condition: zookeeper.enabled
+      name: zookeeper
+      repository: https://charts.bitnami.com/bitnami
+      version: ~6.5.2
+    description: Siembol is an open-source, real-time Security Information & Event Management tool based on big data technologies, providing a scalable, advanced security analytics framework
+    digest: 94c20f21682701eadcd855f47d8763e03165d61dd40c14544177ed85bbe7c399
+    home: https://github.com/G-Research/charts
+    keywords:
+    - kafka
+    - zookeeper
+    - storm
+    - hdfs
+    - security
+    - metron
+    maintainers:
+    - name: stackedsax
+    - name: of13tch
+    - name: jgiannuzzi
+    name: siembol
+    sources:
+    - https://github.com/G-Research/siembol
+    - https://github.com/G-Research/charts/src/siembol
+    - https://github.com/G-Research/charts/siembol
+    type: application
+    urls:
+    - siembol-0.1.2.tgz
+    version: 0.1.2
+  - apiVersion: v2
     created: "2021-05-24T21:29:35.83466-07:00"
     dependencies:
     - name: storm
@@ -520,4 +559,4 @@ entries:
     urls:
     - storm/storm-1.0.0.tgz
     version: 1.0.0
-generated: "2021-05-24T21:29:35.796731-07:00"
+generated: "2021-06-03T13:11:14.618872-07:00"
