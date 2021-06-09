@@ -1,0 +1,63 @@
+
+name: publish-storm
+
+on: 
+  push:
+    paths:
+      - 'storm/**'
+    tags:
+      - '*'
+
+jobs:
+
+  publish-charts:
+    name: Publish charts
+    if: ${{ startsWith(github.ref, 'refs/tags/') }} # Storm charts are publishied without `v` in front of version
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Install Step
+        env: 
+          VERSION: 0.15.16
+        run: |
+          curl -sLO https://github.com/smallstep/cli/releases/download/v${VERSION}/step-cli_${VERSION}_amd64.deb
+          sudo dpkg -i step-cli_${VERSION}_amd64.deb
+          rm step-cli_${VERSION}_amd64.deb
+
+      - name: Acquire access token
+        id: token
+        env: 
+          APP_ID: ${{ secrets.APP_ID }}
+          APP_PEM: ${{ secrets.GH_APP_PEM }}
+          INSTALLATION_ID: ${{ secrets.INSTALLATION_ID }}
+        run: |
+          echo "$APP_PEM" > key.pem
+          trap "rm -f key.pem" EXIT
+          APP_TOKEN=$(step crypto jwt sign --key key.pem --issuer $APP_ID --expiration $(date --date '+5 min' +'%s') --subtle </dev/null)
+          ACCESS_TOKEN=$(curl -s -X POST -H "Accept: application/vnd.github.v3+json" -H "Authorization:Bearer $APP_TOKEN" https://api.github.com/app/installations/$INSTALLATION_ID/access_tokens | jq -r '.token')
+          echo "::set-output name=token::$ACCESS_TOKEN"
+
+      - name: Publish chart
+        env: 
+          GITHUB_TOKEN: ${{ steps.token.outputs.token }}
+          GH_WORKFLOW: "publish-charts.yaml" # workflow to execute 
+          GH_CHART_REPO: "ljubon/charts" # owner/repo where charts are published 
+          GH_PAGES_BRANCH: "WIP-refactor-gh-pages" # gh-pages
+          REPO: "ljubon/charts" # Repository from where we want to build Charts
+          REPO_REF: ${GITHUB_REF##*/} # The branch/tag that triggered the workflow
+          CurrentChartVersion: "1.0.11" # Chart version set in `Chart.yaml`. Default: `LATEST`
+          REPO_CHART: |
+            '{
+              "include": [
+                {
+                  "chart": "storm",
+                  "src_path": "storm/",
+                  "dst_path": "storm/"
+                }
+              ]
+            }'
+        run: |
+          gh workflow run ${{ env.GH_WORKFLOW }} --repo ${{ env.GH_CHART_REPO }} --ref ${{ env.GH_PAGES_BRANCH }} \
+            --field repo=${{ env.REPO }} \
+            --field repo_ref=${{ env.REPO_REF }} \
+            --field currentChartVersion=${{ env.CurrentChartVersion }} \
+            --field repo_chart=${{ env.REPO_CHART }}
