@@ -1,0 +1,98 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ template "storm.supervisor.fullname" . }}
+  labels:
+    app: {{ template "storm.supervisor.name" . }}
+    chart: {{ template "storm.chart" . }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+  namespace: {{ template "storm.namespace" . }}
+spec:
+  replicas: {{ .Values.supervisor.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ template "storm.supervisor.name" . }}
+      release: {{ .Release.Name }}
+  template:
+    metadata:
+      labels:
+        app: {{ template "storm.supervisor.name" . }}
+        release: {{ .Release.Name }}
+    spec:
+      initContainers:
+      - command: 
+        - sh
+        - -c
+        - until storm list; do echo waiting for {{ template "storm.nimbus.fullname" . }}; sleep 10; done
+        image: {{ .Values.supervisor.image.repository }}:{{ .Values.supervisor.image.tag }}
+        imagePullPolicy: {{ .Values.supervisor.image.pullPolicy }}
+        name: init-{{ template "storm.nimbus.fullname" . }}
+        volumeMounts:
+        - name: storm-configmap
+          mountPath: {{ .Values.store.config }}
+      containers:
+      - command:
+        - storm
+        - supervisor
+        - -c 
+        - storm.local.hostname=$(SUPERVISOR_IP)
+        env:
+        - name: SUPERVISOR_IP
+          valueFrom:
+            fieldRef:
+              fieldPath: status.podIP
+        image: {{ .Values.supervisor.image.repository }}:{{ .Values.supervisor.image.tag }}
+        imagePullPolicy: {{ .Values.supervisor.image.pullPolicy }}
+        name: supervisor
+        ports:
+        {{- range $i, $e := until (int $.Values.supervisor.slots) }}
+          - containerPort: {{add $i 6700}}
+            name: slot-{{ $i }}
+        {{- end }}
+        resources:
+          limits:
+            cpu: {{ .Values.supervisor.resources.limits.cpu }}  
+            memory: {{ .Values.supervisor.resources.limits.memory }}Mi  
+          requests:
+            cpu: {{ .Values.supervisor.resources.requests.cpu }}  
+            memory: {{ .Values.supervisor.resources.requests.memory }}Mi 
+        volumeMounts:
+        - name: storm-configmap
+          mountPath: {{ .Values.store.config }}
+        - name: storm-logging-config
+          mountPath: {{ .Values.store.log4j2conf }}
+        - name: data
+          mountPath: {{ .Values.store.localdatadir }}
+        - name: data-log
+          mountPath: {{ .Values.store.logdir }}
+        {{- if .Values.jmx.enabled }}
+        - name: jmx-configmap
+          mountPath: {{ .Values.store.jmxdir }}/config.yaml
+          subPath: config.yaml
+        {{- end }}
+        {{- if .Values.supervisor.extraVolumeMounts }}
+        {{- include "common.tplvalues.render" (dict "value" .Values.supervisor.extraVolumeMounts "context" $ ) | nindent 8 }}
+        {{- end }}
+      securityContext:
+        runAsUser: {{ .Values.security.userid }}
+        fsGroup: {{ .Values.security.groupid }}
+      volumes:
+      {{- if .Values.jmx.enabled }}
+      - name: jmx-configmap
+        configMap:
+          name: {{ template "jmx.config.name" . }}
+      {{- end }}
+      - name: storm-configmap
+        configMap:
+          name: {{ template "storm.config.name" . }}
+      - name: storm-logging-config
+        configMap:
+          name: {{ template "storm.logging.name" . }}
+      - name: data
+        emptyDir: {}
+      - name: data-log
+        emptyDir: {}
+      {{- if .Values.supervisor.extraVolumes }}
+      {{- include "common.tplvalues.render" (dict "value" .Values.supervisor.extraVolumes "context" $ ) | nindent 6 }}
+      {{- end }}

@@ -1,0 +1,82 @@
+{
+  "ljubon": [
+    {
+      "name": "charts",
+      "refs": [
+        {
+          "ref": "^refs/tags/v\\d+\\.\\d+\\.\\d+",
+          "type": "regex"
+        }
+      ],
+      "helm_charts": [
+        {
+          "name": "storm",
+          "source": "storm",
+          "destination": "storm",
+          "use_ref_as_version": {
+            "pattern": "^refs/tags/v",
+            "replacement": ""
+          }
+        }
+      ]
+    },
+    {
+      "name": "playground",
+      "refs": [
+        {
+          "ref": "^refs/tags/v\\d+\\.\\d+\\.\\d+",
+          "type": "regex"
+        }
+      ],
+      "helm_charts": [
+        {
+          "name": "storm",
+          "source": "deployment",
+          "destination": "test",
+          "use_ref_as_version": {
+            "pattern": "^refs/tags/v",
+            "replacement": ""
+          }
+        }
+      ]
+    },
+    {
+      "name": "armada",
+      "refs": [
+        {
+          "ref": "^refs/tags/v\\d+\\.\\d+\\.\\d+",
+          "type": "regex"
+        }
+      ],
+      "helm_charts": [
+        {
+          "name": "armada",
+          "source": "deployment/armada",
+          "destination": "armada",
+          "use_ref_as_version": {
+            "pattern": "^refs/tags/v",
+            "replacement": ""
+          }
+        },
+        {
+          "name": "lookout",
+          "source": "deployment/lookout",
+          "destination": "armada",
+          "use_ref_as_version": {
+            "pattern": "^refs/tags/v",
+            "replacement": ""
+          }
+        },
+        {
+          "name": "executor",
+          "source": "deployment/executor",
+          "destination": "armada",
+          "use_ref_as_version": {
+            "pattern": "^refs/tags/v",
+            "replacement": ""
+          }
+        }
+      ]
+    }
+  ]
+}

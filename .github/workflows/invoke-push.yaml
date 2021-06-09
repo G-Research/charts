@@ -1,0 +1,44 @@
+name: Invoke Push
+
+on:
+  workflow_call:
+    secrets:
+      APP_ID:
+        description: 'The ID of the GitHub App that can trigger a workflow on this repo'
+        required: true
+      APP_PRIVATE_KEY:
+        description: 'The private key of the GitHub App that can trigger a workflow on this repo'
+        required: true
+
+jobs:
+  invoke-push:
+    runs-on: ubuntu-latest
+    environment: invoke-push
+    steps:
+      - name: Checkout self
+        uses: actions/checkout@v3
+        with:
+          repository: ljubon/charts
+          path: charts
+          ref: INTERNAL-master # TODO: change to default branch
+      - run: npm i octokit @octokit/core
+      - name: Trigger push workflow
+        uses: actions/github-script@v6
+        env: 
+          APP_ID: ${{ secrets.APP_ID }} # from workflow_call
+          APP_PRIVATE_KEY: ${{ secrets.APP_PRIVATE_KEY }} # from workflow_call
+          OWNER: "ljubon" # TODO: Change to G-Research
+          REPO: "charts" # TODO: Change to charts
+        with:
+          script: |
+            const generateToken = require('./charts/.github/workflows/scripts/token.js')
+            const workflow = require('./charts/.github/workflows/scripts/workflow.js')
+            const tokenPermissions = { actions: "write" } // required
+            try {
+              const token = await generateToken({ core }, process.env.OWNER, process.env.REPO, tokenPermissions )
+              return await workflow({ core, context }, token )
+            } catch (error) {
+              core.notice(error)
+              core.notice(`Permission: ${tokenPermissions}`)
+              return core.setFailed(`Unable to trigger workflow ${process.env.OWNER}/${process.env.REPO}, please check token permissions`)
+            }

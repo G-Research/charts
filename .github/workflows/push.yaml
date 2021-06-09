@@ -1,0 +1,85 @@
+name: Push
+
+on:
+  push:
+    branches:
+      - INTERNAL-master
+    tags:
+      - '*'
+    paths:
+    - 'storm/Chart.yaml'
+  # When this workflow is invoked by another repo
+  workflow_dispatch:
+    inputs:
+      owner:
+        description: "The owner of the repo who initialized this workflow"
+        required: true
+        type: string
+      repo:
+        description: "The repository name which wants to publish the chart"
+        required: true
+        type: string
+      ref:
+        description: "Branch name or tag which will be used for chart version"
+        required: true
+        type: string
+
+jobs:
+  push:
+    runs-on: ubuntu-latest
+    environment: push
+    steps:
+      - name: Checkout self
+        uses: actions/checkout@v3
+        with:
+          path: self
+
+      - name: Validate chart
+        uses: actions/github-script@v6
+        env:
+          APP_ID: ${{ secrets.APP_ID }}
+          APP_PRIVATE_KEY: ${{ secrets.GH_APP_PEM }}
+        with:
+          script: |
+            const config = require('./self/.github/workflows/scripts/validateChart.js')
+            return await config({ core, context })
+
+      - name: Checkout gh-pages
+        uses: actions/checkout@v3
+        with:
+          ref: gh-pages
+          path: gh-pages
+
+      - name: Checkout ${{ env.OWNER }}/${{ env.REPO }}
+        uses: actions/checkout@v3
+        with:
+          repository: ${{ env.OWNER }}/${{ env.REPO }}
+          ref: ${{ env.REF }}
+          path: source
+
+      - name: Package charts
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const helm = require('./self/.github/workflows/scripts/packageChart.js')
+            return await helm({ core, glob, exec })
+
+      - run: npm i octokit fs @octokit/request @octokit/core
+      - name: Update index and push files
+        uses: actions/github-script@v6
+        env:
+          APP_ID: ${{ secrets.APP_ID }}
+          APP_PRIVATE_KEY: ${{ secrets.GH_APP_PEM }}
+        with:
+          script: |
+            const fetchToken = require('./self/.github/workflows/scripts/token.js')
+            const push = require('./self/.github/workflows/scripts/push.js')
+
+            const tokenPermissions = { contents: "write" } // required to push files 
+            try {
+              const token = await fetchToken({ core }, 'ljubon', 'charts', tokenPermissions )
+              return await push({ core, exec, context }, token)
+            } catch (error) {
+              core.notice(`Permission: ${JSON.stringify(tokenPermissions)}`)
+              return core.setFailed(`Unable to trigger workflow ${context.payload.repository.owner.login}/${context.payload.repository.name}, please check token permissions.\n${error}`)
+            }
