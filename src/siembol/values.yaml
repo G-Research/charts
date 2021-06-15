@@ -125,3 +125,11 @@ manager:
   ingress:
     enabled: true
     hostname: manager.siembol.local
+
+
+# -----------------------------------------------------------------------------
+# HDFS parameters
+# -----------------------------------------------------------------------------
+
+hdfs:
+  enabled: false
