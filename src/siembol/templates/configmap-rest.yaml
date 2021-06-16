@@ -5,5 +5,3 @@ metadata:
 data:
   application.properties: |-
 {{ .Files.Get .Values.rest.applicationProperties | indent 4 }}
-  gitconfig: |-
-{{ .Files.Get .Values.rest.gitConfig | indent 4 }}

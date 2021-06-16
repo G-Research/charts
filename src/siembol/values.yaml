@@ -81,7 +81,6 @@ rest:
 
   appName: "config-editor-rest"
   applicationProperties: "resources/application.properties"
-  gitConfig: "resources/git.config"
   mountPath: "/opt/config-editor-rest"
 
   ingress:

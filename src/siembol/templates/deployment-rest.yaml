@@ -68,10 +68,6 @@ spec:
           readOnly: true        
         {{ end -}}
         - name: {{ include "siembol.rest.fullname" $ }}
-          mountPath: /etc/gitconfig
-          subPath: gitconfig 
-          readOnly: true
-        - name: {{ include "siembol.rest.fullname" $ }}
           mountPath: {{ .Values.rest.mountPath }}/application.properties
           subPath: application.properties
           readOnly: true
