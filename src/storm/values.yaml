@@ -5,8 +5,9 @@ nameOverride: ""
 fullnameOverride: ""
 name: storm
 enabled: true
+
 nimbus:
-  replicaCount: 1
+  replicaCount: 2
   image:
     repository: storm
     tag: 1.2.3
@@ -50,6 +51,22 @@ ui:
     enabled: false
     annotations: {}
     tls: []
+
+persistence:
+  enabled: true
+  # storageClass: "-"
+  accessModes:
+    - ReadWriteOnce
+  
+  data:
+    size: 1Gi
+    annotations: {}
+    # existingClaim:
+  
+  logs:
+    size: 1Gi
+    annotations: {}
+    # existingClaim:
 
 zookeeper:
   enabled: true

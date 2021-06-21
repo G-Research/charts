@@ -14,3 +14,21 @@ spec:
   selector:
     app: {{ template "storm.nimbus.name" . }}
     release: {{ .Release.Name }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ template "storm.nimbus.fullname" . }}-headless
+  labels:
+    chart: {{ template "storm.chart" . }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+spec:
+  type: ClusterIP
+  clusterIP: None
+  ports:
+  - port: {{ .Values.nimbus.service.port }}
+    name: {{ .Values.nimbus.service.name }}
+  selector:
+    app: {{ template "storm.nimbus.name" . }}
+    release: {{ .Release.Name }}

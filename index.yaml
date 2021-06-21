@@ -300,6 +300,32 @@ entries:
   storm:
   - apiVersion: v2
     appVersion: 1.2.3
+    created: "2021-06-21T15:10:29.096135-07:00"
+    dependencies:
+    - condition: zookeeper.enabled
+      name: zookeeper
+      repository: https://charts.bitnami.com/bitnami
+      version: ~6.5.2
+    description: Apache Storm is a free and open source distributed realtime computation system.
+    digest: 4b754e96d24a07f55b8da1752b63ee5fc2083993850cac9c17bfec0071d8597d
+    home: http://storm.apache.org/
+    icon: http://storm.apache.org/images/logo.png
+    keywords:
+    - storm
+    - zookeeper
+    maintainers:
+    - name: of13tch
+    - name: stackedsax
+    name: storm
+    sources:
+    - https://github.com/G-Research/charts/src/storm
+    - https://github.com/G-Research/charts/storm
+    - https://github.com/apache/storm
+    urls:
+    - storm-1.0.10.tgz
+    version: 1.0.10
+  - apiVersion: v2
+    appVersion: 1.2.3
     created: "2021-04-25T11:37:53.377601-07:00"
     dependencies:
     - condition: zookeeper.enabled
@@ -560,4 +586,4 @@ entries:
     urls:
     - storm/storm-1.0.0.tgz
     version: 1.0.0
-generated: "2021-06-16T12:24:02.138332-07:00"
+generated: "2021-06-21T15:10:29.09148-07:00"

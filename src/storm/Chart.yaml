@@ -1,6 +1,6 @@
 apiVersion: v2
 appVersion: 1.2.3
-version: 1.0.9
+version: 1.0.10
 description: Apache Storm is a free and open source distributed realtime computation
   system.
 home: http://storm.apache.org/
@@ -9,10 +9,8 @@ keywords:
 - storm
 - zookeeper
 maintainers:
-- email: jorwalk@gmail.com
-  name: jorwalk
-- email: stackedsax@users.noreply.github.com
-  name: stackedsax
+- name: of13tch
+- name: stackedsax
 name: storm
 sources:
 - https://github.com/G-Research/charts/src/storm
