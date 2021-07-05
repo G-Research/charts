@@ -1,0 +1,72 @@
+name: gh-pages
+
+on:
+  workflow_dispatch:
+    inputs:
+      project:
+        description: 'Repository'
+        required: true
+      ref:
+        description: 'Ref'
+        required: true
+  push:
+    branches:
+      - gh-pages
+
+jobs:
+  update-gh-pages: 
+    name: Update index.yaml
+    if: ${{ startsWith( github.ref, 'gh-pages') }}
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Update repo index 
+        run: |
+          echo "${{ secrets.CLONE_KEY }}" > id_rsa && chmod 400 id_rsa
+          trap "rm -f id_rsa" EXIT
+
+          helm repo index .
+          git diff index.yaml
+          git add index.yaml
+          git -c user.name="Ljubo Nikolic" -c user.email="ljubonikolic@gmail.com" commit -qam "Updating index.yaml"
+          ssh-agent bash -c 'ssh-add id_rsa; git push -q origin HEAD'
+
+  update-armada-charts:
+    if: ${{ github.event.inputs.project == 'ljubon/armada' }}
+    runs-on: ubuntu-20.04
+    name: Publish Armada charts - ${{ github.event.inputs.ref }}
+    steps:
+      - uses: actions/checkout@v2 # Checkout Charts
+      - uses: actions/checkout@v2 # Checkout Armada
+        with:
+          repository: ${{ github.event.inputs.project }}
+          ref: ${{ github.event.inputs.ref }}
+          path: '${{ github.event.inputs.project }}'
+
+      - name: Update version - ${{ github.event.inputs.ref }}
+        run: |
+          find . \( -name "Chart.yaml" -o -name "values.yaml" \) -exec sed -i s/LATEST/${{ github.event.inputs.ref }}/ {} + 
+        working-directory: ./${{ github.event.inputs.project }}
+
+      - name: Build new packages and update repo index
+        run: |
+          helm package deployment/armada/ -d ../../armada/
+          helm package deployment/executor -d ../../armada/
+          helm package deployment/executor-cluster-monitoring/ -d ../../armada/
+          helm package deployment/lookout/ -d ../../armada/
+          helm package deployment/lookout-migration/ -d ../../armada/
+          helm repo index ../../
+        working-directory: ./${{ github.event.inputs.project }}
+
+
+      #TODO Change CLONE_KEY, user.name, user.email
+      - name: Commit & Push new charts to gh-pages 
+        run: |
+          echo "${{ secrets.CLONE_KEY }}" > id_rsa && chmod 400 id_rsa
+          trap "rm -f id_rsa" EXIT
+
+          git remote -v
+          git branch
+
+          git add ./armada
+          git -c user.name="Ljubo Nikolic" -c user.email="ljubonikolic@gmail.com" commit -qam "Pushing new helm charts at version ${{ github.event.inputs.ref }}"
+          ssh-agent bash -c 'ssh-add id_rsa; git push -q origin HEAD'
