@@ -2,8 +2,17 @@ apiVersion: v1
 entries:
   armada:
   - apiVersion: v1
+    appVersion: v0.1.42
+    created: "2021-07-13T14:23:53.481786113Z"
+    description: A helm chart for armada API component
+    digest: 163d193c6f73a08e9a84d4c3d16624dd50657d567c1a7fde02e7cda5145809e7
+    name: armada
+    urls:
+    - armada/armada-v0.1.42.tgz
+    version: v0.1.42
+  - apiVersion: v1
     appVersion: v0.1.30
-    created: "2021-04-08T10:53:23.522472823Z"
+    created: "2021-07-13T14:23:53.481373287Z"
     description: A helm chart for armada API component
     digest: 666820df00f414e3d3d9ed6fba32bcb4a89097cd28e19ee96faab5a3c2a0714a
     name: armada
@@ -12,7 +21,7 @@ entries:
     version: v0.1.30
   - apiVersion: v1
     appVersion: v0.1.15
-    created: "2021-04-08T10:53:23.522005011Z"
+    created: "2021-07-13T14:23:53.480972278Z"
     description: A helm chart for armada API component
     digest: 053d5015163ac4b7a4435ff2f3073cac4dfb0c74c56d49b35693d89ec01929f5
     name: armada
@@ -21,7 +30,7 @@ entries:
     version: v0.1.15
   - apiVersion: v1
     appVersion: v0.1.14
-    created: "2021-04-08T10:53:23.521570153Z"
+    created: "2021-07-13T14:23:53.480552591Z"
     description: A helm chart for armada API component
     digest: a3ada0c8c4e56218f60d778707979e39e00ee012e342373beec2a02afddbcd93
     name: armada
@@ -30,7 +39,7 @@ entries:
     version: v0.1.14
   - apiVersion: v1
     appVersion: v0.1.9
-    created: "2021-04-08T10:53:23.522896519Z"
+    created: "2021-07-13T14:23:53.482331349Z"
     description: A helm chart for armada API component
     digest: b428db8f55bb8d38fe30a48f2ed756817a60eea166c66ef5791a562d5ea6eb8c
     name: armada
@@ -39,17 +48,36 @@ entries:
     version: v0.1.9
   - apiVersion: v1
     appVersion: v1
-    created: "2021-04-08T10:53:23.517675303Z"
+    created: "2021-07-13T14:23:53.475385396Z"
     description: A helm chart for armada API component
     digest: 09b01cd14bd92e3e75a9fb7356677464a8ad02025deee81cacb5482185d87a7c
     name: armada
     urls:
     - armada/armada-0.0.1.tgz
     version: 0.0.1
+  armada-binoculars:
+  - apiVersion: v1
+    appVersion: v0.1.42
+    created: "2021-07-13T14:23:53.483558837Z"
+    description: A helm chart for Armada Binoculars component
+    digest: a765fcae2e28ec8473a6cd70bbe1654f5d72fe646a14dadf2e3e1f8d09574b3f
+    name: armada-binoculars
+    urls:
+    - binoculars/armada-binoculars-v0.1.42.tgz
+    version: v0.1.42
   armada-executor:
   - apiVersion: v1
+    appVersion: v0.1.42
+    created: "2021-07-13T14:23:53.47830312Z"
+    description: A helm chart for armada-executor component
+    digest: f0fbbe149e80034007f08bc7b2575e0aecf5cb91854f396d2ab6f48be0526082
+    name: armada-executor
+    urls:
+    - armada/armada-executor-v0.1.42.tgz
+    version: v0.1.42
+  - apiVersion: v1
     appVersion: v0.1.30
-    created: "2021-04-08T10:53:23.520031494Z"
+    created: "2021-07-13T14:23:53.477934371Z"
     description: A helm chart for armada-executor component
     digest: 4568197bedac9cd192f8e0968c6ef29d11f6657d8395684aa49d27a9c30d869c
     name: armada-executor
@@ -58,7 +86,7 @@ entries:
     version: v0.1.30
   - apiVersion: v1
     appVersion: v0.1.15
-    created: "2021-04-08T10:53:23.519673524Z"
+    created: "2021-07-13T14:23:53.477564139Z"
     description: A helm chart for armada-executor component
     digest: 31b7ea44ee9e137a2abb1f747e58966a20b5a8590b9b9472077b24fcbf516ea2
     name: armada-executor
@@ -67,7 +95,7 @@ entries:
     version: v0.1.15
   - apiVersion: v1
     appVersion: v0.1.14
-    created: "2021-04-08T10:53:23.519304799Z"
+    created: "2021-07-13T14:23:53.477172063Z"
     description: A helm chart for armada-executor component
     digest: 3ea247920189bf820182b5924e66ddf829823b988104c54866858c1af05fd0d8
     name: armada-executor
@@ -76,7 +104,7 @@ entries:
     version: v0.1.14
   - apiVersion: v1
     appVersion: v0.1.9
-    created: "2021-04-08T10:53:23.520438392Z"
+    created: "2021-07-13T14:23:53.478673214Z"
     description: A helm chart for armada-executor component
     digest: 5f130fc2037b3edf990e82cf2a7990c7523135933919fe8b554cc64c9bd43b80
     name: armada-executor
@@ -85,7 +113,7 @@ entries:
     version: v0.1.9
   - apiVersion: v1
     appVersion: v1
-    created: "2021-04-08T10:53:23.518323195Z"
+    created: "2021-07-13T14:23:53.475934674Z"
     description: A helm chart for armada-executor component
     digest: 26ea72d344ffe7a832978a00668af07652b342e634bbc36b03e2fe42c4ca20d9
     name: armada-executor
@@ -94,24 +122,36 @@ entries:
     version: 0.0.1
   armada-executor-cluster-monitoring:
   - apiVersion: v1
-    created: "2021-04-08T10:53:23.518913664Z"
-    description: A helm chart for monitoring metrics of a cluster managed by a armada-executor component
+    created: "2021-07-13T14:23:53.476811922Z"
+    description: A helm chart for monitoring metrics of a cluster managed by a armada-executor
+      component
+    digest: 281b8cd285db727457a0c4c1953f0dc1e12e92f852d12d80992ca6c64e71ed76
+    name: armada-executor-cluster-monitoring
+    urls:
+    - armada/armada-executor-cluster-monitoring-v0.1.42.tgz
+    version: v0.1.42
+  - apiVersion: v1
+    created: "2021-07-13T14:23:53.476644285Z"
+    description: A helm chart for monitoring metrics of a cluster managed by a armada-executor
+      component
     digest: 455d89a61d48da538c8ebd7aab9e986ef6fcb700e2cb7cf775e9a3e3b66a83c1
     name: armada-executor-cluster-monitoring
     urls:
     - armada/armada-executor-cluster-monitoring-v0.1.30.tgz
     version: v0.1.30
   - apiVersion: v1
-    created: "2021-04-08T10:53:23.518700664Z"
-    description: A helm chart for monitoring metrics of a cluster managed by a armada-executor component
+    created: "2021-07-13T14:23:53.476435261Z"
+    description: A helm chart for monitoring metrics of a cluster managed by a armada-executor
+      component
     digest: 0910b5d318e570b4c4071b23ba67aacfc8039c7499d65018d4804a09a2cde46c
     name: armada-executor-cluster-monitoring
     urls:
     - armada/armada-executor-cluster-monitoring-v0.1.15.tgz
     version: v0.1.15
   - apiVersion: v1
-    created: "2021-04-08T10:53:23.518513035Z"
-    description: A helm chart for monitoring metrics of a cluster managed by a armada-executor component
+    created: "2021-07-13T14:23:53.476210094Z"
+    description: A helm chart for monitoring metrics of a cluster managed by a armada-executor
+      component
     digest: 1a82bd9d0c48767bd1981cf55f81383fce470d2881cdbc5e6dd0751cbc938c9a
     name: armada-executor-cluster-monitoring
     urls:
@@ -119,8 +159,17 @@ entries:
     version: v0.1.14
   armada-lookout:
   - apiVersion: v1
+    appVersion: v0.1.42
+    created: "2021-07-13T14:23:53.48014127Z"
+    description: A helm chart for Armada Lookout component
+    digest: 59131fa2a4c3a45da90fc0460725bfc5bbe5f462464a18d7b283d6040482a9bc
+    name: armada-lookout
+    urls:
+    - armada/armada-lookout-v0.1.42.tgz
+    version: v0.1.42
+  - apiVersion: v1
     appVersion: v0.1.30
-    created: "2021-04-08T10:53:23.521048606Z"
+    created: "2021-07-13T14:23:53.479692136Z"
     description: A helm chart for Armada Lookout component
     digest: 6ccd3f831d137d5970be8c51095a9e70a9ff34054e2b53268524d3837d4324bd
     name: armada-lookout
@@ -129,8 +178,17 @@ entries:
     version: v0.1.30
   armada-lookout-migration:
   - apiVersion: v1
+    appVersion: v0.1.42
+    created: "2021-07-13T14:23:53.479231135Z"
+    description: A Helm chart for the Armada Lookout database migration
+    digest: 572beadec390d41b6dd5081464d6f299c130549c997078b427f9db9dadcac09d
+    name: armada-lookout-migration
+    urls:
+    - armada/armada-lookout-migration-v0.1.42.tgz
+    version: v0.1.42
+  - apiVersion: v1
     appVersion: v0.1.30
-    created: "2021-04-08T10:53:23.520681948Z"
+    created: "2021-07-13T14:23:53.478919739Z"
     description: A Helm chart for the Armada Lookout database migration
     digest: 66e4c4899975f962f0783b1c5d5d3eab7138098e0f28c43f45e467590c1047f9
     name: armada-lookout-migration
@@ -139,16 +197,18 @@ entries:
     version: v0.1.30
   executor-cluster-monitoring:
   - apiVersion: v1
-    created: "2021-04-08T10:53:23.523269184Z"
-    description: A helm chart for monitoring metrics of a cluster managed by a armada-executor component
+    created: "2021-07-13T14:23:53.482757961Z"
+    description: A helm chart for monitoring metrics of a cluster managed by a armada-executor
+      component
     digest: 80f9714d1692b830f3e879146ce17366967a7126fb305633e0bec3f66337b6fa
     name: executor-cluster-monitoring
     urls:
     - armada/executor-cluster-monitoring-v0.1.9.tgz
     version: v0.1.9
   - apiVersion: v1
-    created: "2021-04-08T10:53:23.523094526Z"
-    description: A helm chart for monitoring metrics of a cluster managed by a armada-executor component
+    created: "2021-07-13T14:23:53.482556314Z"
+    description: A helm chart for monitoring metrics of a cluster managed by a armada-executor
+      component
     digest: 704b4f8117d34a4bf392b87c679279b94e713f659136cb151e7eee6007165ac9
     name: executor-cluster-monitoring
     urls:
@@ -157,7 +217,7 @@ entries:
   librenms:
   - apiVersion: v2
     appVersion: "1.59"
-    created: "2021-04-08T10:53:23.52668888Z"
+    created: "2021-07-13T14:23:53.487722072Z"
     description: LibreNMS
     digest: ad8c5442a33ed56c026e0b3ea05f49881d29029ca2f3983c03340224c1652029
     name: librenms
@@ -167,7 +227,7 @@ entries:
     version: 0.1.1
   - apiVersion: v2
     appVersion: "1.58"
-    created: "2021-04-08T10:53:23.524744356Z"
+    created: "2021-07-13T14:23:53.485841397Z"
     description: LibreNMS
     digest: 97ff49d2ee17e2a75efc2132e5361875bcdf35e1d284de09ba34612a58e3e2e7
     name: librenms
@@ -177,7 +237,7 @@ entries:
     version: 0.1.0
   siembol:
   - apiVersion: v2
-    created: "2021-06-16T12:24:02.157504-07:00"
+    created: "2021-07-13T14:23:53.62140339Z"
     dependencies:
     - name: storm
       repository: https://g-research.github.io/charts
@@ -193,7 +253,9 @@ entries:
       name: zookeeper
       repository: https://charts.bitnami.com/bitnami
       version: ~6.5.2
-    description: Siembol is an open-source, real-time Security Information & Event Management tool based on big data technologies, providing a scalable, advanced security analytics framework
+    description: Siembol is an open-source, real-time Security Information & Event
+      Management tool based on big data technologies, providing a scalable, advanced
+      security analytics framework
     digest: 18e1b002a63fd8e529a9dd2581ade2d86d0732919c4c6964828d6d00f15b165a
     home: https://github.com/G-Research/charts
     keywords:
@@ -214,10 +276,10 @@ entries:
     - https://github.com/G-Research/charts/siembol
     type: application
     urls:
-    - siembol-0.1.2.tgz
+    - siembol/siembol-0.1.2.tgz
     version: 0.1.2
   - apiVersion: v2
-    created: "2021-05-24T21:29:35.83466-07:00"
+    created: "2021-07-13T14:23:53.600889675Z"
     dependencies:
     - name: storm
       repository: https://g-research.github.io/charts
@@ -232,7 +294,8 @@ entries:
       name: zookeeper
       repository: https://charts.bitnami.com/bitnami
       version: ~6.5.2
-    description: siembol is a security analytics framework akin to projects like Apache Metron
+    description: siembol is a security analytics framework akin to projects like Apache
+      Metron
     digest: 590d266f1b8f2e3a9fdba5f19d6f5287a52444873db3f9adcdcca6d1c506c9e9
     home: https://github.com/G-Research/charts
     keywords:
@@ -254,26 +317,26 @@ entries:
     - https://github.com/G-Research/charts/siembol
     type: application
     urls:
-    - siembol-0.1.1.tgz
+    - siembol/siembol-0.1.1.tgz
     version: 0.1.1
   - apiVersion: v2
-    created: "2021-05-24T21:29:35.815577-07:00"
+    created: "2021-07-13T14:23:53.5873354Z"
     dependencies:
     - name: storm
       repository: https://g-research.github.io/charts
-      version: ~1.0.8
+      version: ~1.0.3
     - name: kafka
-      repository: https://charts.bitnami.com/bitnami
-      version: ~12.16.0
+      repository: http://storage.googleapis.com/kubernetes-charts-incubator
+      version: ~0.20.9
     - name: hdfs
       repository: https://gradiant.github.io/charts
-      version: ~0.1.10
-    - condition: zookeeper.enabled
-      name: zookeeper
-      repository: https://charts.bitnami.com/bitnami
-      version: ~6.5.2
-    description: siembol is a security analytics framework akin to projects like Apache Metron
-    digest: 9b6f7921fec89284c8ae3519730254343f2008ee08fa3e6ea9d56eaa40ea22bf
+      version: ~0.1.4
+    - name: gitlab
+      repository: https://charts.gitlab.io
+      version: ~3.2.2
+    description: siembol is a security analytics framework akin to projects like Apache
+      Metron
+    digest: b4ca4cdbf08608d252e998877f52c7309899ae9fbb0039a299d5a54737c38862
     home: https://github.com/G-Research/charts
     keywords:
     - kafka
@@ -291,22 +354,22 @@ entries:
     name: siembol
     sources:
     - https://github.com/G-Research/siembol
-    - https://github.com/G-Research/charts/src/siembol
     - https://github.com/G-Research/charts/siembol
     type: application
     urls:
-    - siembol-0.1.0.tgz
+    - siembol/siembol-0.1.0.tgz
     version: 0.1.0
   storm:
   - apiVersion: v2
     appVersion: 1.2.3
-    created: "2021-06-21T15:10:29.096135-07:00"
+    created: "2021-07-13T14:23:53.630256684Z"
     dependencies:
     - condition: zookeeper.enabled
       name: zookeeper
       repository: https://charts.bitnami.com/bitnami
       version: ~6.5.2
-    description: Apache Storm is a free and open source distributed realtime computation system.
+    description: Apache Storm is a free and open source distributed realtime computation
+      system.
     digest: 4b754e96d24a07f55b8da1752b63ee5fc2083993850cac9c17bfec0071d8597d
     home: http://storm.apache.org/
     icon: http://storm.apache.org/images/logo.png
@@ -322,17 +385,18 @@ entries:
     - https://github.com/G-Research/charts/storm
     - https://github.com/apache/storm
     urls:
-    - storm-1.0.10.tgz
+    - storm/storm-1.0.10.tgz
     version: 1.0.10
   - apiVersion: v2
     appVersion: 1.2.3
-    created: "2021-04-25T11:37:53.377601-07:00"
+    created: "2021-07-13T14:23:53.6633775Z"
     dependencies:
     - condition: zookeeper.enabled
       name: zookeeper
       repository: https://charts.bitnami.com/bitnami
       version: ~6.5.2
-    description: Apache Storm is a free and open source distributed realtime computation system.
+    description: Apache Storm is a free and open source distributed realtime computation
+      system.
     digest: e6484cd76e73d0e9b1f5dc08757a6bf6bdb965914e53d19736f128a48dabf263
     home: http://storm.apache.org/
     icon: http://storm.apache.org/images/logo.png
@@ -354,13 +418,14 @@ entries:
     version: 1.0.9
   - apiVersion: v2
     appVersion: 1.2.3
-    created: "2021-04-08T10:53:23.54604577Z"
+    created: "2021-07-13T14:23:53.65850315Z"
     dependencies:
     - condition: zookeeper.enabled
       name: zookeeper
       repository: https://charts.bitnami.com/bitnami
       version: ~6.5.2
-    description: Apache Storm is a free and open source distributed realtime computation system.
+    description: Apache Storm is a free and open source distributed realtime computation
+      system.
     digest: d0db4e68a4c67e4eddf5c7b8aecebe70380df3e862622516910268655c263fa6
     home: http://storm.apache.org/
     icon: http://storm.apache.org/images/logo.png
@@ -380,13 +445,14 @@ entries:
     version: 1.0.8
   - apiVersion: v2
     appVersion: 1.2.3
-    created: "2021-04-08T10:53:23.543115107Z"
+    created: "2021-07-13T14:23:53.653737114Z"
     dependencies:
     - condition: zookeeper.enabled
       name: zookeeper
       repository: https://kubernetes-charts-incubator.storage.googleapis.com/
       version: ~2.1.0
-    description: Apache Storm is a free and open source distributed realtime computation system.
+    description: Apache Storm is a free and open source distributed realtime computation
+      system.
     digest: 3b3422e965b51ef507efaf76cc03a62ee76d4c7c3d5bd604e291cc7b32ac5f3c
     home: http://storm.apache.org/
     icon: http://storm.apache.org/images/logo.png
@@ -406,13 +472,14 @@ entries:
     version: 1.0.7
   - apiVersion: v2
     appVersion: 1.2.3
-    created: "2021-04-08T10:53:23.541180404Z"
+    created: "2021-07-13T14:23:53.650240958Z"
     dependencies:
     - condition: zookeeper.enabled
       name: zookeeper
       repository: https://kubernetes-charts-incubator.storage.googleapis.com/
       version: ~2.1.0
-    description: Apache Storm is a free and open source distributed realtime computation system.
+    description: Apache Storm is a free and open source distributed realtime computation
+      system.
     digest: f1dc11da37ea2c05445620cd0659910396dc13adbfba72f1571b10852fccf588
     home: http://storm.apache.org/
     icon: http://storm.apache.org/images/logo.png
@@ -432,13 +499,14 @@ entries:
     version: 1.0.6
   - apiVersion: v2
     appVersion: 1.2.3
-    created: "2021-04-08T10:53:23.539349679Z"
+    created: "2021-07-13T14:23:53.64690422Z"
     dependencies:
     - condition: zookeeper.enabled
       name: zookeeper
       repository: https://kubernetes-charts-incubator.storage.googleapis.com/
       version: ~2.1.0
-    description: Apache Storm is a free and open source distributed realtime computation system.
+    description: Apache Storm is a free and open source distributed realtime computation
+      system.
     digest: 257412fcb5e80114520ed54afd4eac177f94a600d3eba8908c2cec7a42288329
     home: http://storm.apache.org/
     icon: http://storm.apache.org/images/logo.png
@@ -458,13 +526,14 @@ entries:
     version: 1.0.5
   - apiVersion: v2
     appVersion: 1.2.3
-    created: "2021-04-08T10:53:23.537158152Z"
+    created: "2021-07-13T14:23:53.6431918Z"
     dependencies:
     - condition: zookeeper.enabled
       name: zookeeper
       repository: https://kubernetes-charts-incubator.storage.googleapis.com/
       version: ~2.1.0
-    description: Apache Storm is a free and open source distributed realtime computation system.
+    description: Apache Storm is a free and open source distributed realtime computation
+      system.
     digest: 5480cced05a5feef9105ff04ee31ec4a78ad7daa96a1f1b40b6bc11ab27acd63
     home: http://storm.apache.org/
     icon: http://storm.apache.org/images/logo.png
@@ -484,13 +553,14 @@ entries:
     version: 1.0.4
   - apiVersion: v1
     appVersion: 1.2.1
-    created: "2021-04-08T10:53:23.534169409Z"
+    created: "2021-07-13T14:23:53.6391665Z"
     dependencies:
     - condition: zookeeper.enabled
       name: zookeeper
       repository: https://kubernetes-charts-incubator.storage.googleapis.com/
       version: ~2.1.0
-    description: Apache Storm is a free and open source distributed realtime computation system.
+    description: Apache Storm is a free and open source distributed realtime computation
+      system.
     digest: 36905fc7049e505e644bc75dbce11aed849170331210d831ab5dff1dfcb20c1c
     home: http://storm.apache.org/
     icon: http://storm.apache.org/images/logo.png
@@ -510,13 +580,14 @@ entries:
     version: 1.0.3
   - apiVersion: v1
     appVersion: 1.1.1
-    created: "2021-04-08T10:53:23.53168028Z"
+    created: "2021-07-13T14:23:53.634967232Z"
     dependencies:
     - condition: zookeeper.enabled
       name: zookeeper
       repository: https://kubernetes-charts-incubator.storage.googleapis.com/
       version: ~2.1.0
-    description: Apache Storm is a free and open source distributed realtime computation system.
+    description: Apache Storm is a free and open source distributed realtime computation
+      system.
     digest: 8093b19605ff4194be68f6ea082370fd658884df18f2e394b0a3c127983a3dad
     home: http://storm.apache.org/
     icon: http://storm.apache.org/images/logo.png
@@ -536,13 +607,14 @@ entries:
     version: 1.0.2
   - apiVersion: v1
     appVersion: 1.1.1
-    created: "2021-04-08T10:53:23.529283785Z"
+    created: "2021-07-13T14:23:53.625499011Z"
     dependencies:
     - condition: zookeeper.enabled
       name: zookeeper
       repository: https://kubernetes-charts-incubator.storage.googleapis.com/
       version: 0.5.0
-    description: Apache Storm is a free and open source distributed realtime computation system.
+    description: Apache Storm is a free and open source distributed realtime computation
+      system.
     digest: 6cd092912867f18340af472dcd1d430ad3e4b305efbddd44f13498b836db608b
     home: http://storm.apache.org/
     icon: http://storm.apache.org/images/logo.png
@@ -562,13 +634,14 @@ entries:
     version: 1.0.1
   - apiVersion: v1
     appVersion: 1.1.1
-    created: "2021-04-08T10:53:23.528056802Z"
+    created: "2021-07-13T14:23:53.623436816Z"
     dependencies:
     - condition: zookeeper.enabled
       name: zookeeper
       repository: https://kubernetes-charts-incubator.storage.googleapis.com/
       version: 0.5.0
-    description: Apache Storm is a free and open source distributed realtime computation system.
+    description: Apache Storm is a free and open source distributed realtime computation
+      system.
     digest: 29ef0e0ca8b74dbe80afca38e06e7770c78048ce64855b04854f821d866eb9d0
     home: http://storm.apache.org/
     icon: http://storm.apache.org/images/logo.png
@@ -586,4 +659,4 @@ entries:
     urls:
     - storm/storm-1.0.0.tgz
     version: 1.0.0
-generated: "2021-06-21T15:10:29.09148-07:00"
+generated: "2021-07-13T14:23:53.473874326Z"
