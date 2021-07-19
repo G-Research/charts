@@ -37,9 +37,7 @@ supervisor:
   tolerations: []
   affinity: {}
   worker:
-    heap:
-      memory:
-        mb: 768
+    heap_memory_mb: 768
 
 ui:
   enabled: true
