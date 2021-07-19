@@ -16,6 +16,7 @@ nimbus:
     name: nimbus
     type: ClusterIP
     port: 6627
+  childopts: "-Xmx1024m -ea"
   resources: {}
   nodeSelector: {}
   tolerations: []
@@ -30,6 +31,7 @@ supervisor:
   service:
     name: supervisor
     port: 6700
+  childopts: "-Xmx256m -ea"
   resources: {}
   nodeSelector: {}
   tolerations: []
@@ -46,6 +48,7 @@ ui:
     type: ClusterIP
     name: ui
     port: 8080
+  childopts: "-Xmx768m -ea"
   resources: {}
   ingress:
     enabled: false
@@ -78,3 +81,5 @@ zookeeper:
   #  - "example.external.zookeeper3"
   # # external server port
   # port: 2181
+worker:
+  childopts: "-Xmx%HEAP-MEM%m -XX:+PrintGCDetails -Xloggc:artifacts/gc.log -XX:+PrintGCDateStamps -XX:+PrintGCTimeStamps -XX:+UseGCLogFileRotation -XX:NumberOfGCLogFiles=10 -XX:GCLogFileSize=1M -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=artifacts/heapdump -ea"
