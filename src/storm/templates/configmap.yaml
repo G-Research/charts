@@ -23,8 +23,9 @@ data:
     storm.log.dir: /logs
     nimbus.childopts: {{ $.Values.nimbus.childopts }}
     supervisor.childopts: {{ $.Values.supervisor.childopts }}
-    worker.childopts: {{ $.Values.worker.childopts }}
     ui.childopts: {{ $.Values.ui.childopts }}
+    worker.childopts: {{ $.Values.worker.childopts }}
+    worker.heap.memory.mb: {{ $.Values.worker.heap.memory.mb }}
 ---
 {{- end }}
 apiVersion: v1
