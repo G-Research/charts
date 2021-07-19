@@ -36,6 +36,10 @@ supervisor:
   nodeSelector: {}
   tolerations: []
   affinity: {}
+  worker:
+    heap:
+      memory:
+        mb: 768
 
 ui:
   enabled: true
@@ -81,8 +85,3 @@ zookeeper:
   #  - "example.external.zookeeper3"
   # # external server port
   # port: 2181
-worker:
-  childopts: "-Xmx%HEAP-MEM%m -XX:+PrintGCDetails -Xloggc:artifacts/gc.log -XX:+PrintGCDateStamps -XX:+PrintGCTimeStamps -XX:+UseGCLogFileRotation -XX:NumberOfGCLogFiles=10 -XX:GCLogFileSize=1M -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=artifacts/heapdump -ea"
-  heap:
-    memory:
-      mb: 768
