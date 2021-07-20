@@ -21,6 +21,10 @@ data:
     storm.log4j2.conf.dir: /log4j2
     storm.local.dir: /data
     storm.log.dir: /logs
+    nimbus.childopts: {{ $.Values.nimbus.childopts }}
+    supervisor.childopts: {{ $.Values.supervisor.childopts }}
+    supervisor.worker.heap.memory.mb: {{ $.Values.supervisor.worker.heap_memory_mb }}
+    ui.childopts: {{ $.Values.ui.childopts }}
 ---
 {{- end }}
 apiVersion: v1

@@ -16,6 +16,7 @@ nimbus:
     name: nimbus
     type: ClusterIP
     port: 6627
+  childopts: "-Xmx1024m -ea"
   resources: {}
   nodeSelector: {}
   tolerations: []
@@ -30,10 +31,13 @@ supervisor:
   service:
     name: supervisor
     port: 6700
+  childopts: "-Xmx256m -ea"
   resources: {}
   nodeSelector: {}
   tolerations: []
   affinity: {}
+  worker:
+    heap_memory_mb: 768
 
 ui:
   enabled: true
@@ -46,6 +50,7 @@ ui:
     type: ClusterIP
     name: ui
     port: 8080
+  childopts: "-Xmx768m -ea"
   resources: {}
   ingress:
     enabled: false
