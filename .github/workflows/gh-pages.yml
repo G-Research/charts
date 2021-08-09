@@ -12,11 +12,12 @@ on:
   push:
     branches:
       - gh-pages
+      - test-dispatcher
 
 jobs:
   update-gh-pages: 
     name: Update index.yaml
-    if: ${{ startsWith( github.ref, 'gh-pages') }}
+    if: ${{ startsWith( github.ref, 'refs/heads/gh-pages') }}
     runs-on: ubuntu-20.04
     steps:
       - name: Update repo index 
@@ -33,10 +34,10 @@ jobs:
   update-armada-charts:
     if: ${{ github.event.inputs.project == 'ljubon/armada' }}
     runs-on: ubuntu-20.04
-    name: Publish Armada charts - ${{ github.event.inputs.ref }}
+    name: Publish Armada charts
     steps:
-      - uses: actions/checkout@v2 # Checkout Charts
-      - uses: actions/checkout@v2 # Checkout Armada
+      # - uses: actions/checkout@v2 # Checkout Charts - gh-pages
+      - uses: actions/checkout@v2 # Checkout Armada - Helm source code
         with:
           repository: ${{ github.event.inputs.project }}
           ref: ${{ github.event.inputs.ref }}
@@ -54,6 +55,7 @@ jobs:
           helm package deployment/executor-cluster-monitoring/ -d ../../armada/
           helm package deployment/lookout/ -d ../../armada/
           helm package deployment/lookout-migration/ -d ../../armada/
+          helm package deployment/binoculars/ -d ../../armada/
           helm repo index ../../
         working-directory: ./${{ github.event.inputs.project }}
 
@@ -67,6 +69,6 @@ jobs:
           git remote -v
           git branch
 
-          git add ./armada
+          git add ./armada index.yaml
           git -c user.name="Ljubo Nikolic" -c user.email="ljubonikolic@gmail.com" commit -qam "Pushing new helm charts at version ${{ github.event.inputs.ref }}"
           ssh-agent bash -c 'ssh-add id_rsa; git push -q origin HEAD'

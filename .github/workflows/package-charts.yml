@@ -2,9 +2,10 @@ name: master
 
 on:  
   push:
+    # NOTE: Add new paths when src files for helm are added
     paths:
       - 'storm/**'
-
+      - '.github/**' # Remove after development
 
 jobs:
   update-gh-pages:
@@ -20,14 +21,13 @@ jobs:
 
       - name: Open PR for updated charts and index.yml
         run: |
-          echo "${{ secrets.CLONE_KEY }}" > id_rsa && chmod 400
+          echo "${{ secrets.CLONE_KEY }}" > id_rsa && chmod 400 id_rsa
           trap "rm -f key.pem" EXIT
 
           git checkout gh-pages
           helm repo index .
           git diff index.yaml
-          git add index.yaml
-          git add storm/storm*.tgz
+          git add storm/storm*.tgz index.yaml
 
           git -c user.name="Ljubo Nikolic" -c user.email="ljubonikolic@gmail.com" commit -qam "Update charts"
           ssh-agent bash -c 'ssh-add id_rsa; git push -q origin gh-pages'
