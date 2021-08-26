@@ -1,4 +1,4 @@
-<img src="https://raw.githubusercontent.com/G-Research/charts/master/GR%20blue_logo_transparentPNG.png" width="100" height="100">
+<img src="https://raw.githubusercontent.com/G-Research/charts/master/logo.png" width="100" height="100">
 
 # G-Research Charts Repository 
 
