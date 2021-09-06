@@ -24,7 +24,7 @@ data:
     nimbus.childopts: {{ $.Values.nimbus.childopts }}
     supervisor.childopts: {{ $.Values.supervisor.childopts }}
     ui.childopts: {{ $.Values.ui.childopts }}
-    worker.childopts: {{ $.Values.worker.childopts }}
+    worker.childopts: {{ $.Values.supervisor.worker.childopts }}
     worker.heap.memory.mb: {{ $.Values.supervisor.worker.heap_memory_mb }}
 ---
 {{- end }}
