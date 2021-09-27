@@ -22,6 +22,18 @@ spec:
         app: {{ template "storm.ui.name" . }}
         release: {{ .Release.Name }}
     spec:
+      {{- if .Values.ui.nodeSelector }}
+      nodeSelector:
+{{ toYaml .Values.ui.nodeSelector | indent 8 }}
+      {{- end -}}
+      {{- if .Values.ui.affinity }}
+      affinity:
+{{ toYaml .Values.ui.affinity | indent 8 }}
+      {{- end }}
+      {{- if .Values.ui.tolerations }}
+      tolerations:
+{{ toYaml .Values.ui.tolerations | indent 8 }}
+      {{- end }}
       initContainers:
       - name: init-{{ template "storm.nimbus.fullname" . }}
         image: "{{ .Values.ui.image.repository }}:{{ .Values.ui.image.tag }}"

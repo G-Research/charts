@@ -23,6 +23,18 @@ spec:
         app: {{ template "storm.nimbus.name" . }}
         release: {{ .Release.Name }}
     spec:
+      {{- if .Values.nimbus.nodeSelector }}
+      nodeSelector:
+{{ toYaml .Values.nimbus.nodeSelector | indent 8 }}
+      {{- end -}}
+      {{- if .Values.nimbus.affinity }}
+      affinity:
+{{ toYaml .Values.nimbus.affinity | indent 8 }}
+      {{- end }}
+      {{- if .Values.nimbus.tolerations }}
+      tolerations:
+{{ toYaml .Values.nimbus.tolerations | indent 8 }}
+      {{- end }}
       initContainers: 
       - name: init-zookeeper
         image: '{{ template "storm.zookeeper.image.repository" . }}:{{ template "storm.zookeeper.image.tag" . }}'

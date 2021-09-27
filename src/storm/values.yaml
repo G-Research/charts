@@ -53,6 +53,9 @@ ui:
     port: 8080
   childopts: "-Xmx768m -ea"
   resources: {}
+  nodeSelector: {}
+  tolerations: []
+  affinity: {}
   ingress:
     enabled: false
     annotations: {}
