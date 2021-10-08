@@ -57,6 +57,9 @@ ui:
     enabled: false
     annotations: {}
     tls: []
+  security:
+    userid: 1000
+    groupid: 2000
 
 persistence:
   enabled: true
