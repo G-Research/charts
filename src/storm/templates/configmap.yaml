@@ -26,6 +26,7 @@ data:
     ui.childopts: {{ $.Values.ui.childopts }}
     worker.childopts: {{ $.Values.supervisor.worker.childopts }}
     worker.heap.memory.mb: {{ $.Values.supervisor.worker.heap_memory_mb }}
+    storm.metricstore.rocksdb.location: /storm_rocks
 ---
 {{- end }}
 apiVersion: v1
