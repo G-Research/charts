@@ -18,15 +18,26 @@ data:
     - {{ template "storm.nimbus.fullname" $ }}-{{ $i }}.{{ template "storm.nimbus.fullname" $ }}
     {{- end }}
     nimbus.thrift.port: {{ $.Values.nimbus.service.port }}
-    storm.log4j2.conf.dir: /log4j2
-    storm.local.dir: /data
-    storm.log.dir: /logs
+    storm.log4j2.conf.dir: {{ $.Values.store.log4j2conf }}
+    storm.local.dir: {{ $.Values.store.localdatadir }}
+    storm.log.dir: {{ $.Values.store.logdir }}
     nimbus.childopts: {{ $.Values.nimbus.childopts }}
     supervisor.childopts: {{ $.Values.supervisor.childopts }}
     ui.childopts: {{ $.Values.ui.childopts }}
     worker.childopts: {{ $.Values.supervisor.worker.childopts }}
     worker.heap.memory.mb: {{ $.Values.supervisor.worker.heap_memory_mb }}
-    storm.metricstore.rocksdb.location: /storm_rocks
+    storm.metricstore.rocksdb.location: {{ $.Values.store.metricstore.rocksdb }}
+    supervisor.slots.ports:
+    {{- range $i, $e := until (int $.Values.supervisor.slots) }}
+      - {{ $i+6700 }}
+    {{- end }}
+    ui.header.buffer.bytes: {{ $.Values.ui.header.bufferbytes }}
+    supervisor.memory.capacity.mb: {{ $.Values.supervisor.memory.capacity }}
+    supervisor.cpu.capacity: {{ $.Values.supervisor.cpu.capacity }}
+    topology.fall.back.on.java.serialization: {{ .Values.topology.javaserialization }}
+    topology.disable.loadware.messaging: {{ .Values.topology.loadware.disablemessaging }}
+     
+
 ---
 {{- end }}
 apiVersion: v1

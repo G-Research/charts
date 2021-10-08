@@ -23,7 +23,7 @@ nimbus:
   affinity: {}
 
 supervisor:
-  replicaCount: 3
+  replicaCount: 2
   image:
     repository: storm
     tag: 1.2.3
@@ -36,9 +36,21 @@ supervisor:
   nodeSelector: {}
   tolerations: []
   affinity: {}
+  # Define the number of slots/workers per supervisor, each worker/slot is assigned a port
+  slots: 4
   worker:
     heap_memory_mb: 768
     childopts: "-Xmx%HEAP-MEM%m -XX:+PrintGCDetails -Xloggc:artifacts/gc.log -XX:+PrintGCDateStamps -XX:+PrintGCTimeStamps -XX:+UseGCLogFileRotation -XX:NumberOfGCLogFiles=10 -XX:GCLogFileSize=1M -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=artifacts/heapdump"
+  memory:
+    capacity: 4096.0 # mb
+  cpu: 
+    #By convention 1 cpu core should be about 100, but this can be adjusted if needed
+    # using 100 makes it simple to set the desired value to the capacity measurement
+    # for single threaded bolts
+    capacity: 400.0
+  security:
+    userid: 1000
+    groupid: 2000
 
 ui:
   enabled: true
@@ -60,6 +72,8 @@ ui:
   security:
     userid: 1000
     groupid: 2000
+  header:
+    bufferbytes: 4096
 
 persistence:
   enabled: true
@@ -87,3 +101,16 @@ zookeeper:
   #  - "example.external.zookeeper3"
   # # external server port
   # port: 2181
+
+store:
+  localdatadir: /data
+  logdir: /logs
+  log4j2conf: /log4j2
+  config: /conf
+  metricstore:
+    rocksdb: /storm_rocks
+
+topology:
+  javaserialization: true
+  loadware:
+    disablemessaging: true
