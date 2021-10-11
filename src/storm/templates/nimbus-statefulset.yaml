@@ -54,6 +54,9 @@ spec:
             mountPath: /data
           - name: data-log
             mountPath: /logs
+      securityContext:
+        runAsUser: {{ .Values.nimbus.security.userid }}
+        fsGroup: {{ .Values.nimbus.security.groupid }}
       volumes:
         - name: storm-configmap
           configMap:

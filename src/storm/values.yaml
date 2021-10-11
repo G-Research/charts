@@ -21,6 +21,9 @@ nimbus:
   nodeSelector: {}
   tolerations: []
   affinity: {}
+  security:
+    userid: 1000
+    groupid: 2000
 
 supervisor:
   replicaCount: 3
