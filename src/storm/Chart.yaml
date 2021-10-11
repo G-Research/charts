@@ -11,6 +11,9 @@ keywords:
 maintainers:
 - name: of13tch
 - name: stackedsax
+- name: mariannovotny
+- name: jgiannuzzi
+- name: yasram1
 name: storm
 sources:
 - https://github.com/G-Research/charts/src/storm
