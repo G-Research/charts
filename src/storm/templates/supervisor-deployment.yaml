@@ -46,7 +46,7 @@ spec:
         name: supervisor
         ports:
         {{- range $i, $e := until (int $.Values.supervisor.slots) }}
-          - containerPort: {{ $i+6700 }}
+          - containerPort: {{ $i }}+6700
             name: slot-{{ $i }}
         {{- end }}
         resources:
