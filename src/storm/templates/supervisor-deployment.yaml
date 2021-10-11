@@ -7,7 +7,7 @@ metadata:
     chart: {{ template "storm.chart" . }}
     release: {{ .Release.Name }}
     heritage: {{ .Release.Service }}
-  namespace: {{ .Values.namespace }}
+  namespace: {{ template "storm.namespace" . }}
 spec:
   replicas: {{ .Values.supervisor.replicaCount }}
   selector:

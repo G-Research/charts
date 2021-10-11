@@ -5,7 +5,7 @@ nameOverride: ""
 fullnameOverride: ""
 name: storm
 enabled: true
-namespace: "storm"
+namespace: ""
 
 nimbus:
   replicaCount: 1
@@ -106,8 +106,7 @@ store:
   logdir: /logs
   log4j2conf: /log4j2
   config: /conf
-  metricstore:
-    rocksdb: /storm_rocks
+  metricsdb: /storm_rocks
 
 security:
   userid: 1000

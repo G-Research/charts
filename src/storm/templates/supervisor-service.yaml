@@ -6,7 +6,7 @@ metadata:
     chart: {{ template "storm.chart" . }}
     release: {{ .Release.Name }}
     heritage: {{ .Release.Service }}
-  namespace: {{ .Values.namespace }}
+  namespace: {{ template "storm.namespace" . }}
 spec:
   type:  {{ .Values.supervisor.service.type }}
   ports:

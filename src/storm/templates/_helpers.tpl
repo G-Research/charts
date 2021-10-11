@@ -148,3 +148,14 @@ We truncate at 63 chars because some Kubernetes name fields are limited to this 
 {{- $checkCommand := join " || " $checks -}}
 {{- printf "until %s; do echo waiting for %v; sleep 10; done" $checkCommand $servers -}}
 {{- end -}}
+
+{{/*
+Return namespace to use
+*/}}
+{{- define "storm.namespace" -}}
+    {{- if .Values.namespace }}
+        {{- .Values.namespace -}}
+    {{- else }}
+        {{- .Release.Namespace -}}
+    {{- end }}
+{{- end -}}

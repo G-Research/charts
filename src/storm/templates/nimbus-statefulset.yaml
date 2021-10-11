@@ -7,7 +7,7 @@ metadata:
     chart: {{ template "storm.chart" . }}
     release: {{ .Release.Name }}
     heritage: {{ .Release.Service }}
-  namespace: {{ .Values.namespace }}
+  namespace: {{ template "storm.namespace" . }}
 spec:
   podManagementPolicy: "Parallel"
   serviceName: {{ template "storm.nimbus.fullname" . }}
@@ -56,7 +56,7 @@ spec:
           - name: data-log
             mountPath: {{ $.Values.store.logdir }}
           - name: storm-metrics
-            mountPath: {{ $.Values.store.metricstore.rocksdb }}
+            mountPath: {{ $.Values.store.metricsdb }}
       securityContext:
         runAsUser: {{ .Values.security.userid }}
         fsGroup: {{ .Values.security.groupid }}
