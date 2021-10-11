@@ -23,8 +23,8 @@ spec:
         release: {{ .Release.Name }}
     spec:
       securityContext:
-        runAsUser: {{ .Values.ui.security.userid }}
-        fsGroup: {{ .Values.ui.security.groupid }}
+        runAsUser: {{ .Values.security.userid }}
+        fsGroup: {{ .Values.security.groupid }}
       initContainers:
       - name: init-{{ template "storm.nimbus.fullname" . }}
         image: "{{ .Values.ui.image.repository }}:{{ .Values.ui.image.tag }}"

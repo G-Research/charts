@@ -51,11 +51,11 @@ spec:
         {{- end }}
         resources:
           limits:
-            cpu: {{ .Values.resources.limits.cpu }}  
-            memory: {{ .Values.resources.limits.memory }}  
+            cpu: {{ .Values.supervisor.resources.limits.cpu }}  
+            memory: {{ .Values.supervisor.resources.limits.memory }}Mi  
           requests:
-            cpu: {{ .Values.resources.requests.cpu }}  
-            memory: {{ .Values.resources.requests.memory }}  
+            cpu: {{ .Values.supervisor.resources.requests.cpu }}  
+            memory: {{ .Values.supervisor.resources.requests.memory }}Mi 
         volumeMounts:
         - name: storm-configmap
           mountPath: {{ .Values.store.config }}
@@ -66,8 +66,8 @@ spec:
         - name: data-logs
           mountPath: {{ .Values.store.logdir }}
       securityContext:
-        runAsUser: {{ .Values.supervisor.security.userid }}
-        fsGroup: {{ .Values.supervisor.security.groupid }}
+        runAsUser: {{ .Values.security.userid }}
+        fsGroup: {{ .Values.security.groupid }}
       volumes:
       - name: storm-configmap
         configMap:
