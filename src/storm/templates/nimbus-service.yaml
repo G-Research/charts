@@ -6,6 +6,7 @@ metadata:
     chart: {{ template "storm.chart" . }}
     release: {{ .Release.Name }}
     heritage: {{ .Release.Service }}
+  namespace: {{ Values.namespace }}
 spec:
   type: {{ .Values.nimbus.service.type }}
   ports:
@@ -23,6 +24,7 @@ metadata:
     chart: {{ template "storm.chart" . }}
     release: {{ .Release.Name }}
     heritage: {{ .Release.Service }}
+  namespace: {{ Values.namespace }}
 spec:
   type: ClusterIP
   clusterIP: None

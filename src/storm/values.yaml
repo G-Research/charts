@@ -5,6 +5,7 @@ nameOverride: ""
 fullnameOverride: ""
 name: storm
 enabled: true
+namespace: "storm"
 
 nimbus:
   replicaCount: 1
