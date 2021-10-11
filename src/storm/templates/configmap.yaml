@@ -29,16 +29,16 @@ data:
     storm.metricstore.rocksdb.location: {{ $.Values.store.metricstore.rocksdb }}
     supervisor.slots.ports:
     {{- range $i, $e := until (int $.Values.supervisor.slots) }}
-      - {{ $i+6700 }}
+      - {{add $i 6700}}
     {{- end }}
     ui.header.buffer.bytes: {{ $.Values.ui.header.bufferbytes }}
-    supervisor.memory.capacity.mb: {{ .Values.supervisor.resources.limits.memory }}
+    supervisor.memory.capacity.mb: {{ $.Values.supervisor.resources.limits.memory }}
     #By convention 1 cpu core should be about 100, but this can be adjusted if needed
     # using 100 makes it simple to set the desired value to the capacity measurement
     # for single threaded bolts
-    supervisor.cpu.capacity: {{ .Values.supervisor.resources.limits.cpu }} * 100 
-    topology.fall.back.on.java.serialization: {{ .Values.topology.javaserialization }}
-    topology.disable.loadware.messaging: {{ .Values.topology.loadware.disablemessaging }}
+    supervisor.cpu.capacity: {{ $.Values.supervisor.resources.limits.cpu }} * 100 
+    topology.fall.back.on.java.serialization: {{ $.Values.topology.javaserialization }}
+    topology.disable.loadware.messaging: {{ $.Values.topology.loadware.disablemessaging }}
      
 
 ---

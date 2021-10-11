@@ -10,7 +10,7 @@ spec:
   type:  {{ .Values.supervisor.service.type }}
   ports:
   {{- range $i, $e := until (int $.Values.supervisor.slots) }}
-  - port: {{ $i }}+6700
+  - port: {{add $i 6700}}
     name: slot-{{ $i }}
   {{- end }}
   selector:
@@ -30,7 +30,7 @@ spec:
   clusterIP: None
   ports:
   {{- range $i, $e := until (int $.Values.supervisor.slots) }}
-  - port: {{ $i+6700 }}
+  - port: {{add $i 6700}}
     name: slot-{{ $i }}
   {{- end }}
   selector:

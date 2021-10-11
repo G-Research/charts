@@ -28,14 +28,17 @@ supervisor:
     repository: storm
     tag: 1.2.3
     pullPolicy: IfNotPresent
+  service:
+    name: supervisor
+    type: ClusterIP
   childopts: "-Xmx256m -ea"
   resources:
     requests:
       cpu: 0.25
-      memory: 512 #Mi
+      memory: 256 #Mi
     limits:
       cpu: 0.5
-      memory: 256 #Mi
+      memory: 512 #Mi
   nodeSelector: {}
   tolerations: []
   affinity: {}
