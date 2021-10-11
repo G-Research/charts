@@ -64,7 +64,7 @@ spec:
           mountPath: {{ .Values.store.log4j2conf }}
         - name: data
           mountPath: {{ .Values.store.localdatadir }}
-        - name: data-logs
+        - name: data-log
           mountPath: {{ .Values.store.logdir }}
       securityContext:
         runAsUser: {{ .Values.security.userid }}
