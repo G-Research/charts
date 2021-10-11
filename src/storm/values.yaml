@@ -114,5 +114,5 @@ security:
 
 topology:
   javaserialization: true
-  loadware:
+  loadaware:
     disablemessaging: true

@@ -39,7 +39,7 @@ data:
     # for single threaded bolts
     supervisor.cpu.capacity: {{mul $.Values.supervisor.resources.limits.cpu 100}}
     topology.fall.back.on.java.serialization: {{ $.Values.topology.javaserialization }}
-    topology.disable.loadware.messaging: {{ $.Values.topology.loadware.disablemessaging }}
+    topology.disable.loadaware.messaging: {{ $.Values.topology.loadaware.disablemessaging }}
      
 
 ---
@@ -52,6 +52,7 @@ metadata:
     chart: {{ template "storm.chart" . }}
     release: {{ .Release.Name }}
     heritage: {{ .Release.Service }}
+  namespace: {{ template "storm.namespace" . }}
 data:
   {{- $files := .Files }}
   {{- range tuple "cluster.xml" "worker.xml" }}
