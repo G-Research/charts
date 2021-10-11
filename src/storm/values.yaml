@@ -23,7 +23,7 @@ nimbus:
   affinity: {}
 
 supervisor:
-  replicaCount: 2
+  replicaCount: 3
   image:
     repository: storm
     tag: 1.2.3
