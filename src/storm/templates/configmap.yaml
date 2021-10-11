@@ -37,7 +37,7 @@ data:
     #By convention 1 cpu core should be about 100, but this can be adjusted if needed
     # using 100 makes it simple to set the desired value to the capacity measurement
     # for single threaded bolts
-    supervisor.cpu.capacity: {{ $.Values.supervisor.resources.limits.cpu }} * 100 
+    supervisor.cpu.capacity: {{mul $.Values.supervisor.resources.limits.cpu 100}}
     topology.fall.back.on.java.serialization: {{ $.Values.topology.javaserialization }}
     topology.disable.loadware.messaging: {{ $.Values.topology.loadware.disablemessaging }}
      
