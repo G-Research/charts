@@ -72,10 +72,10 @@ spec:
       volumes:
       - name: storm-configmap
         configMap:
-          name: siembol-storm-supervisor
+          name: {{ template "storm.supervisor.fullname" . }}
       - name: storm-logging-config
         configMap:
-          name: siembol-storm-logging
+          name: {{ template "storm.logging.name" . }}
       - name: data
         emptyDir: {}
       - name: data-log
