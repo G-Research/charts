@@ -24,7 +24,7 @@ nimbus:
   affinity: {}
 
 supervisor:
-  replicaCount: 3
+  replicaCount: 2
   image:
     repository: storm
     tag: 1.2.3
@@ -35,11 +35,11 @@ supervisor:
   childopts: "-Xmx256m -ea"
   resources:
     requests:
-      cpu: 0.25
-      memory: 256 #Mi
-    limits:
       cpu: 1
       memory: 512 #Mi
+    limits:
+      cpu: 2
+      memory: 1024 #Mi
   nodeSelector: {}
   tolerations: []
   affinity: {}
@@ -47,7 +47,7 @@ supervisor:
   slots: 4
   worker:
     heap_memory_mb: 768
-    childopts: "-Xmx%HEAP-MEM%m -XX:+PrintGCDetails -Xloggc:artifacts/gc.log -XX:+PrintGCDateStamps -XX:+PrintGCTimeStamps -XX:+UseGCLogFileRotation -XX:NumberOfGCLogFiles=10 -XX:GCLogFileSize=1M -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=artifacts/heapdump"
+    childopts: "-Xmx%HEAP-MEM%m -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=artifacts/heapdump"
 
 ui:
   enabled: true
