@@ -69,7 +69,7 @@ The following table lists the configurable parameters of the Storm chart and the
 | `ui.service.name`                 | UI service name             | ui                  |
 | `ui.service.port`                 | UI service port             | 8080                |
 | `ui.resources.limits.cpu`         | Compute resources           | 100m                |
-| `ui.header.bufferbytes`           | Max size of headers         | 8192kb              |
+| `ui.header.bufferbytes`           | Max size of headers         | 8192kB              |
 
 ### Zookeeper
 | Parameter                         | Description                 | Default             |
