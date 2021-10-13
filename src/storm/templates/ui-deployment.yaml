@@ -8,6 +8,7 @@ metadata:
     chart: {{ template "storm.chart" . }}
     release: {{ .Release.Name }}
     heritage: {{ .Release.Service }}
+  namespace: {{ template "storm.namespace" . }}
 spec:
   replicas: {{ .Values.ui.replicaCount }}
   selector:
@@ -22,6 +23,9 @@ spec:
         app: {{ template "storm.ui.name" . }}
         release: {{ .Release.Name }}
     spec:
+      securityContext:
+        runAsUser: {{ .Values.security.userid }}
+        fsGroup: {{ .Values.security.groupid }}
       initContainers:
       - name: init-{{ template "storm.nimbus.fullname" . }}
         image: "{{ .Values.ui.image.repository }}:{{ .Values.ui.image.tag }}"
@@ -44,6 +48,8 @@ spec:
             name: storm-configmap
           - mountPath: "/log4j2"
             name: storm-logging-config
+          - mountPath: /logs
+            name: logs
       volumes:
         - name: storm-configmap
           configMap:
@@ -51,4 +57,6 @@ spec:
         - name: storm-logging-config
           configMap:
             name: {{ template "storm.logging.name" . }}
+        - name: logs
+          emptyDir: {}
 {{- end -}}

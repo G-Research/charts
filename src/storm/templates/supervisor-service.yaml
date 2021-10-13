@@ -6,11 +6,14 @@ metadata:
     chart: {{ template "storm.chart" . }}
     release: {{ .Release.Name }}
     heritage: {{ .Release.Service }}
+  namespace: {{ template "storm.namespace" . }}
 spec:
   type:  {{ .Values.supervisor.service.type }}
   ports:
-  - port: {{ .Values.supervisor.service.port }}
-    name: {{ .Values.supervisor.service.name }}
+  {{- range $i, $e := until (int $.Values.supervisor.slots) }}
+  - port: {{add $i 6700}}
+    name: slot-{{ $i }}
+  {{- end }}
   selector:
     app: {{ template "storm.supervisor.name" . }}
     release: {{ .Release.Name }}
@@ -23,12 +26,15 @@ metadata:
     chart: {{ template "storm.chart" . }}
     release: {{ .Release.Name }}
     heritage: {{ .Release.Service }}
+  namespace: {{ template "storm.namespace" . }}
 spec:
   type: ClusterIP
   clusterIP: None
   ports:
-  - port: {{ .Values.supervisor.service.port }}
-    name: {{ .Values.supervisor.service.name }}
+  {{- range $i, $e := until (int $.Values.supervisor.slots) }}
+  - port: {{add $i 6700}}
+    name: slot-{{ $i }}
+  {{- end }}
   selector:
     app: {{ template "storm.supervisor.name" . }}
     release: {{ .Release.Name }}
