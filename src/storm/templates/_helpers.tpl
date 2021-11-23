@@ -75,7 +75,7 @@ We truncate at 63 chars because some Kubernetes name fields are limited to this 
 {{- end -}}
 
 {{- define "storm.config.name" -}}
-{{- printf "%s.yaml" (include "storm.fullname" .) | trunc 63 | trimSuffix "-" -}}
+{{- printf "%s-config" (include "storm.fullname" .) | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 
 {{/*
