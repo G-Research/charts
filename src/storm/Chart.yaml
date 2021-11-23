@@ -1,12 +1,12 @@
 apiVersion: v2
 appVersion: 1.2.3
-version: 1.0.13
+version: 1.0.14
 description: Apache Storm is a free and open source distributed realtime computation
   system.
 home: http://storm.apache.org/
 icon: http://storm.apache.org/images/logo.png
 keywords:
-- storm
+- stormq
 - zookeeper
 maintainers:
 - name: of13tch
