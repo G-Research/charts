@@ -6,7 +6,7 @@ description: Apache Storm is a free and open source distributed realtime computa
 home: http://storm.apache.org/
 icon: http://storm.apache.org/images/logo.png
 keywords:
-- stormq
+- storm
 - zookeeper
 maintainers:
 - name: of13tch
