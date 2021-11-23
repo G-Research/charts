@@ -1,9 +1,7 @@
-{{- range $name := tuple "nimbus" "supervisor" "ui" }}
-{{- $fullname := include (print "storm." $name ".fullname") $ -}}
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: {{ $fullname }}
+  name: {{ template "storm.config.name" . }}
   labels:
     chart: {{ template "storm.chart" $ }}
     release: {{ $.Release.Name }}
@@ -39,10 +37,8 @@ data:
     supervisor.cpu.capacity: {{mul $.Values.supervisor.resources.limits.cpu 100}}
     topology.fall.back.on.java.serialization: {{ $.Values.topology.javaserialization }}
     topology.disable.loadaware.messaging: {{ $.Values.topology.loadaware.disablemessaging }}
-     
 
 ---
-{{- end }}
 apiVersion: v1
 kind: ConfigMap
 metadata:

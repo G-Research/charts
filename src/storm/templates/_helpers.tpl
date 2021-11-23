@@ -74,6 +74,10 @@ We truncate at 63 chars because some Kubernetes name fields are limited to this 
 {{- printf "%s-logging" (include "storm.fullname" .) | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 
+{{- define "storm.config.name" -}}
+{{- printf "%s-config" (include "storm.fullname" .) | trunc 63 | trimSuffix "-" -}}
+{{- end -}}
+
 {{/*
 Create a fully qualified zookeeper name.
 We truncate at 63 chars because some Kubernetes name fields are limited to this (by the DNS naming spec).

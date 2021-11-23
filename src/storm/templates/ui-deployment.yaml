@@ -53,7 +53,7 @@ spec:
       volumes:
         - name: storm-configmap
           configMap:
-            name: {{ template "storm.ui.fullname" . }}
+            name: {{ template "storm.config.name" . }}
         - name: storm-logging-config
           configMap:
             name: {{ template "storm.logging.name" . }}
