@@ -16,8 +16,7 @@ maintainers:
 - name: yasram1
 name: storm
 sources:
-- https://github.com/G-Research/charts/src/storm
-- https://github.com/G-Research/charts/storm
+- https://github.com/G-Research/charts/tree/master/src/storm
 - https://github.com/apache/storm
 dependencies:
 - name: zookeeper
