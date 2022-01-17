@@ -11,7 +11,7 @@ nimbus:
   replicaCount: 1
   image:
     repository: storm
-    tag: 1.2.3
+    tag: 2.3.0
     pullPolicy: IfNotPresent
   service:
     name: nimbus
@@ -27,7 +27,7 @@ supervisor:
   replicaCount: 2
   image:
     repository: storm
-    tag: 1.2.3
+    tag: 2.3.0
     pullPolicy: IfNotPresent
   service:
     name: supervisor
@@ -54,7 +54,7 @@ ui:
   replicaCount: 1
   image:
     repository: storm
-    tag: 1.2.3
+    tag: 2.3.0
     pullPolicy: IfNotPresent
   service:
     type: ClusterIP
