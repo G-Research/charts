@@ -18,7 +18,7 @@
 
 <configuration monitorInterval="60" shutdownHook="disable">
 <properties>
-    <property name="pattern">%d{yyyy-MM-dd HH:mm:ss.SSS} %c{1.} %t [%p] %.-5000msg%n</property>
+    <property name="pattern">%d{yyyy-MM-dd HH:mm:ss.SSS} %c{1.} %t [%p] %.-5000msg{nolookups}%n</property>
 </properties>
 <appenders>
     <Console name="STDOUT" target="SYSTEM_OUT">
