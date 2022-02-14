@@ -20,7 +20,7 @@
 <properties>
     <property name="pattern">%d{yyyy-MM-dd HH:mm:ss.SSS} %c{1.} %t [%p] %.-5000msg{nolookups}%n</property>
     <property name="patternNoTime">%msg{nolookups}%n</property>
-    <property name="patternMetrics">%d %-8r %m%n</property>
+    <property name="patternMetrics">%d %-8r %m{nolookups}%n</property>
 </properties>
 <appenders>
     <RollingFile name="A1"
