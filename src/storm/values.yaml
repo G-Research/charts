@@ -47,7 +47,7 @@ supervisor:
   slots: 4
   worker:
     heap_memory_mb: 768
-    childopts: "-javaagent:/jmx/agent.jar=12345:/jmx/config.yaml -Xmx%HEAP-MEM%m -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=artifacts/heapdump"
+    childopts: "-javaagent:/jmx/agent.jar=2%ID%:/jmx/config.yaml -Xmx%HEAP-MEM%m -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=artifacts/heapdump"
 
 ui:
   enabled: true

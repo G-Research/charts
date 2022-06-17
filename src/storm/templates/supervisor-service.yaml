@@ -14,6 +14,12 @@ spec:
   - port: {{add $i 6700}}
     name: slot-{{ $i }}
   {{- end }}
+  {{- if .Values.jmx.enabled }}
+  {{- range $i, $e := until (int $.Values.supervisor.slots) }}
+  - port: {{add $i 26700}}
+    name: slot-{{ $i }}-metrics
+  {{- end }}
+  {{- end }}
   selector:
     app: {{ template "storm.supervisor.name" . }}
     release: {{ .Release.Name }}
@@ -34,6 +40,12 @@ spec:
   {{- range $i, $e := until (int $.Values.supervisor.slots) }}
   - port: {{add $i 6700}}
     name: slot-{{ $i }}
+  {{- end }}
+  {{- if .Values.jmx.enabled }}
+  {{- range $i, $e := until (int $.Values.supervisor.slots) }}
+  - port: {{add $i 26700}}
+    name: slot-{{ $i }}-metrics
+  {{- end }}
   {{- end }}
   selector:
     app: {{ template "storm.supervisor.name" . }}

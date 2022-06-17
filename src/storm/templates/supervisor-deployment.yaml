@@ -68,7 +68,8 @@ spec:
           mountPath: {{ .Values.store.logdir }}
         {{- if .Values.jmx.enabled }}
         - name: jmx-configmap
-          mountPath: {{ .Values.store.jmxdir }}
+          mountPath: {{ .Values.store.jmxdir }}/config.yaml
+          subPath: config.yaml
         {{- end }}
       securityContext:
         runAsUser: {{ .Values.security.userid }}
