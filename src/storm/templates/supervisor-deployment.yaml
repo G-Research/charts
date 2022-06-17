@@ -66,10 +66,19 @@ spec:
           mountPath: {{ .Values.store.localdatadir }}
         - name: data-log
           mountPath: {{ .Values.store.logdir }}
+        {{- if .Values.jmx.enabled }}
+        - name: jmx-configmap
+          mountPath: {{ .Values.store.jmxdir }}
+        {{- end }}
       securityContext:
         runAsUser: {{ .Values.security.userid }}
         fsGroup: {{ .Values.security.groupid }}
       volumes:
+      {{- if .Values.jmx.enabled }}
+      - name: jmx-configmap
+        configMap:
+          name: {{ template "jmx.config.name" . }}
+      {{- end }}
       - name: storm-configmap
         configMap:
           name: {{ template "storm.config.name" . }}

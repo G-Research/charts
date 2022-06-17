@@ -10,8 +10,8 @@ namespace: ""
 nimbus:
   replicaCount: 1
   image:
-    repository: storm
-    tag: 2.3.0
+    repository: dpejcev/storm
+    tag: latest
     pullPolicy: IfNotPresent
   service:
     name: nimbus
@@ -26,8 +26,8 @@ nimbus:
 supervisor:
   replicaCount: 2
   image:
-    repository: storm
-    tag: 2.3.0
+    repository: dpejcev/storm
+    tag: latest
     pullPolicy: IfNotPresent
   service:
     name: supervisor
@@ -47,14 +47,14 @@ supervisor:
   slots: 4
   worker:
     heap_memory_mb: 768
-    childopts: "-Xmx%HEAP-MEM%m -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=artifacts/heapdump"
+    childopts: "-javaagent:/jmx/agent.jar=12345:/jmx/config.yaml -Xmx%HEAP-MEM%m -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=artifacts/heapdump"
 
 ui:
   enabled: true
   replicaCount: 1
   image:
-    repository: storm
-    tag: 2.3.0
+    repository: dpejcev/storm
+    tag: latest
     pullPolicy: IfNotPresent
   service:
     type: ClusterIP
@@ -107,6 +107,7 @@ store:
   log4j2conf: /log4j2
   config: /conf
   metricsdb: /storm_rocks
+  jmxdir: /jmx
 
 security:
   userid: 1000
@@ -116,3 +117,9 @@ topology:
   javaserialization: true
   loadaware:
     disablemessaging: true
+
+jmx:
+  enabled: true
+  config: |-
+    rules:
+    - pattern: ".*"
