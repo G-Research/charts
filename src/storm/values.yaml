@@ -123,3 +123,7 @@ jmx:
   config: |-
     rules:
     - pattern: ".*" 
+
+prometheus:
+  exporter:
+    enabled: true
