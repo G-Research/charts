@@ -37,6 +37,17 @@ data:
     supervisor.cpu.capacity: {{mul $.Values.supervisor.resources.limits.cpu 100}}
     topology.fall.back.on.java.serialization: {{ $.Values.topology.javaserialization }}
     topology.disable.loadaware.messaging: {{ $.Values.topology.loadaware.disablemessaging }}
+    topology.metrics.reporters: [
+      {
+        "filter": {
+          "expression": ".*",
+          "class": "org.apache.storm.metrics2.filters.RegexFilter"
+        },
+        "report.period": 15,
+        "report.period.units": "SECONDS",
+        "class": "org.apache.storm.metrics2.reporters.JmxStormReporter"
+      }
+    ]
 
 ---
 apiVersion: v1
@@ -54,3 +65,18 @@ data:
   {{ . }}: |-
 {{ $files.Get . | indent 4 }}
   {{- end }}
+
+---
+{{- if .Values.jmx.enabled }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ template "jmx.config.name" . }}
+  labels:
+    chart: {{ template "storm.chart" . }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+  namespace: {{ template "storm.namespace" . }}
+data:
+  config.yaml: {{- .Values.jmx.config | toYaml | indent 2 }}
+{{- end }} 
