@@ -44,7 +44,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  {{- if .Values.prometheus.exporter.enabled }}
+  {{- if $.Values.prometheus.exporter.enabled }}
   annotations:
     prometheus.io/scrape: "true"
     prometheus.io/path: /metrics
@@ -53,16 +53,16 @@ metadata:
   name: "{{ template "storm.supervisor.fullname" . }}-slot-{{ $i }}"
   labels:
     chart: {{ template "storm.chart" . }}
-    release: {{ .Release.Name }}
-    heritage: {{ .Release.Service }}
+    release: {{ $.Release.Name }}
+    heritage: {{ $.Release.Service }}
   namespace: {{ template "storm.namespace" . }}
 spec:
-  type:  {{ .Values.supervisor.service.type }}
+  type:  {{ $.Values.supervisor.service.type }}
   ports:
   - port: {{add $i 26700}}
     name: metrics
   selector:
     app: {{ template "storm.supervisor.name" . }}
-    release: {{ .Release.Name }}
+    release: {{ $.Release.Name }}
 {{- end }}
 {{- end }}
