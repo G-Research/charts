@@ -44,7 +44,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  {{- if $.Values.prometheus.exporter.enabled }}
+  {{- if $.Values.exporter.prometheus.enabled }}
   annotations:
     prometheus.io/scrape: "true"
     prometheus.io/path: /metrics

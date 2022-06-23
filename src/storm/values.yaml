@@ -124,6 +124,6 @@ jmx:
     rules:
     - pattern: ".*" 
 
-prometheus:
-  exporter:
+exporter:
+  prometheus:
     enabled: true
