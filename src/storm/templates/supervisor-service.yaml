@@ -40,7 +40,7 @@ spec:
     release: {{ .Release.Name }}
 ---
 {{- if .Values.jmx.enabled }}
-{{- range $i, $e := until (int $.Values.supervisor.slots) }}
+{{- range $i, $e := until (int .Values.supervisor.slots) }}
 apiVersion: v1
 kind: Service
 metadata:
@@ -52,17 +52,16 @@ metadata:
   {{- end }}
   name: "storm-supervisor-metrics-slot-{{ $i }}"
   labels:
-    chart: {{ template "storm.chart" . }}
     release: {{ $.Release.Name }}
     heritage: {{ $.Release.Service }}
-  namespace: {{ template "storm.namespace" . }}
 spec:
   type:  {{ $.Values.supervisor.service.type }}
   ports:
   - port: {{add $i 26700}}
     name: metrics
   selector:
-    app: {{ template "storm.supervisor.name" . }}
+    app: "storm-supervisor"
     release: {{ $.Release.Name }}
+---
 {{- end }}
 {{- end }}
