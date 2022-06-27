@@ -10,8 +10,8 @@ namespace: ""
 nimbus:
   replicaCount: 1
   image:
-    repository: dpejcev/storm
-    tag: latest
+    repository: storm
+    tag: 2.4.0
     pullPolicy: IfNotPresent
   service:
     name: nimbus
@@ -26,8 +26,8 @@ nimbus:
 supervisor:
   replicaCount: 2
   image:
-    repository: dpejcev/storm
-    tag: latest
+    repository: storm
+    tag: 2.4.0
     pullPolicy: IfNotPresent
   service:
     name: supervisor
@@ -53,8 +53,8 @@ ui:
   enabled: true
   replicaCount: 1
   image:
-    repository: dpejcev/storm
-    tag: latest
+    repository: storm
+    tag: 2.4.0
     pullPolicy: IfNotPresent
   service:
     type: ClusterIP
