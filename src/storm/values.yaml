@@ -10,7 +10,7 @@ namespace: ""
 nimbus:
   replicaCount: 1
   image:
-    repository: dpejcev/storm
+    repository: storm
     tag: latest
     pullPolicy: IfNotPresent
   service:
@@ -26,7 +26,7 @@ nimbus:
 supervisor:
   replicaCount: 2
   image:
-    repository: dpejcev/storm
+    repository: storm
     tag: latest
     pullPolicy: IfNotPresent
   service:
@@ -47,13 +47,13 @@ supervisor:
   slots: 4
   worker:
     heap_memory_mb: 768
-    childopts: "-javaagent:/jmx/agent.jar=2%ID%:/jmx/config.yaml -Xmx%HEAP-MEM%m -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=artifacts/heapdump"
+    childopts: "-Xmx%HEAP-MEM%m -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=artifacts/heapdump"
 
 ui:
   enabled: true
   replicaCount: 1
   image:
-    repository: dpejcev/storm
+    repository: storm
     tag: latest
     pullPolicy: IfNotPresent
   service:
@@ -119,7 +119,8 @@ topology:
     disablemessaging: true
 
 jmx:
-  enabled: true
+  # if enabling jmx, add '-javaagent:/jmx/agent.jar=2%ID%:/jmx/config.yaml' to supervisor.worker.childopts
+  enabled: false
   config: |-
     rules:
     - pattern: ".*" 
