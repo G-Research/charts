@@ -49,6 +49,24 @@ supervisor:
     heap_memory_mb: 768
     childopts: "-Xmx%HEAP-MEM%m -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=artifacts/heapdump"
 
+  ## @param extraVolumes Optionally specify extra list of additional volumes for the Supervisor pod(s)
+  ## Example use case:
+  ## extraVolumes:
+  ## - name: extra-config 
+  ##   configMap:
+  ##     name: extra-config 
+  ##
+  extraVolumes: []
+
+  ## @param extraVolumeMounts Optionally specify extra list of additional volumeMounts for the Supervisor container(s)
+  ## Example use case:
+  ## extraVolumeMounts:
+  ## - name: extra-config 
+  ##   mountPath: /opt/config
+  ##   readOnly: true
+  ##     
+  extraVolumeMounts: []
+
 ui:
   enabled: true
   replicaCount: 1

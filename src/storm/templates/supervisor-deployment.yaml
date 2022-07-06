@@ -71,6 +71,9 @@ spec:
           mountPath: {{ .Values.store.jmxdir }}/config.yaml
           subPath: config.yaml
         {{- end }}
+        {{- if .Values.supervisor.extraVolumeMounts }}
+        {{- include "common.tplvalues.render" (dict "value" .Values.supervisor.extraVolumeMounts "context" $ ) | nindent 8 }}
+        {{- end }}
       securityContext:
         runAsUser: {{ .Values.security.userid }}
         fsGroup: {{ .Values.security.groupid }}
@@ -90,4 +93,7 @@ spec:
         emptyDir: {}
       - name: data-log
         emptyDir: {}
+      {{- if .Values.supervisor.extraVolumes }}
+      {{- include "common.tplvalues.render" (dict "value" .Values.supervisor.extraVolumes "context" $ ) | nindent 6 }}
+      {{- end }}
       

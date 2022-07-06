@@ -47,7 +47,7 @@ The following table lists the configurable parameters of the Storm chart and the
 | ---------------------------------      | ---------------------------    | ------------------- |
 | `supervisor.replicaCount`              | Number of replicas             | 2                   |
 | `supervisor.image.repository`          | Container image name           | storm               |
-| `supervisor.image.tag`                 | Container image version        | latest               |
+| `supervisor.image.tag`                 | Container image version        | latest              |
 | `supervisor.image.pullPolicy`          | The default pull policy        | IfNotPresent        |
 | `supervisor.service.name`              | Service Name                   | supervisor          |
 | `supervisor.service.type`              | Service Type                   | ClusterIP           |
@@ -55,7 +55,9 @@ The following table lists the configurable parameters of the Storm chart and the
 | `supervisor.resources.requests.memory` | Compute Resouces               | 512Mi               | 
 | `supervisor.resources.requests.cpu`    | Compute Resouces               | 1                   |
 | `supervisor.resources.limits.memory`   | Compute Resouces               | 1024Mi              | 
-| `supervisor.resources.limits.cpu`      | Compute Resouces               | 2                   |  
+| `supervisor.resources.limits.cpu`      | Compute Resouces               | 2                   |
+| `supervisor.extraVolumes`           | Optionally specify extra list of additional volumes | [] |
+| `supervisor.extraVolumeMounts`      | Optionally specify extra list of additional volumeMounts | [] |
 
 ### User Interface   
 | Parameter                         | Description                 | Default             |
