@@ -38,3 +38,30 @@ spec:
   selector:
     app: {{ template "storm.supervisor.name" . }}
     release: {{ .Release.Name }}
+---
+{{- if .Values.jmx.enabled }}
+{{- range $i, $e := until (int .Values.supervisor.slots) }}
+apiVersion: v1
+kind: Service
+metadata:
+  {{- if $.Values.exporter.prometheus.enabled }}
+  annotations:
+    prometheus.io/scrape: "true"
+    prometheus.io/path: /metrics
+    prometheus.io/port: "{{add $i 26700}}"
+  {{- end }}
+  name: "storm-supervisor-metrics-slot-{{ $i }}"
+  labels:
+    release: {{ $.Release.Name }}
+    heritage: {{ $.Release.Service }}
+spec:
+  type:  {{ $.Values.supervisor.service.type }}
+  ports:
+  - port: {{add $i 26700}}
+    name: metrics
+  selector:
+    app: "storm-supervisor"
+    release: {{ $.Release.Name }}
+---
+{{- end }}
+{{- end }}

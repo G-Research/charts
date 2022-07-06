@@ -11,7 +11,7 @@ nimbus:
   replicaCount: 1
   image:
     repository: storm
-    tag: 2.3.0
+    tag: 2.4.0
     pullPolicy: IfNotPresent
   service:
     name: nimbus
@@ -27,7 +27,7 @@ supervisor:
   replicaCount: 2
   image:
     repository: storm
-    tag: 2.3.0
+    tag: 2.4.0
     pullPolicy: IfNotPresent
   service:
     name: supervisor
@@ -49,12 +49,30 @@ supervisor:
     heap_memory_mb: 768
     childopts: "-Xmx%HEAP-MEM%m -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=artifacts/heapdump"
 
+  ## @param extraVolumes Optionally specify extra list of additional volumes for the Supervisor pod(s)
+  ## Example use case:
+  ## extraVolumes:
+  ## - name: extra-config 
+  ##   configMap:
+  ##     name: extra-config 
+  ##
+  extraVolumes: []
+
+  ## @param extraVolumeMounts Optionally specify extra list of additional volumeMounts for the Supervisor container(s)
+  ## Example use case:
+  ## extraVolumeMounts:
+  ## - name: extra-config 
+  ##   mountPath: /opt/config
+  ##   readOnly: true
+  ##     
+  extraVolumeMounts: []
+
 ui:
   enabled: true
   replicaCount: 1
   image:
     repository: storm
-    tag: 2.3.0
+    tag: 2.4.0
     pullPolicy: IfNotPresent
   service:
     type: ClusterIP
@@ -107,6 +125,7 @@ store:
   log4j2conf: /log4j2
   config: /conf
   metricsdb: /storm_rocks
+  jmxdir: /jmx
 
 security:
   userid: 1000
@@ -116,3 +135,14 @@ topology:
   javaserialization: true
   loadaware:
     disablemessaging: true
+
+jmx:
+  # if enabling jmx, add '-javaagent:/jmx/agent.jar=2%ID%:/jmx/config.yaml' to supervisor.worker.childopts
+  enabled: false
+  config: |-
+    rules:
+    - pattern: ".*" 
+
+exporter:
+  prometheus:
+    enabled: true

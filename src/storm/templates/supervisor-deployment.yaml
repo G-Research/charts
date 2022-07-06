@@ -66,10 +66,23 @@ spec:
           mountPath: {{ .Values.store.localdatadir }}
         - name: data-log
           mountPath: {{ .Values.store.logdir }}
+        {{- if .Values.jmx.enabled }}
+        - name: jmx-configmap
+          mountPath: {{ .Values.store.jmxdir }}/config.yaml
+          subPath: config.yaml
+        {{- end }}
+        {{- if .Values.supervisor.extraVolumeMounts }}
+        {{- include "common.tplvalues.render" (dict "value" .Values.supervisor.extraVolumeMounts "context" $ ) | nindent 8 }}
+        {{- end }}
       securityContext:
         runAsUser: {{ .Values.security.userid }}
         fsGroup: {{ .Values.security.groupid }}
       volumes:
+      {{- if .Values.jmx.enabled }}
+      - name: jmx-configmap
+        configMap:
+          name: {{ template "jmx.config.name" . }}
+      {{- end }}
       - name: storm-configmap
         configMap:
           name: {{ template "storm.config.name" . }}
@@ -80,4 +93,7 @@ spec:
         emptyDir: {}
       - name: data-log
         emptyDir: {}
+      {{- if .Values.supervisor.extraVolumes }}
+      {{- include "common.tplvalues.render" (dict "value" .Values.supervisor.extraVolumes "context" $ ) | nindent 6 }}
+      {{- end }}
       
