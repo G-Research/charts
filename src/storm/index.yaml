@@ -1,0 +1,63 @@
+apiVersion: v1
+entries:
+  storm:
+  - apiVersion: v2
+    appVersion: 2.4.0
+    created: "2022-07-06T15:36:17.772351287Z"
+    dependencies:
+    - condition: zookeeper.enabled
+      name: zookeeper
+      repository: https://charts.bitnami.com/bitnami
+      version: ~6.5.2
+    description: Apache Storm is a free and open source distributed realtime computation
+      system.
+    digest: 1eb7ce830e4b21afb737c3c76c6a43b2331739ca7e851da2ee4d0a593f2f5d07
+    home: http://storm.apache.org/
+    icon: http://storm.apache.org/images/logo.png
+    keywords:
+    - storm
+    - zookeeper
+    maintainers:
+    - name: of13tch
+    - name: stackedsax
+    - name: mariannovotny
+    - name: jgiannuzzi
+    - name: yasram1
+    name: storm
+    sources:
+    - https://github.com/G-Research/charts/tree/master/src/storm
+    - https://github.com/apache/storm
+    urls:
+    - storm-1.2.0.tgz
+    version: 1.2.0
+  zookeeper:
+  - annotations:
+      category: Infrastructure
+    apiVersion: v2
+    appVersion: 3.7.0
+    created: "2022-07-06T15:36:17.775147991Z"
+    dependencies:
+    - name: common
+      repository: https://charts.bitnami.com/bitnami
+      tags:
+      - bitnami-common
+      version: 1.x.x
+    description: A centralized service for maintaining configuration information,
+      naming, providing distributed synchronization, and providing group services
+      for distributed applications.
+    digest: df306e915ac10eb84795bbce1ae62b7ee0b46252c9d62d0119871e9e9fa0005f
+    home: https://github.com/bitnami/charts/tree/master/bitnami/zookeeper
+    icon: https://bitnami.com/assets/stacks/zookeeper/img/zookeeper-stack-220x234.png
+    keywords:
+    - zookeeper
+    maintainers:
+    - email: containers@bitnami.com
+      name: Bitnami
+    name: zookeeper
+    sources:
+    - https://github.com/bitnami/bitnami-docker-zookeeper
+    - https://zookeeper.apache.org/
+    urls:
+    - charts/zookeeper-6.5.4.tgz
+    version: 6.5.4
+generated: "2022-07-06T15:36:17.766317236Z"
