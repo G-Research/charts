@@ -35,7 +35,7 @@ The following table lists the configurable parameters of the Storm chart and the
 | --------------------------------- | --------------------------- | ------------------- |
 | `nimbus.replicaCount`             | Number of replicas          | 1                   |
 | `nimbus.image.repository`         | Container image name        | storm               |
-| `nimbus.image.tag`                | Container image version     | latest              |
+| `nimbus.image.tag`                | Container image version     | 2.4.0               |
 | `nimbus.image.pullPolicy`         | The default pull policy     | IfNotPresent        |
 | `nimbus.service.name`             | Service name                | nimbus              |
 | `nimbus.service.type`             | Service Type                | ClusterIP           |
@@ -47,7 +47,7 @@ The following table lists the configurable parameters of the Storm chart and the
 | ---------------------------------      | ---------------------------    | ------------------- |
 | `supervisor.replicaCount`              | Number of replicas             | 2                   |
 | `supervisor.image.repository`          | Container image name           | storm               |
-| `supervisor.image.tag`                 | Container image version        | latest              |
+| `supervisor.image.tag`                 | Container image version        | 2.4.0               |
 | `supervisor.image.pullPolicy`          | The default pull policy        | IfNotPresent        |
 | `supervisor.service.name`              | Service Name                   | supervisor          |
 | `supervisor.service.type`              | Service Type                   | ClusterIP           |
@@ -65,7 +65,7 @@ The following table lists the configurable parameters of the Storm chart and the
 | `ui.enabled`                      | Enable the UI               | true                |
 | `ui.replicaCount`                 | Number of replicas          | 1                   |
 | `ui.image.repository`             | Container image name        | storm               |
-| `ui.image.tag`                    | UI image version            | latest              |
+| `ui.image.tag`                    | UI image version            | 2.4.0               |
 | `ui.image.pullPolicy`             | The default pull policy     | IfNotPresent        |
 | `ui.service.type`                 | UI Service Type             | ClusterIP           |
 | `ui.service.name`                 | UI service name             | ui                  |
