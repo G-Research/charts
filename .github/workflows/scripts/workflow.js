@@ -2,10 +2,10 @@ module.exports = async ({ core, context }, token) => {
   const { Octokit } = require("@octokit/core")
   const octokit = new Octokit({ auth: token })
 
-  const owner = `ljubon` // TODO: Change to G-Research
-  const repo = `charts` // TODO: Change to charts
-  const ref = `INTERNAL-master` // TODO: Change to chart's default branch (master)
-  const workflow_name = `Push` // NOTE: Workflow name in chart repo must be named `Push` (push.yaml in this code)
+  const owner = `G-Research`
+  const repo = `charts`
+  const ref = `master`
+  const workflow_name = `Push`
 
   const { data: repo_workflows } = await octokit.request('GET /repos/{owner}/{repo}/actions/workflows', {
     owner: owner,

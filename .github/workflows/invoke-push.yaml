@@ -18,17 +18,17 @@ jobs:
       - name: Checkout self
         uses: actions/checkout@v3
         with:
-          repository: ljubon/charts
+          repository: G-Research/charts
           path: charts
-          ref: INTERNAL-master # TODO: change to default branch
+          ref: master
       - run: npm i octokit @octokit/core
       - name: Trigger push workflow
         uses: actions/github-script@v6
         env: 
-          APP_ID: ${{ secrets.APP_ID }} # from workflow_call
-          APP_PRIVATE_KEY: ${{ secrets.APP_PRIVATE_KEY }} # from workflow_call
-          OWNER: "ljubon" # TODO: Change to G-Research
-          REPO: "charts" # TODO: Change to charts
+          APP_ID: ${{ secrets.APP_ID }}
+          APP_PRIVATE_KEY: ${{ secrets.APP_PRIVATE_KEY }}
+          OWNER: "G-Research"
+          REPO: "charts"
         with:
           script: |
             const generateToken = require('./charts/.github/workflows/scripts/token.js')

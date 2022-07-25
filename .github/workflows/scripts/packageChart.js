@@ -3,9 +3,8 @@ module.exports = async ({ core, exec }) => {
   const checkoutPageDir = "gh-pages"
   const checkoutSourceDir = "source"
   const helmVersionReplaceFiles = ['Chart.yaml', 'values.yaml']
-  // TODO: NOTE: Updating version in Chart.yml and values.yml will work only for Chart.yaml as values.yaml doesn't have version as pointer in json (packageChart.js line 33)
 
-  // Envs are set in  validate chart step
+  // Envs are set in validate chart step
   const helm = {
     owner: process.env.OWNER,
     repo: process.env.REPO,

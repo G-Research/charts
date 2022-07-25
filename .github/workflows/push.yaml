@@ -3,7 +3,7 @@ name: Push
 on:
   push:
     branches:
-      - INTERNAL-master
+      - master
     tags:
       - '*'
     paths:
@@ -77,7 +77,7 @@ jobs:
 
             const tokenPermissions = { contents: "write" } // required to push files 
             try {
-              const token = await fetchToken({ core }, 'ljubon', 'charts', tokenPermissions )
+              const token = await fetchToken({ core }, 'G-Research', 'charts', tokenPermissions )
               return await push({ core, exec, context }, token)
             } catch (error) {
               core.notice(`Permission: ${JSON.stringify(tokenPermissions)}`)
