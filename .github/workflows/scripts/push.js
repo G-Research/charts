@@ -24,7 +24,7 @@ module.exports = async ({ core, exec, context }, token) => {
     await exec.exec('git', ['add', 'index.yaml'], { cwd: checkoutPageDir })
 
     await exec.exec('git', ['status'], { cwd: checkoutPageDir })
-    await exec.exec('git', ['commit', '-m', `Publish helm chart to ${context.payload.repository.owner.login}/${context.payload.repository.name}`, '--verbose'], { cwd: checkoutPageDir }) 
+    await exec.exec('git', ['commit', '-m', `Publish helm chart with version ${helm.ref} to ${context.payload.repository.owner.login}/${context.payload.repository.name}`, '--verbose'], { cwd: checkoutPageDir }) 
     await exec.exec('git', ['push', 'origin', checkoutPageDir, '--verbose'], { cwd: checkoutPageDir })
   } catch (error) {
     return core.setFailed(`Unable to push ${checkoutPageDir}/${helm.charts.destination} to G-Research/charts@${checkoutPageDir}\nError: ${error}`)
