@@ -21,26 +21,6 @@
       ]
     },
     {
-      "name": "playground",
-      "refs": [
-        {
-          "ref": "^refs/tags/v\\d+\\.\\d+\\.\\d+",
-          "type": "regex"
-        }
-      ],
-      "helm_charts": [
-        {
-          "name": "storm",
-          "source": "deployment",
-          "destination": "test",
-          "use_ref_as_version": {
-            "pattern": "^refs/tags/v",
-            "replacement": ""
-          }
-        }
-      ]
-    },
-    {
       "name": "armada",
       "refs": [
         {
@@ -73,6 +53,53 @@
           "destination": "armada",
           "use_ref_as_version": {
             "pattern": "^refs/tags/v",
+            "replacement": ""
+          }
+        },
+        {
+          "name": "executor-cluster-monitoring",
+          "source": "deployment/executor-cluster-monitoring",
+          "destination": "armada",
+          "use_ref_as_version": {
+            "pattern": "^refs/tags/v",
+            "replacement": ""
+          }
+        },
+        {
+          "name": "binoculars",
+          "source": "deployment/binoculars",
+          "destination": "armada",
+          "use_ref_as_version": {
+            "pattern": "^refs/tags/v",
+            "replacement": ""
+          }
+        },
+        {
+          "name": "execlookout-migrationutor",
+          "source": "deployment/lookout-migration",
+          "destination": "armada",
+          "use_ref_as_version": {
+            "pattern": "^refs/tags/v",
+            "replacement": ""
+          }
+        }
+      ]
+    },
+    {
+      "name": "siembol",
+      "refs": [
+        {
+          "ref": "^refs/tags/\\d+\\.\\d+\\.\\d+",
+          "type": "regex"
+        }
+      ],
+      "helm_charts": [
+        {
+          "name": "siembol",
+          "source": "deployment/helm-k8s",
+          "destination": "siembol",
+          "use_ref_as_version": {
+            "pattern": "^refs/tags/",
             "replacement": ""
           }
         }
