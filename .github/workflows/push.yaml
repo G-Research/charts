@@ -8,6 +8,7 @@ on:
       - '*'
     paths:
     - 'storm/Chart.yaml'
+    - 'librenms/Chart.yaml'
   # When this workflow is invoked by another repo
   workflow_dispatch:
     inputs:

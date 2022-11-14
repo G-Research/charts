@@ -1,0 +1,45 @@
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: {{ .Release.Namespace }}
+  name: memcached
+spec:
+  type: ClusterIP
+  selector:
+    component: memcached
+  ports:
+  - name: memcached
+    port: {{ .Values.memcached.servicePort }}
+    targetPort: memcached
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  namespace: {{ .Release.Namespace }}
+  name: memcached
+  labels:
+    application: librenms
+spec:
+  serviceName: memcached
+  selector:
+    matchLabels:
+      component: memcached
+  replicas: 1
+  template:
+    metadata:
+      namespace: {{ .Release.Namespace }}
+      name: memcached
+      labels:
+        application: librenms
+        component: memcached
+    spec:
+      containers:
+      - name: memcached
+        image: {{ .Values.memcached.image.repository }}:{{ .Values.memcached.image.tag }}
+        envFrom:
+          - configMapRef:
+              name: memcached
+        ports:
+        - name: memcached
+          containerPort: {{ .Values.memcached.providerPort }}
+          protocol: TCP

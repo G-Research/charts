@@ -12,11 +12,12 @@
         {
           "name": "storm",
           "source": "storm",
-          "destination": "storm",
-          "use_ref_as_version": {
-            "pattern": "^refs/tags/v",
-            "replacement": ""
-          }
+          "destination": "storm"
+        },
+        {
+          "name": "librenms",
+          "source": "librenms",
+          "destination": "librenms"
         }
       ]
     },
