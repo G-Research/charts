@@ -4,8 +4,7 @@
       "name": "charts",
       "refs": [
         {
-          "ref": "^refs/tags/v\\d+\\.\\d+\\.\\d+",
-          "type": "regex"
+          "type": "branch"
         }
       ],
       "helm_charts": [
@@ -40,7 +39,16 @@
           }
         },
         {
-          "name": "lookout",
+          "name": "armada-bundle",
+          "source": "deployment/armada-bundle",
+          "destination": "armada",
+          "use_ref_as_version": {
+            "pattern": "^refs/tags/v",
+            "replacement": ""
+          }
+        },
+        {
+          "name": "armada-lookout",
           "source": "deployment/lookout",
           "destination": "armada",
           "use_ref_as_version": {
@@ -49,7 +57,7 @@
           }
         },
         {
-          "name": "executor",
+          "name": "armada-executor",
           "source": "deployment/executor",
           "destination": "armada",
           "use_ref_as_version": {
@@ -58,7 +66,7 @@
           }
         },
         {
-          "name": "executor-cluster-monitoring",
+          "name": "armada-executor-cluster-monitoring",
           "source": "deployment/executor-cluster-monitoring",
           "destination": "armada",
           "use_ref_as_version": {
@@ -67,7 +75,7 @@
           }
         },
         {
-          "name": "binoculars",
+          "name": "armada-binoculars",
           "source": "deployment/binoculars",
           "destination": "armada",
           "use_ref_as_version": {
@@ -76,8 +84,35 @@
           }
         },
         {
-          "name": "execlookout-migrationutor",
+          "name": "armada-lookout-ingester",
+          "source": "deployment/lookout-ingester",
+          "destination": "armada",
+          "use_ref_as_version": {
+            "pattern": "^refs/tags/v",
+            "replacement": ""
+          }
+        },
+        {
+          "name": "armada-lookout-migration",
           "source": "deployment/lookout-migration",
+          "destination": "armada",
+          "use_ref_as_version": {
+            "pattern": "^refs/tags/v",
+            "replacement": ""
+          }
+        },
+        {
+          "name": "armada-jobservice",
+          "source": "deployment/jobservice",
+          "destination": "armada",
+          "use_ref_as_version": {
+            "pattern": "^refs/tags/v",
+            "replacement": ""
+          }
+        },
+        {
+          "name": "armada-event-ingester",
+          "source": "deployment/event-ingester",
           "destination": "armada",
           "use_ref_as_version": {
             "pattern": "^refs/tags/v",
