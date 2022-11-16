@@ -19,7 +19,7 @@ module.exports = async ({ core, exec }) => {
 
       // Check if source folder for chart exists  
       if (!fs.existsSync(`${checkoutSourceDir}/${chart.source}`)) {
-        core.notice(chart)
+        core.notice(`Chart: ${JSON.stringify(chart)}`)
         return core.setFailed(`Source directory ${checkoutSourceDir}/${chart.source} doesn't exist`);
       }
 
@@ -30,18 +30,18 @@ module.exports = async ({ core, exec }) => {
       }
 
       if (chart.use_ref_as_version) {
-        // Update the chart versionx
+        // Update the chart version
         const version = helm.ref.replace(new RegExp(chart.use_ref_as_version.pattern), chart.use_ref_as_version.replacement)
         core.notice(`Packaging the ${chart.name} chart with the version ${version}`)
-        try {
-          for (const file of helmVersionReplaceFiles) {
-            core.debug(`${checkoutSourceDir}/${chart.source}/${file}`)
+        for (const file of helmVersionReplaceFiles) {
+          try {
+            core.debug(`Replacing the version in ${checkoutSourceDir}/${chart.source}/${file}`)
             await exec.exec('yq', ['-i', `.version = "${version}"`, `${checkoutSourceDir}/${chart.source}/${file}`])
             await exec.exec('yq', ['-i', `.appVersion = "${version}"`, `${checkoutSourceDir}/${chart.source}/${file}`])
+          } catch (error) {
+            core.notice(`File: ${checkoutSourceDir}/${chart.source}/${file}\nVersion: ${version}`)
+            return core.setFailed(`The file ${checkoutSourceDir}/${chart.source}/${file} doesn't exist\n${error}`);
           }
-        } catch (error) {
-          core.notice(`${checkoutSourceDir}/${chart.source}/${file}\n Version: ${version}`)
-          return core.setFailed(`The file ${checkoutSourceDir}/${chart.source}/${file} doesn't exist\n${error}`);
         }
       }
 
@@ -50,7 +50,6 @@ module.exports = async ({ core, exec }) => {
       await exec.exec('git', ['add', `${chart.destination}`], { cwd: checkoutPageDir })
     }
   } catch (error) {
-    console.error(error);
     return core.setFailed(`Unable to create package and stage it with an error: ${error}`)
   }
 
