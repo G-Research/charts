@@ -1,0 +1,148 @@
+# Default values for storm.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+nameOverride: ""
+fullnameOverride: ""
+name: storm
+enabled: true
+namespace: ""
+
+nimbus:
+  replicaCount: 1
+  image:
+    repository: storm
+    tag: 2.4.0
+    pullPolicy: IfNotPresent
+  service:
+    name: nimbus
+    type: ClusterIP
+    port: 6627
+  childopts: "-Xmx1024m -ea"
+  resources: {}
+  nodeSelector: {}
+  tolerations: []
+  affinity: {}
+
+supervisor:
+  replicaCount: 2
+  image:
+    repository: storm
+    tag: 2.4.0
+    pullPolicy: IfNotPresent
+  service:
+    name: supervisor
+    type: ClusterIP
+  childopts: "-Xmx256m -ea"
+  resources:
+    requests:
+      cpu: 1
+      memory: 512 #Mi
+    limits:
+      cpu: 2
+      memory: 1024 #Mi
+  nodeSelector: {}
+  tolerations: []
+  affinity: {}
+  # Define the number of slots/workers per supervisor, each worker/slot is assigned a port
+  slots: 4
+  worker:
+    heap_memory_mb: 768
+    childopts: "-Xmx%HEAP-MEM%m -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=artifacts/heapdump"
+
+  ## @param extraVolumes Optionally specify extra list of additional volumes for the Supervisor pod(s)
+  ## Example use case:
+  ## extraVolumes:
+  ## - name: extra-config 
+  ##   configMap:
+  ##     name: extra-config 
+  ##
+  extraVolumes: []
+
+  ## @param extraVolumeMounts Optionally specify extra list of additional volumeMounts for the Supervisor container(s)
+  ## Example use case:
+  ## extraVolumeMounts:
+  ## - name: extra-config 
+  ##   mountPath: /opt/config
+  ##   readOnly: true
+  ##     
+  extraVolumeMounts: []
+
+ui:
+  enabled: true
+  replicaCount: 1
+  image:
+    repository: storm
+    tag: 2.4.0
+    pullPolicy: IfNotPresent
+  service:
+    type: ClusterIP
+    name: ui
+    port: 8080
+  childopts: "-Xmx768m -ea"
+  resources: {}
+  ingress:
+    enabled: false
+    annotations: {}
+    tls: []
+  header:
+    bufferbytes: 8192
+
+persistence:
+  enabled: true
+  # storageClass: "-"
+  accessModes:
+    - ReadWriteOnce
+  
+  data:
+    size: 1Gi
+    annotations: {}
+    # existingClaim:
+  
+  logs:
+    size: 1Gi
+    annotations: {}
+    # existingClaim:
+  
+  metrics:
+    size: 200Mi
+    annotations: {}
+    # existingClaim:
+
+zookeeper:
+  enabled: true
+  replicaCount: 1
+  # # if using an external zookeeper, you need to set the server names below
+  # servers: 
+  #  - "example.external.zookeeper1"
+  #  - "example.external.zookeeper2"
+  #  - "example.external.zookeeper3"
+  # # external server port
+  # port: 2181
+
+store:
+  localdatadir: /data
+  logdir: /logs
+  log4j2conf: /log4j2
+  config: /conf
+  metricsdb: /storm_rocks
+  jmxdir: /jmx
+
+security:
+  userid: 1000
+  groupid: 2000
+
+topology:
+  javaserialization: true
+  loadaware:
+    disablemessaging: true
+
+jmx:
+  # if enabling jmx, add '-javaagent:/jmx/agent.jar=2%ID%:/jmx/config.yaml' to supervisor.worker.childopts
+  enabled: false
+  config: |-
+    rules:
+    - pattern: ".*" 
+
+exporter:
+  prometheus:
+    enabled: true

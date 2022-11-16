@@ -1,0 +1,59 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  namespace: {{ .Release.Namespace }}
+  name: mysql
+  labels:
+    helm.sh/chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
+  annotations:
+    "helm.sh/hook": pre-install
+    "helm.sh/hook-weight": "1"
+data:
+  MYSQL_INITDB_SKIP_TZINFO: "yes"
+  MYSQL_DATABASE: "librenms"
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  namespace: {{ .Release.Namespace }}
+  name: rrdcached
+  labels:
+    helm.sh/chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
+  annotations:
+    "helm.sh/hook": pre-install
+    "helm.sh/hook-weight": "1"
+data:
+  RRDCACHED_CHUNK_SIZE: {{ .Values.rrdcached.chunkSize | quote }}
+  RRDCACHED_THREAD_COUNT: {{ .Values.rrdcached.threadCount | quote }}
+  RRDCACHED_FLUSH_INTERVAL: {{ .Values.rrdcached.flushInterval | quote }}
+  RRDCACHED_WRITE_INTERVAL: {{ .Values.rrdcached.writeInterval | quote }}
+  RRDCACHED_WRITE_DELAY: {{ .Values.rrdcached.writeDelay | quote }}
+  RRDCACHED_LOG_LEVEL: {{ .Values.rrdcached.logLevel | quote }}
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  namespace: {{ .Release.Namespace }}
+  name: memcached
+  labels:
+    helm.sh/chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
+  annotations:
+    "helm.sh/hook": pre-install
+    "helm.sh/hook-weight": "1"
+data:
+  MEMCACHED_THREAD_COUNT: {{ .Values.memcached.threadCount | quote }}
+  MEMCACHED_CONNECTION_REQUESTS: {{ .Values.memcached.connectionRequests | quote }}
+  MEMCACHED_LOG_LEVEL: {{ .Values.memcached.logLevel | quote }}
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  namespace: {{ .Release.Namespace }}
+  name: redis
+  labels:
+    helm.sh/chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
+  annotations:
+    "helm.sh/hook": pre-install
+    "helm.sh/hook-weight": "1"
+data:
+  REDIS_LOG_LEVEL: {{ .Values.redis.logLevel | quote }}

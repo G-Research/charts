@@ -1,0 +1,155 @@
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: {{ .Release.Namespace }}
+  name: mysql
+spec:
+  {{- if .Values.mysql.external.enabled }}
+  type: ClusterIP
+  selector: {}
+  ports:
+  - name: mysql
+    protocol: TCP
+    port: {{ .Values.mysql.servicePort }}
+    targetPort: {{ .Values.mysql.external.port }}
+  {{- else }}
+  type: ClusterIP
+  selector:
+    component: mysql
+  ports:
+  - name: mysql
+    protocol: TCP
+    port: {{ .Values.mysql.servicePort }}
+    targetPort: mysql
+  {{- end }}
+---
+{{- if .Values.mysql.external.enabled }}
+kind: Endpoints
+apiVersion: v1
+metadata:
+  namespace: {{ .Release.Namespace }}
+  name: mysql
+subsets:
+- addresses:
+  - ip: {{ required "the external MySQL database address must be provided (librenmsServices.mysql.external.address)" .Values.mysql.external.address }}
+  ports:
+  - name: mysql
+    port: {{ .Values.mysql.external.port }}
+---
+{{- else }}
+{{- if eq .Values.mysql.storage.type "dynamic" }}
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: mysql-volume-claim
+spec:
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: {{ .Values.mysql.storage.class }}
+  resources:
+    requests:
+      storage: {{ .Values.mysql.storage.size }}
+---
+{{- end }}
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  namespace: {{ .Release.Namespace }}
+  name: mysql
+  labels:
+    application: librenms
+spec:
+  serviceName: mysql
+  selector:
+    matchLabels:
+      component: mysql
+  replicas: 1
+  template:
+    metadata:
+      namespace: {{ .Release.Namespace }}
+      name: mysql
+      labels:
+        application: librenms
+        component: mysql
+    spec:
+      initContainers:
+      {{- if and (eq .Values.mysql.storage.type "dynamic") .Values.mysql.storage.subpathRequired }}
+      - name: create-subpath
+        image: {{ .Values.subpath.image.repository }}:{{ .Values.subpath.image.tag }}
+        imagePullPolicy: IfNotPresent
+        env:
+        - name: SUBPATHS
+          value: "configuration|database|initialization"
+        - name: OWNER
+          value: "999"
+        - name: GROUP
+          value: "999"
+        volumeMounts:
+        - name: mysql-volume
+          mountPath: /volume
+      {{- end }}
+      - name: prepare-volume
+        image: {{ .Values.mysql.prepareVolumeImage.repository }}:{{ .Values.mysql.prepareVolumeImage.tag }}
+        imagePullPolicy: IfNotPresent
+        envFrom:
+        - configMapRef:
+            name: mysql
+        volumeMounts:
+        - name: mysql-volume
+          subPath: configuration
+          mountPath: /configuration
+        - name: mysql-volume
+          subPath: database
+          mountPath: /database
+        - name: mysql-volume
+          subPath: initialization
+          mountPath: /initialization
+      containers:
+      - name: mysql
+        image: {{ .Values.mysql.image.repository }}:{{ .Values.mysql.image.tag }}
+        imagePullPolicy: IfNotPresent
+        envFrom:
+        - configMapRef:
+            name: mysql
+        env:
+        - name: MYSQL_ROOT_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: application
+              key: mysql_root_password
+        - name: MYSQL_USER
+          valueFrom:
+            secretKeyRef:
+              name: application
+              key: librenms_mysql_user
+        - name: MYSQL_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: application
+              key: librenms_mysql_password
+        ports:
+        - name: mysql
+          containerPort: {{ .Values.mysql.providerPort }}
+          protocol: TCP
+        volumeMounts:
+        - name: mysql-volume
+          subPath: configuration
+          mountPath: /etc/mysql/conf.d
+        - name: mysql-volume
+          subPath: database
+          mountPath: /var/lib/mysql
+        - name: mysql-volume
+          subPath: initialization
+          mountPath: /docker-entrypoint-initdb.d
+      volumes:
+      - name: mysql-volume
+        {{- if eq .Values.mysql.storage.type "temporary" }}
+        emptyDir: {}
+        {{- else if eq .Values.mysql.storage.type "static" }}
+        persistentVolumeClaim:
+          claimName: {{ required "the name of the pre-configured MySQL persistent volume claim must be provided (librenmsServices.mysql.storage.claimName)" .Values.mysql.storage.claimName }}
+        {{- else }}
+        persistentVolumeClaim:
+          claimName: mysql-volume-claim
+        {{- end }}
+{{- end }}

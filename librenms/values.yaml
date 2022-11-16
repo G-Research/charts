@@ -1,0 +1,137 @@
+Application:
+  TLS: null
+  baseURL: null
+  ingressHost: null
+  ingressPath: /
+  installLoadBalancer: false
+  memoryLimit: 1024
+  nginxImage:
+    repository: docker.io/tpboudreau/librenms-application-nginx
+    tag: 0.1.1
+  phpImage:
+    repository: docker.io/tpboudreau/librenms-application-php-fpm
+    tag: 0.1.1
+  prepareVolumeImage:
+    repository: docker.io/tpboudreau/librenms-application-prepare-volume
+    tag: 0.1.1
+  providerPort: 8000
+  replicas: 1
+  servicePort: 80
+  serviceType: cluster
+Dispatcher:
+  discoveryWorkers: 16
+  image:
+    repository: docker.io/tpboudreau/librenms-dispatcher
+    tag: 0.1.1
+  instances: 4
+  logLevel: -v
+  pollerWorkers: 24
+  serviceWorkers: 8
+checkMemcached:
+  image:
+    repository: docker.io/tpboudreau/librenms-check-memcached
+    tag: 0.1.1
+checkMySQL:
+  image:
+    repository: docker.io/tpboudreau/librenms-check-mysql
+    tag: 0.1.1
+checkRRDcached:
+  image:
+    repository: docker.io/tpboudreau/librenms-check-rrdcached
+    tag: 0.1.1
+checkRedis:
+  image:
+    repository: docker.io/tpboudreau/librenms-check-redis
+    tag: 0.1.1
+cleanupApplication:
+  image:
+    repository: docker.io/tpboudreau/librenms-cleanup-application
+    tag: 0.1.1
+credentials:
+  application:
+    administrativeEmail: null
+    administrativePassword: null
+    administrativeUser: null
+    key: null
+  mysql:
+    password: null
+    rootPassword: null
+    user: null
+  redis:
+    password: null
+librenmsServices:
+  global: {}
+  memcached:
+    connectionRequests: 10
+    image:
+      repository: docker.io/tpboudreau/librenms-memcached
+      tag: 0.1.1
+    logLevel: ""
+    providerPort: 11211
+    servicePort: 11211
+    threadCount: 2
+  mysql:
+    external:
+      address: null
+      enabled: false
+      port: 3306
+    image:
+      repository: docker.io/tpboudreau/librenms-mysql
+      tag: 0.1.1
+    prepareDatabaseImage:
+      repository: docker.io/tpboudreau/librenms-prepare-mysql
+      tag: 0.1.1
+    prepareVolumeImage:
+      repository: docker.io/tpboudreau/librenms-mysql-prepare-volume
+      tag: 0.1.1
+    providerPort: 33306
+    readinessDelay: 15
+    servicePort: 3306
+    storage:
+      claimName: null
+      class: ssd
+      size: 100Gi
+      subpathRequired: true
+      type: dynamic
+  redis:
+    image:
+      repository: docker.io/tpboudreau/librenms-redis
+      tag: 0.1.1
+    logLevel: notice
+    providerPort: 36379
+    servicePort: 6379
+    storage:
+      claimName: null
+      class: ssd
+      size: 100Gi
+      subpathRequired: true
+      type: dynamic
+  rrdcached:
+    chunkSize: 2
+    external:
+      address: null
+      enabled: false
+      port: 42217
+    flushInterval: 600
+    image:
+      repository: docker.io/tpboudreau/librenms-rrdcached
+      tag: 0.1.1
+    logLevel: LOG_NOTICE
+    providerPort: 42217
+    servicePort: 42217
+    storage:
+      claimName: null
+      class: standard
+      size: 100Gi
+      subpathRequired: true
+      type: dynamic
+    threadCount: 2
+    writeDelay: 5
+    writeInterval: 300
+  subpath:
+    image:
+      repository: docker.io/tpboudreau/librenms-subpath
+      tag: 0.1.1
+snmpPing:
+  enabled: false
+  recordRTT: true
