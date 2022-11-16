@@ -1,5 +1,5 @@
 module.exports = async ({ core, context }) => {
-  const config = new Map(Object.entries(require('./self/.github/workflows/scripts/config.json')))
+  const config = new Map(Object.entries(require('./config.json')))
   var input = (context.eventName === "workflow_dispatch") ? {
     owner: context.payload.inputs.owner,
     repo: context.payload.inputs.repo,
@@ -23,7 +23,7 @@ module.exports = async ({ core, context }) => {
       const regex = new RegExp(r.ref)
       return regex.test(input.ref)
     } else if (r.type === "branch") {
-      return r.ref === input.ref
+      return `refs/heads/${r.ref}` === input.ref
     }
   })
   if (!validateRefs) {
