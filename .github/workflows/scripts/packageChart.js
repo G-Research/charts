@@ -32,7 +32,7 @@ module.exports = async ({ core, exec }) => {
       if (chart.use_ref_as_version) {
         // Update the chart version
         const version = helm.ref.replace(new RegExp(chart.use_ref_as_version.pattern), chart.use_ref_as_version.replacement)
-        core.notice(`Packaging the ${chart.name} chart with the version ${version}`)
+        core.notice(`Injecting the version ${version} in the chart ${chart.name}`)
         for (const file of helmVersionReplaceFiles) {
           try {
             core.debug(`Replacing the version in ${checkoutSourceDir}/${chart.source}/${file}`)
@@ -45,7 +45,7 @@ module.exports = async ({ core, exec }) => {
         }
       }
 
-      core.notice(`Packaging the chart ${chart.name}`)
+      core.notice(`Packaging the ${chart.name} chart`)
       await exec.exec('helm', ['package', `${checkoutSourceDir}/${chart.source}`, '-d', `${checkoutPageDir}/${chart.destination}`])
       await exec.exec('git', ['add', `${chart.destination}`], { cwd: checkoutPageDir })
     }

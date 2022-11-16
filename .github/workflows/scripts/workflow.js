@@ -2,10 +2,10 @@ module.exports = async ({ core, context }, token) => {
   const { Octokit } = require("@octokit/core")
   const octokit = new Octokit({ auth: token })
 
-  const owner = `G-Research`
-  const repo = `charts`
-  const ref = `master`
-  const workflow_name = `Push`
+  const owner = 'G-Research'
+  const repo = 'charts'
+  const ref = 'master'
+  const workflow_name = 'Push'
 
   const { data: repo_workflows } = await octokit.request('GET /repos/{owner}/{repo}/actions/workflows', {
     owner: owner,
@@ -19,7 +19,7 @@ module.exports = async ({ core, context }, token) => {
     }
   }
   if (push_workflow_id === '') {
-    core.setFailed(`Unable to find workflow called "Push" on ${context.payload.repository.owner.login}/${context.payload.repository.name}`)
+    core.setFailed(`Unable to find workflow called "Push" on ${owner}/${repo}`)
   }
 
   try {
