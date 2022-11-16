@@ -84,5 +84,5 @@ jobs:
               return await push({ core, exec, context }, token)
             } catch (error) {
               core.notice(`Permission: ${JSON.stringify(tokenPermissions)}`)
-              return core.setFailed(`Unable to trigger workflow ${context.payload.repository.owner.login}/${context.payload.repository.name}, please check token permissions.\n${error}`)
+              return core.setFailed(`Unable to push ${context.payload.repository.owner.login}/${context.payload.repository.name}, please check token permissions.\n${error}`)
             }

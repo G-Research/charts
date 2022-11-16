@@ -27,18 +27,15 @@ jobs:
         env: 
           APP_ID: ${{ secrets.APP_ID }}
           APP_PRIVATE_KEY: ${{ secrets.APP_PRIVATE_KEY }}
-          OWNER: "G-Research"
-          REPO: "charts"
         with:
           script: |
             const generateToken = require('./charts/.github/workflows/scripts/token.js')
             const workflow = require('./charts/.github/workflows/scripts/workflow.js')
             const tokenPermissions = { actions: "write" } // required
             try {
-              const token = await generateToken({ core }, process.env.OWNER, process.env.REPO, tokenPermissions )
+              const token = await generateToken({ core }, 'G-Research','charts', tokenPermissions )
               return await workflow({ core, context }, token )
             } catch (error) {
-              core.notice(error)
-              core.notice(`Permission: ${tokenPermissions}`)
-              return core.setFailed(`Unable to trigger workflow ${process.env.OWNER}/${process.env.REPO}, please check token permissions`)
+              core.notice(`Permission: ${JSON.stringify(tokenPermissions)}`)
+              return core.setFailed(`Unable to trigger workflow G-Research/charts, please check token permissions.\n${error}`)
             }
