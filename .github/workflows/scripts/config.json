@@ -126,7 +126,7 @@
       "name": "siembol",
       "refs": [
         {
-          "ref": "^refs/tags/\\d+\\.\\d+\\.\\d+",
+          "ref": "^refs/tags/v\\d+\\.\\d+\\.\\d+",
           "type": "regex"
         }
       ],
@@ -134,11 +134,7 @@
         {
           "name": "siembol",
           "source": "deployment/helm-k8s",
-          "destination": "siembol",
-          "use_ref_as_version": {
-            "pattern": "^refs/tags/",
-            "replacement": ""
-          }
+          "destination": "siembol"
         }
       ]
     }
