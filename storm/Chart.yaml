@@ -1,7 +1,8 @@
 apiVersion: v2
 appVersion: 2.4.0
 version: 1.2.0
-description: Apache Storm is a free and open source distributed realtime computation system.
+description: Apache Storm is a free and open source distributed realtime computation 
+  system.
 home: http://storm.apache.org/
 icon: http://storm.apache.org/images/logo.png
 keywords:
