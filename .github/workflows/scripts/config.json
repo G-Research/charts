@@ -23,6 +23,7 @@
     },
     {
       "name": "armada",
+      "key_fingerprint": "4KVTeHmSGX0TnlQPKqX1kvUge40tYDDbSzT4+BooYEI=",
       "refs": [
         {
           "ref": "^refs/tags/v\\d+\\.\\d+\\.\\d+",
@@ -124,6 +125,7 @@
     },
     {
       "name": "siembol",
+      "key_fingerprint": "YnF/2TR5qQa/M5CUZRvi/46oGdKxYDCeIxTkq9OOeYA=",
       "refs": [
         {
           "ref": "^refs/tags/v\\d+\\.\\d+\\.\\d+",
