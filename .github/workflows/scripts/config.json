@@ -36,15 +36,6 @@
           }
         },
         {
-          "name": "armada-bundle",
-          "source": "deployment/armada-bundle",
-          "destination": "armada",
-          "use_ref_as_version": {
-            "pattern": "^refs/tags/v",
-            "replacement": ""
-          }
-        },
-        {
           "name": "armada-lookout",
           "source": "deployment/lookout",
           "destination": "armada",
