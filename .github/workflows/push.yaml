@@ -75,12 +75,12 @@ jobs:
           APP_PRIVATE_KEY: ${{ secrets.GH_APP_PEM }}
         with:
           script: |
-            const fetchToken = require('./self/.github/workflows/scripts/token.js')
+            const generateToken = require('./self/.github/workflows/scripts/token.js')
             const push = require('./self/.github/workflows/scripts/push.js')
 
             const tokenPermissions = { contents: "write" } // required to push files 
             try {
-              const token = await fetchToken({ core }, 'G-Research', 'charts', tokenPermissions )
+              const token = await generateToken({ core }, 'G-Research', 'charts', tokenPermissions )
               return await push({ core, exec, context }, token)
             } catch (error) {
               core.notice(`Permission: ${JSON.stringify(tokenPermissions)}`)
