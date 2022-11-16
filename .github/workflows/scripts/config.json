@@ -13,11 +13,6 @@
           "name": "storm",
           "source": "storm",
           "destination": "storm"
-        },
-        {
-          "name": "librenms",
-          "source": "librenms",
-          "destination": "librenms"
         }
       ]
     },
