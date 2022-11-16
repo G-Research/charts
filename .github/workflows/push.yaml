@@ -65,7 +65,9 @@ jobs:
             const helm = require('./self/.github/workflows/scripts/packageChart.js')
             return await helm({ core, glob, exec })
 
-      - run: npm i octokit fs @octokit/request @octokit/core
+      - name: Install packages
+        run: npm i octokit fs @octokit/request @octokit/core
+
       - name: Update index and push files
         uses: actions/github-script@v6
         env:
