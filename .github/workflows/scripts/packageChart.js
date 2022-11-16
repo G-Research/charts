@@ -57,7 +57,7 @@ module.exports = async ({ core, exec }) => {
     let status = "";
     await exec.exec('git', ['status', '--porcelain=v1'], {
       cwd: checkoutPageDir,
-      listeners: { 'stdout': data => { status += data.toString() }}
+      listeners: { 'stdout': data => { status += data.toString() } }
     })
     for (const line of status.split('\n')) {
       if (line.length > 0 && !line.startsWith('A')) {
@@ -65,7 +65,7 @@ module.exports = async ({ core, exec }) => {
       }
     }
   } catch (error) {
-      return core.setFailed(`Unable to validate the git status with error ${error}`)
+    return core.setFailed(`Unable to validate the git status with error ${error}`)
   }
 
 }

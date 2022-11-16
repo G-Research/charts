@@ -39,7 +39,7 @@ module.exports = async ({ core, context }, token) => {
     return core.setFailed(`Unable to trigger workflow dispatch on ${owner}/${repo}.\n${error}`)
   } finally {
     // API: https://docs.github.com/en/rest/reference/apps#revoke-an-installation-access-token
-    console.log(`Revoking the token...`)
+    core.notice('Revoking the token...')
     await octokit.request('DELETE /installation/token', {})
   }
 

@@ -2,6 +2,7 @@ module.exports = async ({ core, exec, context }, token) => {
   const { Octokit } = require("@octokit/core")
   const octokit = new Octokit({ auth: token })
   const checkoutPageDir = "gh-pages"
+  const branchName = "gh-pages"
   const helm = {
     owner: process.env.OWNER,
     repo: process.env.REPO,
@@ -24,12 +25,13 @@ module.exports = async ({ core, exec, context }, token) => {
     await exec.exec('git', ['add', 'index.yaml'], { cwd: checkoutPageDir })
 
     await exec.exec('git', ['status'], { cwd: checkoutPageDir })
-    await exec.exec('git', ['commit', '-m', `Publish helm chart with version ${helm.ref} to ${context.payload.repository.owner.login}/${context.payload.repository.name}`, '--verbose'], { cwd: checkoutPageDir }) 
-    await exec.exec('git', ['push', 'origin', checkoutPageDir, '--verbose'], { cwd: checkoutPageDir })
+    await exec.exec('git', ['commit', '-m', `Publish helm chart with version ${helm.ref} to ${context.payload.repository.owner.login}/${context.payload.repository.name}`, '--verbose'], { cwd: checkoutPageDir })
+    await exec.exec('git', ['push', 'origin', branchName, '--verbose'], { cwd: checkoutPageDir })
   } catch (error) {
-    return core.setFailed(`Unable to push ${checkoutPageDir}/${helm.charts.destination} to G-Research/charts@${checkoutPageDir}\nError: ${error}`)
+    return core.setFailed(`Unable to push ${checkoutPageDir}/${helm.charts.destination} to G-Research/charts@${branchName}\nError: ${error}`)
   } finally {
     // API: https://docs.github.com/en/rest/reference/apps#revoke-an-installation-access-token
-    console.log(`Revoking the token...`)
-    await octokit.request('DELETE /installation/token', {})  }
+    core.notice('Revoking the token...')
+    await octokit.request('DELETE /installation/token', {})
+  }
 }
