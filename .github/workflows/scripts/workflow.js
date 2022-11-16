@@ -14,11 +14,11 @@ module.exports = async ({ core, context }, token) => {
 
   let push_workflow_id = ''
   for (const workflow of repo_workflows.workflows) {
-    if (workflow.name == workflow_name) {
+    if (workflow.name === workflow_name) {
       push_workflow_id = workflow.id
     }
   }
-  if (push_workflow_id == '') {
+  if (push_workflow_id === '') {
     core.setFailed(`Unable to find workflow called "Push" on ${context.payload.repository.owner.login}/${context.payload.repository.name}`)
   }
 
