@@ -1,5 +1,5 @@
 module.exports = async ({ core, context }) => {
-  const config = new Map(Object.entries(require('./config.json')))
+  const config = new Map(Object.entries(require('./self/.github/workflows/scripts/config.json')))
   var input = (context.eventName === "workflow_dispatch") ? {
     owner: context.payload.inputs.owner,
     repo: context.payload.inputs.repo,
