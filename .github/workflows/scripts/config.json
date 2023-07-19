@@ -125,6 +125,23 @@
           "destination": "siembol"
         }
       ]
+    },
+    {
+      "name": "armada-operator",
+      "key_fingerprint": "94XvtZCWeQVV8ofBFFM7jhnCiFZ2AnIlRGRaN8Sjrcc=",
+      "refs": [
+        {
+          "ref": "^refs/tags/v\\d+\\.\\d+\\.\\d+",
+          "type": "regex"
+        }
+      ],
+      "helm_charts": [
+        {
+          "name": "armada-operator",
+          "source": "charts/armada-operator",
+          "destination": "armadaproject"
+        }
+      ]
     }
   ]
 }
