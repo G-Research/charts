@@ -54,7 +54,7 @@
     },
     {
       "name": "armada",
-      "key_fingerprint": "94XvtZCWeQVV8ofBFFM7jhnCiFZ2AnIlRGRaN8Sjrcc=",
+      "key_fingerprint": "4KVTeHmSGX0TnlQPKqX1kvUge40tYDDbSzT4+BooYEI=",
       "refs": [
         {
           "ref": "^refs/tags/v\\d+\\.\\d+\\.\\d+",
