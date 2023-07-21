@@ -21,6 +21,9 @@ jobs:
           repository: G-Research/charts
           path: charts
           ref: master
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 18
       - run: npm i octokit @octokit/core
       - name: Trigger push workflow
         uses: actions/github-script@v6

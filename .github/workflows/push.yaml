@@ -34,6 +34,11 @@ jobs:
         with:
           path: self
 
+      - name: Setup Node 18
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
       - name: Validate chart
         uses: actions/github-script@v6
         env:
