@@ -48,7 +48,11 @@
         {
           "name": "armada-operator",
           "source": "charts/armada-operator",
-          "destination": "armada"
+          "destination": "armada",
+          "use_ref_as_version": {
+            "pattern": "^refs/tags/v",
+            "replacement": ""
+          }
         }
       ]
     },
