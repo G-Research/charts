@@ -48,7 +48,7 @@
         {
           "name": "armada-operator",
           "source": "charts/armada-operator",
-          "destination": "armadaproject"
+          "destination": "armada"
         }
       ]
     },
@@ -65,7 +65,7 @@
         {
           "name": "armada",
           "source": "deployment/armada",
-          "destination": "armadaproject",
+          "destination": "armada",
           "use_ref_as_version": {
             "pattern": "^refs/tags/v",
             "replacement": ""
@@ -74,7 +74,7 @@
         {
           "name": "armada-bundle",
           "source": "deployment/bundle",
-          "destination": "armadaproject",
+          "destination": "armada",
           "use_ref_as_version": {
             "pattern": "^refs/tags/v",
             "replacement": ""
@@ -83,7 +83,7 @@
         {
           "name": "armada-binoculars",
           "source": "deployment/binoculars",
-          "destination": "armadaproject",
+          "destination": "armada",
           "use_ref_as_version": {
             "pattern": "^refs/tags/v",
             "replacement": ""
@@ -92,7 +92,7 @@
         {
           "name": "armada-event-ingester",
           "source": "deployment/event-ingester",
-          "destination": "armadaproject",
+          "destination": "armada",
           "use_ref_as_version": {
             "pattern": "^refs/tags/v",
             "replacement": ""
@@ -101,7 +101,7 @@
         {
           "name": "armada-executor",
           "source": "deployment/executor",
-          "destination": "armadaproject",
+          "destination": "armada",
           "use_ref_as_version": {
             "pattern": "^refs/tags/v",
             "replacement": ""
@@ -110,7 +110,7 @@
         {
           "name": "armada-executor-cluster-monitoring",
           "source": "deployment/executor-cluster-monitoring",
-          "destination": "armadaproject",
+          "destination": "armada",
           "use_ref_as_version": {
             "pattern": "^refs/tags/v",
             "replacement": ""
@@ -119,7 +119,25 @@
         {
           "name": "armada-jobservice",
           "source": "deployment/jobservice",
-          "destination": "armadaproject",
+          "destination": "armada",
+          "use_ref_as_version": {
+            "pattern": "^refs/tags/v",
+            "replacement": ""
+          }
+        },
+        {
+          "name": "armada-lookout",
+          "source": "deployment/lookout",
+          "destination": "armada",
+          "use_ref_as_version": {
+            "pattern": "^refs/tags/v",
+            "replacement": ""
+          }
+        },
+        {
+          "name": "armada-lookout-v2",
+          "source": "deployment/lookout-v2",
+          "destination": "armada",
           "use_ref_as_version": {
             "pattern": "^refs/tags/v",
             "replacement": ""
@@ -128,7 +146,7 @@
         {
           "name": "armada-lookout-migration",
           "source": "deployment/lookout-migration",
-          "destination": "armadaproject",
+          "destination": "armada",
           "use_ref_as_version": {
             "pattern": "^refs/tags/v",
             "replacement": ""
@@ -137,7 +155,7 @@
         {
           "name": "armada-lookout-migration-v2",
           "source": "deployment/lookout-migration-v2",
-          "destination": "armadaproject",
+          "destination": "armada",
           "use_ref_as_version": {
             "pattern": "^refs/tags/v",
             "replacement": ""
@@ -146,7 +164,7 @@
         {
           "name": "armada-lookout-ingester",
           "source": "deployment/lookout-ingester",
-          "destination": "armadaproject",
+          "destination": "armada",
           "use_ref_as_version": {
             "pattern": "^refs/tags/v",
             "replacement": ""
@@ -155,7 +173,7 @@
         {
           "name": "armada-lookout-ingester-v2",
           "source": "deployment/lookout-ingester-v2",
-          "destination": "armadaproject",
+          "destination": "armada",
           "use_ref_as_version": {
             "pattern": "^refs/tags/v",
             "replacement": ""
@@ -164,7 +182,7 @@
         {
           "name": "armada-scheduler-migration",
           "source": "deployment/scheduler-migration",
-          "destination": "armadaproject",
+          "destination": "armada",
           "use_ref_as_version": {
             "pattern": "^refs/tags/v",
             "replacement": ""
@@ -173,7 +191,7 @@
         {
           "name": "armada-scheduler",
           "source": "deployment/scheduler",
-          "destination": "armadaproject",
+          "destination": "armada",
           "use_ref_as_version": {
             "pattern": "^refs/tags/v",
             "replacement": ""
