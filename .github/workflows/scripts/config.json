@@ -76,15 +76,6 @@
           }
         },
         {
-          "name": "armada-bundle",
-          "source": "deployment/bundle",
-          "destination": "armada",
-          "use_ref_as_version": {
-            "pattern": "^refs/tags/v",
-            "replacement": ""
-          }
-        },
-        {
           "name": "armada-binoculars",
           "source": "deployment/binoculars",
           "destination": "armada",
