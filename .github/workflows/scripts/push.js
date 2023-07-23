@@ -1,6 +1,10 @@
-module.exports = async ({ core, exec, context }, token) => {
+module.exports = async ({ core, exec, context, fetch }, token) => {
   const { Octokit } = require("@octokit/core")
-  const octokit = new Octokit({ auth: token })
+  const octokit = new Octokit({
+    request: { fetch: fetch },
+    auth: token,
+  });
+
   const checkoutPageDir = "gh-pages"
   const branchName = "gh-pages"
   const helm = {
