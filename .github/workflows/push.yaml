@@ -35,7 +35,7 @@ jobs:
           path: self
 
       - name: Validate chart
-        uses: actions/github-script@v6
+        uses: actions/github-script@v6.4.1
         env:
           APP_ID: ${{ secrets.APP_ID }}
           APP_PRIVATE_KEY: ${{ secrets.GH_APP_PEM }}
@@ -58,17 +58,17 @@ jobs:
           path: source
 
       - name: Package charts
-        uses: actions/github-script@v6
+        uses: actions/github-script@v6.4.1
         with:
           script: |
             const helm = require('./self/.github/workflows/scripts/packageChart.js')
             return await helm({ core, glob, exec })
 
       - name: Install packages
-        run: npm i octokit fs @octokit/request @octokit/core
+        run: npm i octokit fs @octokit/core
 
       - name: Update index and push files
-        uses: actions/github-script@v6
+        uses: actions/github-script@v6.4.1
         env:
           APP_ID: ${{ secrets.APP_ID }}
           APP_PRIVATE_KEY: ${{ secrets.GH_APP_PEM }}
@@ -79,8 +79,8 @@ jobs:
 
             const tokenPermissions = { contents: "write" } // required to push files 
             try {
-              const token = await generateToken({ core }, 'G-Research', 'charts', tokenPermissions )
-              return await push({ core, exec, context }, token)
+              const token = await generateToken({ core, fetch }, 'G-Research', 'charts', tokenPermissions )
+              return await push({ core, exec, context, fetch }, token )
             } catch (error) {
               core.notice(`Permission: ${JSON.stringify(tokenPermissions)}`)
               return core.setFailed(`Unable to push ${context.payload.repository.owner.login}/${context.payload.repository.name}, please check token permissions.\n${error}`)
