@@ -33,8 +33,8 @@ jobs:
             const workflow = require('./charts/.github/workflows/scripts/workflow.js')
             const tokenPermissions = { actions: "write" } // required
             try {
-              const token = await generateToken({ core }, 'G-Research','charts', tokenPermissions )
-              return await workflow({ core, context }, token )
+              const token = await generateToken({ core, fetch }, 'G-Research','charts', tokenPermissions )
+              return await workflow({ core, context, fetch }, token )
             } catch (error) {
               core.notice(`Permission: ${JSON.stringify(tokenPermissions)}`)
               return core.setFailed(`Unable to trigger workflow G-Research/charts, please check token permissions.\n${error}`)
