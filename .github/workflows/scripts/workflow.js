@@ -1,4 +1,4 @@
-module.exports = async ({ core, context, fetch }, token) => {
+module.exports = async ({ core, context, fetch }, token, version) => {
   const { Octokit } = require("@octokit/core")
   const octokit = new Octokit({ auth: token, request: { fetch: fetch } });
 
@@ -31,7 +31,7 @@ module.exports = async ({ core, context, fetch }, token) => {
       inputs: {
         owner: context.payload.repository.owner.login,
         repo: context.payload.repository.name,
-        ref: context.payload.ref
+        ref: version
       },
     })
 

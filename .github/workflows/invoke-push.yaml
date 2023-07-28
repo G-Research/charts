@@ -2,6 +2,11 @@ name: Invoke Push
 
 on:
   workflow_call:
+    inputs:
+      version:
+        description: 'Used when workflow_call is triggering invoke-push workflow'
+        required: false
+        type: string
     secrets:
       APP_ID:
         description: 'The ID of the GitHub App that can trigger a workflow on this repo'
@@ -27,14 +32,22 @@ jobs:
         env:
           APP_ID: ${{ secrets.APP_ID }}
           APP_PRIVATE_KEY: ${{ secrets.APP_PRIVATE_KEY }}
+          VERSION: ${{ inputs.version }}
         with:
           script: |
             const generateToken = require('./charts/.github/workflows/scripts/token.js')
             const workflow = require('./charts/.github/workflows/scripts/workflow.js')
             const tokenPermissions = { actions: "write" } // required
+
+            let version = process.env.VERSION || context.payload.ref;
+            if (process.env.VERSION) {
+              version = `refs/tags/${version}`;
+            }
+            console.log(`Version: ${version}`);
+
             try {
               const token = await generateToken({ core, fetch }, 'G-Research','charts', tokenPermissions )
-              return await workflow({ core, context, fetch }, token )
+              return await workflow({ core, context, fetch }, token, version )
             } catch (error) {
               core.notice(`Permission: ${JSON.stringify(tokenPermissions)}`)
               return core.setFailed(`Unable to trigger workflow G-Research/charts, please check token permissions.\n${error}`)
