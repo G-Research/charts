@@ -1,4 +1,4 @@
-module.exports = async ({ core, context, fetch }, token, version) => {
+module.exports = async ({ core, context, fetch }, token) => {
   const { Octokit } = require("@octokit/core")
   const octokit = new Octokit({ auth: token, request: { fetch: fetch } });
 
@@ -6,6 +6,11 @@ module.exports = async ({ core, context, fetch }, token, version) => {
   const repo = 'charts'
   const ref = 'master'
   const workflow_name = 'Push'
+  let version = context.payload.workflow_run.head_branch || context.payload.ref
+  if (context.payload.workflow_run.head_branch) {
+    version = `refs/tags/${version}`;
+  }
+  core.notice(`Version: ${version}`)
 
   const { data: repo_workflows } = await octokit.request('GET /repos/{owner}/{repo}/actions/workflows', {
     owner: owner,
