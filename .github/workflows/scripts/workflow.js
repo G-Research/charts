@@ -6,6 +6,11 @@ module.exports = async ({ core, context, fetch }, token) => {
   const repo = 'charts'
   const ref = 'master'
   const workflow_name = 'Push'
+  let version = context.payload.ref
+  if (context.payload.workflow_run !== undefined) {
+    version = `refs/tags/${context.payload.workflow_run.head_branch}`
+  }
+  core.notice(`Version: ${version}`)
 
   const { data: repo_workflows } = await octokit.request('GET /repos/{owner}/{repo}/actions/workflows', {
     owner: owner,
@@ -31,7 +36,7 @@ module.exports = async ({ core, context, fetch }, token) => {
       inputs: {
         owner: context.payload.repository.owner.login,
         repo: context.payload.repository.name,
-        ref: context.payload.ref
+        ref: version
       },
     })
 
