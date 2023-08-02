@@ -6,9 +6,9 @@ module.exports = async ({ core, context, fetch }, token) => {
   const repo = 'charts'
   const ref = 'master'
   const workflow_name = 'Push'
-  let version = context.payload.workflow_run.head_branch || context.payload.ref
-  if (context.payload.workflow_run.head_branch) {
-    version = `refs/tags/${version}`;
+  let version = context.payload.ref
+  if (context.payload.workflow_run !== undefined) {
+    version = `refs/tags/${context.payload.workflow_run.head_branch}`
   }
   core.notice(`Version: ${version}`)
 
