@@ -121,15 +121,6 @@
           }
         },
         {
-          "name": "armada-lookout",
-          "source": "deployment/lookout",
-          "destination": "armada",
-          "use_ref_as_version": {
-            "pattern": "^refs/tags/v",
-            "replacement": ""
-          }
-        },
-        {
           "name": "armada-lookout-v2",
           "source": "deployment/lookout-v2",
           "destination": "armada",
@@ -139,26 +130,8 @@
           }
         },
         {
-          "name": "armada-lookout-migration",
-          "source": "deployment/lookout-migration",
-          "destination": "armada",
-          "use_ref_as_version": {
-            "pattern": "^refs/tags/v",
-            "replacement": ""
-          }
-        },
-        {
           "name": "armada-lookout-migration-v2",
           "source": "deployment/lookout-migration-v2",
-          "destination": "armada",
-          "use_ref_as_version": {
-            "pattern": "^refs/tags/v",
-            "replacement": ""
-          }
-        },
-        {
-          "name": "armada-lookout-ingester",
-          "source": "deployment/lookout-ingester",
           "destination": "armada",
           "use_ref_as_version": {
             "pattern": "^refs/tags/v",
