@@ -12,7 +12,8 @@
         {
           "name": "storm",
           "source": "storm",
-          "destination": "storm"
+          "destination": "storm",
+          "tests": true
         }
       ]
     },
@@ -29,7 +30,8 @@
         {
           "name": "siembol",
           "source": "deployment/helm-k8s",
-          "destination": "siembol"
+          "destination": "siembol",
+          "tests": false
         }
       ]
     }
@@ -52,7 +54,8 @@
           "use_ref_as_version": {
             "pattern": "^refs/tags/v",
             "replacement": ""
-          }
+          },
+          "tests": false
         }
       ]
     },
@@ -73,7 +76,8 @@
           "use_ref_as_version": {
             "pattern": "^refs/tags/v",
             "replacement": ""
-          }
+          },
+          "tests": false
         },
         {
           "name": "armada-binoculars",
@@ -82,7 +86,8 @@
           "use_ref_as_version": {
             "pattern": "^refs/tags/v",
             "replacement": ""
-          }
+          },
+          "tests": false
         },
         {
           "name": "armada-event-ingester",
@@ -91,7 +96,8 @@
           "use_ref_as_version": {
             "pattern": "^refs/tags/v",
             "replacement": ""
-          }
+          },
+          "tests": false
         },
         {
           "name": "armada-executor",
@@ -100,7 +106,8 @@
           "use_ref_as_version": {
             "pattern": "^refs/tags/v",
             "replacement": ""
-          }
+          },
+          "tests": false
         },
         {
           "name": "armada-executor-cluster-monitoring",
@@ -109,7 +116,8 @@
           "use_ref_as_version": {
             "pattern": "^refs/tags/v",
             "replacement": ""
-          }
+          },
+          "tests": false
         },
         {
           "name": "armada-jobservice",
@@ -118,7 +126,8 @@
           "use_ref_as_version": {
             "pattern": "^refs/tags/v",
             "replacement": ""
-          }
+          },
+          "tests": false
         },
         {
           "name": "armada-lookout-v2",
@@ -127,7 +136,8 @@
           "use_ref_as_version": {
             "pattern": "^refs/tags/v",
             "replacement": ""
-          }
+          },
+          "tests": false
         },
         {
           "name": "armada-lookout-migration-v2",
@@ -136,7 +146,8 @@
           "use_ref_as_version": {
             "pattern": "^refs/tags/v",
             "replacement": ""
-          }
+          },
+          "tests": false
         },
         {
           "name": "armada-lookout-ingester-v2",
@@ -145,7 +156,8 @@
           "use_ref_as_version": {
             "pattern": "^refs/tags/v",
             "replacement": ""
-          }
+          },
+          "tests": false
         },
         {
           "name": "armada-scheduler-migration",
@@ -154,7 +166,8 @@
           "use_ref_as_version": {
             "pattern": "^refs/tags/v",
             "replacement": ""
-          }
+          },
+          "tests": false
         },
         {
           "name": "armada-scheduler",
@@ -163,7 +176,8 @@
           "use_ref_as_version": {
             "pattern": "^refs/tags/v",
             "replacement": ""
-          }
+          },
+          "tests": false
         }
       ]
     }
