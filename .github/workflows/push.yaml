@@ -30,7 +30,7 @@ jobs:
     environment: push
     steps:
       - name: Checkout self
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           path: self
 
@@ -45,13 +45,13 @@ jobs:
             return await config({ core, context })
 
       - name: Checkout gh-pages
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           ref: gh-pages
           path: gh-pages
 
       - name: Checkout ${{ env.OWNER }}/${{ env.REPO }}
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           repository: ${{ env.OWNER }}/${{ env.REPO }}
           ref: ${{ env.REF }}
