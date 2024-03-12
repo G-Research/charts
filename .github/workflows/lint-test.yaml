@@ -25,7 +25,6 @@ jobs:
       - name: Run chart-testing (list-changed)
         id: list-changed
         run: |
-
           changed_files=$(ct list-changed --config ct.yaml --target-branch ${{ github.event.repository.default_branch }} 2>/dev/null | wc -l | tr -d ' ')
           echo "Changed files detected: $changed_files"
           if [ $changed_files -ne 0 ]; then
