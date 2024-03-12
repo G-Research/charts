@@ -49,7 +49,7 @@ module.exports = async ({ core, exec }) => {
       if (chart.tests) {
         try {
           core.notice(`Packaging the ${chart.name} chart`)
-          await exec.exec('helm', ['plugin', 'install', '"https://github.com/helm-unittest/helm-unittest"', '--version', '0.4.1'], { cwd: `${checkoutSourceDir}/${chart.source}` })
+          await exec.exec('helm', ['plugin', 'install', '"https://github.com/helm-unittest/helm-unittest"', '--version', `${process.env.HELM_UNITTEST_VERSION}`], { cwd: `${checkoutSourceDir}/${chart.source}` })
           await exec.exec('helm', ['unittest', '.', '-o', 'test-output.xml', '-t', 'junit'], { cwd: `${checkoutSourceDir}/${chart.source}` })
         } catch (error) {
           return core.setFailed(`Helm unit tests for chart ${chart.name} failed\nError: ${error}`)
