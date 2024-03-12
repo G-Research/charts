@@ -23,7 +23,7 @@ jobs:
           ref: master
       - run: npm i octokit @octokit/core
       - name: Trigger push workflow
-        uses: actions/github-script@v6
+        uses: actions/github-script@v7
         env:
           APP_ID: ${{ secrets.APP_ID }}
           APP_PRIVATE_KEY: ${{ secrets.APP_PRIVATE_KEY }}
