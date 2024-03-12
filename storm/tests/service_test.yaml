@@ -1,0 +1,18 @@
+---
+suite: Service template
+templates:
+  - ui-service.yaml
+  - supervisor-service.yaml
+  - nimbus-service.yaml
+values:
+  - ../values.yaml
+release:
+  name: storm
+tests:
+  - it: Service verification
+    asserts:
+      - notFailedTemplate: {}
+      - containsDocument:
+          kind: Service
+          apiVersion: v1
+

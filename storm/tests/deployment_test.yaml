@@ -1,0 +1,18 @@
+---
+suite: Deployment template
+templates:
+  - ui-deployment.yaml
+  - supervisor-deployment.yaml
+values:
+  - ../values.yaml
+release:
+  name: storm
+tests:
+  - it: Deployment verification
+    set:
+      mockChecksum: "mocked-checksum-value"
+    asserts:
+      - notFailedTemplate: {}
+      - containsDocument:
+          kind: Deployment
+          apiVersion: apps/v1

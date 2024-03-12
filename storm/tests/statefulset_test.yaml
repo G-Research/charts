@@ -1,0 +1,18 @@
+---
+suite: StatefulSet template
+templates:
+  - nimbus-statefulset.yaml
+values:
+  - ../values.yaml
+release:
+  name: storm
+tests:
+  - it: StatefulSet verification
+    set:
+      mockChecksum: "mocked-checksum-value"
+    asserts:
+      - notFailedTemplate: {}
+      - containsDocument:
+          kind: StatefulSet
+          apiVersion: apps/v1
+

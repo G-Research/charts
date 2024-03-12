@@ -24,6 +24,10 @@ on:
         required: true
         type: string
 
+env:
+  # Used for charts unit testing in packageChart.js
+  HELM_UNITTEST_VERSION: 0.4.1
+
 jobs:
   push:
     runs-on: ubuntu-latest

@@ -19,7 +19,7 @@ spec:
   template:
     metadata:
       annotations:
-        checksum/config: {{ include (print $.Template.BasePath "/configmap.yaml") . | sha256sum }}
+        checksum/config: {{ if .Values.mockChecksum }}{{ .Values.mockChecksum }}{{ else }}{{ include (print $.Template.BasePath "/configmap.yaml") . | sha256sum }}{{ end }}
       labels:
         app: {{ template "storm.nimbus.name" . }}
         release: {{ .Release.Name }}

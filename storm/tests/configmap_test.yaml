@@ -1,0 +1,16 @@
+---
+suite: ConfigMap template
+templates:
+  - configmap.yaml
+values:
+  - ../values.yaml
+release:
+  name: storm
+tests:
+  - it: ConfigMap verification
+    asserts:
+      - notFailedTemplate: {}
+      - containsDocument:
+          kind: ConfigMap
+          apiVersion: v1
+
