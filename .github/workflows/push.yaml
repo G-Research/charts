@@ -39,7 +39,7 @@ jobs:
           path: self
 
       - name: Validate chart
-        uses: actions/github-script@v6
+        uses: actions/github-script@v7
         env:
           APP_ID: ${{ secrets.APP_ID }}
           APP_PRIVATE_KEY: ${{ secrets.GH_APP_PEM }}
@@ -62,7 +62,7 @@ jobs:
           path: source
 
       - name: Package charts
-        uses: actions/github-script@v6
+        uses: actions/github-script@v7
         with:
           script: |
             const helm = require('./self/.github/workflows/scripts/packageChart.js')
@@ -72,7 +72,7 @@ jobs:
         run: npm i octokit fs @octokit/core
 
       - name: Update index and push files
-        uses: actions/github-script@v6
+        uses: actions/github-script@v7
         env:
           APP_ID: ${{ secrets.APP_ID }}
           APP_PRIVATE_KEY: ${{ secrets.GH_APP_PEM }}
