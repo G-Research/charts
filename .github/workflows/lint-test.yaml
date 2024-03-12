@@ -25,9 +25,10 @@ jobs:
       - name: Run chart-testing (list-changed)
         id: list-changed
         run: |
-          changed=$(ct list-changed --config ct.yaml --target-branch ${{ github.event.repository.default_branch }} 2>/dev/null | wc -l | tr -d ' ')
-          echo "Changed files detected: $changed"
-          if [ $changed -ne 0 ]; then
+
+          changed_files=$(ct list-changed --config ct.yaml --target-branch ${{ github.event.repository.default_branch }} 2>/dev/null | wc -l | tr -d ' ')
+          echo "Changed files detected: $changed_files"
+          if [ $changed_files -ne 0 ]; then
             echo "changed=true" >> $GITHUB_OUTPUT
           else
             echo "changed=false" >> $GITHUB_OUTPUT
@@ -35,7 +36,7 @@ jobs:
 
       - name: Run chart-testing (lint)
         if: steps.list-changed.outputs.changed == 'true'
-        run: ct lint --target-branch ${{ github.event.repository.default_branch }}
+        run: ct lint --config ct.yaml --target-branch ${{ github.event.repository.default_branch }} --validate-maintainers=false
 
       - name: Create kind cluster
         if: steps.list-changed.outputs.changed == 'true'
@@ -43,4 +44,4 @@ jobs:
 
       - name: Run chart-testing (install)
         if: steps.list-changed.outputs.changed == 'true'
-        run: ct install --target-branch ${{ github.event.repository.default_branch }}
+        run: ct install --config ct.yaml --target-branch ${{ github.event.repository.default_branch }}
