@@ -35,7 +35,10 @@ jobs:
 
       - name: Run chart-testing (lint)
         if: steps.list-changed.outputs.changed == 'true'
-        run: ct lint --config ct.yaml --target-branch ${{ github.event.repository.default_branch }} --validate-maintainers=false
+        run: |
+          # Required for Storm chart due to old version
+          helm repo add bitnami-full-index https://raw.githubusercontent.com/bitnami/charts/archive-full-index/bitnami
+          ct lint --config ct.yaml --target-branch ${{ github.event.repository.default_branch }} --validate-maintainers=false
 
       - name: Create kind cluster
         if: steps.list-changed.outputs.changed == 'true'
