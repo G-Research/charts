@@ -34,6 +34,24 @@
           "tests": false
         }
       ]
+    },
+    {
+      "name": "fasttrackml",
+      "key_fingerprint": "Da10MkM0RnFLWCcBbZ8ij+lYntgMDGSBdhljq+Oz5HY=",
+      "refs": [
+        {
+          "ref": "^refs/tags/v\\d+\\.\\d+\\.\\d+",
+          "type": "regex"
+        }
+      ],
+      "helm_charts": [
+        {
+          "name": "fasttrackml",
+          "source": "helm/fasttrackml",
+          "destination": "fasttrackml",
+          "tests": false
+        }
+      ]
     }
   ],
   "armadaproject": [
