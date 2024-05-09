@@ -37,7 +37,7 @@
     },
     {
       "name": "fasttrackml",
-      "key_fingerprint": "Da10MkM0RnFLWCcBbZ8ij+lYntgMDGSBdhljq+Oz5HY=",
+      "key_fingerprint": "dU/0iLRxlQu5Apyx8y16eVPqhsClH2BMCQiMdEEcyBU=",
       "refs": [
         {
           "ref": "^refs/tags/v\\d+\\.\\d+\\.\\d+",
