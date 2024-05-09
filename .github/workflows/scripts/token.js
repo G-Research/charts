@@ -1,6 +1,6 @@
 module.exports = async ({ core, fetch }, owner, repo, tokenPermissions) => {
-  const { Octokit } = require("@octokit/core");
-  const { createAppAuth } = require("@octokit/auth-app");
+  const { Octokit } = await import("@octokit/core");
+  const { createAppAuth } = await import("@octokit/auth-app");
 
   const permissions = tokenPermissions === undefined
     ? { actions: "read" }
