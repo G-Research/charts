@@ -1,5 +1,5 @@
 module.exports = async ({ core, context, fetch }, token) => {
-  const { Octokit } = require("@octokit/core")
+  const { Octokit } = await import("@octokit/core");
   const octokit = new Octokit({ auth: token, request: { fetch: fetch } });
 
   const owner = 'G-Research'

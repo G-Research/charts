@@ -1,5 +1,5 @@
 module.exports = async ({ core, exec, context, fetch }, token) => {
-  const { Octokit } = require("@octokit/core")
+  const { Octokit } = await import("@octokit/core");
   const octokit = new Octokit({
     request: { fetch: fetch },
     auth: token,
