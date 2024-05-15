@@ -11,7 +11,7 @@ nimbus:
   replicaCount: 1
   image:
     repository: storm
-    tag: 2.4.0
+    tag: 2.4.0-temurin
     pullPolicy: IfNotPresent
   service:
     name: nimbus
@@ -27,7 +27,7 @@ supervisor:
   replicaCount: 2
   image:
     repository: storm
-    tag: 2.4.0
+    tag: 2.4.0-temurin
     pullPolicy: IfNotPresent
   service:
     name: supervisor
@@ -36,10 +36,10 @@ supervisor:
   resources:
     requests:
       cpu: 1
-      memory: 512 #Mi
+      memory: 512  # Mi
     limits:
       cpu: 2
-      memory: 1024 #Mi
+      memory: 1024  # Mi
   nodeSelector: {}
   tolerations: []
   affinity: {}
@@ -52,19 +52,19 @@ supervisor:
   ## @param extraVolumes Optionally specify extra list of additional volumes for the Supervisor pod(s)
   ## Example use case:
   ## extraVolumes:
-  ## - name: extra-config 
+  ## - name: extra-config
   ##   configMap:
-  ##     name: extra-config 
+  ##     name: extra-config
   ##
   extraVolumes: []
 
   ## @param extraVolumeMounts Optionally specify extra list of additional volumeMounts for the Supervisor container(s)
   ## Example use case:
   ## extraVolumeMounts:
-  ## - name: extra-config 
+  ## - name: extra-config
   ##   mountPath: /opt/config
   ##   readOnly: true
-  ##     
+  ##
   extraVolumeMounts: []
 
 ui:
@@ -72,7 +72,7 @@ ui:
   replicaCount: 1
   image:
     repository: storm
-    tag: 2.4.0
+    tag: 2.4.0-temurin
     pullPolicy: IfNotPresent
   service:
     type: ClusterIP
@@ -92,17 +92,17 @@ persistence:
   # storageClass: "-"
   accessModes:
     - ReadWriteOnce
-  
+
   data:
     size: 1Gi
     annotations: {}
     # existingClaim:
-  
+
   logs:
     size: 1Gi
     annotations: {}
     # existingClaim:
-  
+
   metrics:
     size: 200Mi
     annotations: {}
@@ -112,7 +112,7 @@ zookeeper:
   enabled: true
   replicaCount: 1
   # # if using an external zookeeper, you need to set the server names below
-  # servers: 
+  # servers:
   #  - "example.external.zookeeper1"
   #  - "example.external.zookeeper2"
   #  - "example.external.zookeeper3"
@@ -141,7 +141,7 @@ jmx:
   enabled: false
   config: |-
     rules:
-    - pattern: ".*" 
+    - pattern: ".*"
 
 exporter:
   prometheus:
