@@ -55,7 +55,7 @@
     },
     {
       "name": "yunikorn-history-server",
-      "key_fingerprint": "XXXX",
+      "key_fingerprint": "wrNW9GyqMpq4pv1EgXrgwYPweqsHJo2hRzqOMiBYjS8=",
       "refs": [
         {
           "ref": "^refs/tags/v\\d+\\.\\d+\\.\\d+",
