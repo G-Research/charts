@@ -156,16 +156,6 @@
           "tests": false
         },
         {
-          "name": "armada-jobservice",
-          "source": "deployment/jobservice",
-          "destination": "armada",
-          "use_ref_as_version": {
-            "pattern": "^refs/tags/v",
-            "replacement": ""
-          },
-          "tests": false
-        },
-        {
           "name": "armada-lookout-v2",
           "source": "deployment/lookout-v2",
           "destination": "armada",
