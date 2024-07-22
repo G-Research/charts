@@ -52,6 +52,24 @@
           "tests": false
         }
       ]
+    },
+    {
+      "name": "yunikorn-history-server",
+      "key_fingerprint": "wrNW9GyqMpq4pv1EgXrgwYPweqsHJo2hRzqOMiBYjS8=",
+      "refs": [
+        {
+          "ref": "^refs/tags/v\\d+\\.\\d+\\.\\d+",
+          "type": "regex"
+        }
+      ],
+      "helm_charts": [
+        {
+          "name": "yunikorn-history-server",
+          "source": "charts/",
+          "destination": "yunikorn-history-server",
+          "tests": false
+        }
+      ]
     }
   ],
   "armadaproject": [
@@ -130,16 +148,6 @@
         {
           "name": "armada-executor-cluster-monitoring",
           "source": "deployment/executor-cluster-monitoring",
-          "destination": "armada",
-          "use_ref_as_version": {
-            "pattern": "^refs/tags/v",
-            "replacement": ""
-          },
-          "tests": false
-        },
-        {
-          "name": "armada-jobservice",
-          "source": "deployment/jobservice",
           "destination": "armada",
           "use_ref_as_version": {
             "pattern": "^refs/tags/v",
