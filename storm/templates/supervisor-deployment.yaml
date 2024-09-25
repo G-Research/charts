@@ -80,6 +80,14 @@ spec:
       {{- if .Values.supervisor.serviceAccountName }}
       serviceAccountName: {{ .Values.supervisor.serviceAccountName }}
       {{- end }}
+      {{- if .Values.supervisor.nodeSelector }}
+      nodeSelector:
+        {{- toYaml .Values.supervisor.nodeSelector | nindent 8 }}
+      {{- end }}
+      {{- if .Values.supervisor.tolerations }}
+      tolerations:
+        {{- toYaml .Values.supervisor.tolerations | nindent 8 }}
+      {{- end }}
       volumes:
       {{- if .Values.jmx.enabled }}
       - name: jmx-configmap
