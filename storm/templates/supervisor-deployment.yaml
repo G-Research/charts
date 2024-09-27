@@ -7,6 +7,9 @@ metadata:
     chart: {{ template "storm.chart" . }}
     release: {{ .Release.Name }}
     heritage: {{ .Release.Service }}
+    {{- with .Values.supervisor.extraLabels }}
+{{ toYaml . | indent 4 }}
+    {{- end }}
   namespace: {{ template "storm.namespace" . }}
 spec:
   replicas: {{ .Values.supervisor.replicaCount }}
