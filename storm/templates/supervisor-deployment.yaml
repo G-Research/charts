@@ -7,6 +7,9 @@ metadata:
     chart: {{ template "storm.chart" . }}
     release: {{ .Release.Name }}
     heritage: {{ .Release.Service }}
+    {{- with .Values.supervisor.extraLabels }}
+{{ toYaml . | indent 4 }}
+    {{- end }}
   namespace: {{ template "storm.namespace" . }}
 spec:
   replicas: {{ .Values.supervisor.replicaCount }}
@@ -77,6 +80,17 @@ spec:
       securityContext:
         runAsUser: {{ .Values.security.userid }}
         fsGroup: {{ .Values.security.groupid }}
+      {{- if .Values.supervisor.serviceAccountName }}
+      serviceAccountName: {{ .Values.supervisor.serviceAccountName }}
+      {{- end }}
+      {{- if .Values.supervisor.nodeSelector }}
+      nodeSelector:
+        {{- toYaml .Values.supervisor.nodeSelector | nindent 8 }}
+      {{- end }}
+      {{- if .Values.supervisor.tolerations }}
+      tolerations:
+        {{- toYaml .Values.supervisor.tolerations | nindent 8 }}
+      {{- end }}
       volumes:
       {{- if .Values.jmx.enabled }}
       - name: jmx-configmap
