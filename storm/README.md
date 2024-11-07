@@ -46,9 +46,13 @@ The following table lists the configurable parameters of the Storm chart and the
 | Parameter                              | Description                    | Default             |
 | ---------------------------------      | ---------------------------    | ------------------- |
 | `supervisor.replicaCount`              | Number of replicas             | 2                   |
+| `supervisor.extraLabels`               | Extra labels for Deployment    | {}                  |
 | `supervisor.image.repository`          | Container image name           | storm               |
 | `supervisor.image.tag`                 | Container image version        | 2.4.0               |
 | `supervisor.image.pullPolicy`          | The default pull policy        | IfNotPresent        |
+| `supervisor.nodeSelector`              | The nodeSelector               | {}                  |
+| `supervisor.serviceAccountName`        | The serviceAccountName         | ""                  |
+| `supervisor.tolerations`               | The tolerations                | []                  |
 | `supervisor.service.name`              | Service Name                   | supervisor          |
 | `supervisor.service.type`              | Service Type                   | ClusterIP           |
 | `supervisor.slots`                     | Slots/Workers (one port each)  | 4                   |
