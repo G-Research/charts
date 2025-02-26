@@ -186,6 +186,36 @@
           "tests": false
         },
         {
+          "name": "armada-lookout",
+          "source": "deployment/lookout",
+          "destination": "armada",
+          "use_ref_as_version": {
+            "pattern": "^refs/tags/v",
+            "replacement": ""
+          },
+          "tests": false
+        },
+        {
+          "name": "armada-lookout-migration",
+          "source": "deployment/lookout-migration",
+          "destination": "armada",
+          "use_ref_as_version": {
+            "pattern": "^refs/tags/v",
+            "replacement": ""
+          },
+          "tests": false
+        },
+        {
+          "name": "armada-lookout-ingester",
+          "source": "deployment/lookout-ingester",
+          "destination": "armada",
+          "use_ref_as_version": {
+            "pattern": "^refs/tags/v",
+            "replacement": ""
+          },
+          "tests": false
+        },
+        {
           "name": "armada-scheduler-migration",
           "source": "deployment/scheduler-migration",
           "destination": "armada",
