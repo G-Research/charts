@@ -155,7 +155,6 @@
           },
           "tests": false
         },
-
         {
           "name": "armada-lookout",
           "source": "deployment/lookout",
