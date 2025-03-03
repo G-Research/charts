@@ -156,36 +156,6 @@
           "tests": false
         },
         {
-          "name": "armada-lookout-v2",
-          "source": "deployment/lookout-v2",
-          "destination": "armada",
-          "use_ref_as_version": {
-            "pattern": "^refs/tags/v",
-            "replacement": ""
-          },
-          "tests": false
-        },
-        {
-          "name": "armada-lookout-migration-v2",
-          "source": "deployment/lookout-migration-v2",
-          "destination": "armada",
-          "use_ref_as_version": {
-            "pattern": "^refs/tags/v",
-            "replacement": ""
-          },
-          "tests": false
-        },
-        {
-          "name": "armada-lookout-ingester-v2",
-          "source": "deployment/lookout-ingester-v2",
-          "destination": "armada",
-          "use_ref_as_version": {
-            "pattern": "^refs/tags/v",
-            "replacement": ""
-          },
-          "tests": false
-        },
-        {
           "name": "armada-lookout",
           "source": "deployment/lookout",
           "destination": "armada",
